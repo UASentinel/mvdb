@@ -1,20 +1,45 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+![Logo](https://i.ibb.co/4NV1YRM/banner.png)
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+# MvDb
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+It is an intern project at CHI Software. The MvDb application allows users to view and interact with the database that contains movies and TV shows.
+
+
+## Tech Stack
+
+**Backend:** ASP.NET Core, C#, Entity Framework Core, MediatR, AutoMapper, FluentValidation, NUnit, FluentAssertions, Moq & Respawn
+
+**Frontend:** Angular, Typescript, HTML, CSS
+## Functionality
+
+- Sign up
+- Sign in
+- Search and view movies
+- Rate movies
+- Leave movie reviews
+- Watch trailer of the movie
+- View movie actors, directors, genres, duration, age rating
+
+
+## Authors
+
+- Volodymyr Fedorenko
+- Yaroslav Bahdai (mentor)
+
+
+## Run Locally
+
+- Open Visual Studio
+
+- Clone the repository using this link
+
+```bash
+https://yaroslavbahdai@dev.azure.com/yaroslavbahdai/CHI_Internship_2023_Volodymyr_Fedorenko/_git/CHI_Internship_2023_Volodymyr_Fedorenko
+```
+
+- Open the solution
+
+- Click "Run"
+
