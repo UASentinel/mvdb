@@ -1,5 +1,5 @@
 ﻿using MvDb.Application.Common.Interfaces;
-using MvDb.Infrastructure.Files;
+//using MvDb.Infrastructure.Files;
 using MvDb.Infrastructure.Identity;
 using MvDb.Infrastructure.Persistence;
 using MvDb.Infrastructure.Persistence.Interceptors;
@@ -43,7 +43,7 @@ public static class ConfigureServices
 
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IIdentityService, IdentityService>();
-        services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
+        //services.AddTransient<ICsvFileBuilder, CsvFileBuilder>();
 
         services.AddAuthentication()
             .AddIdentityServerJwt();

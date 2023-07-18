@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using MvDb.Application.Common.Interfaces;
-using MvDb.Domain.Entities;
+//using MvDb.Domain.Entities;
 using MvDb.Infrastructure.Identity;
 using MvDb.Infrastructure.Persistence.Interceptors;
 using Duende.IdentityServer.EntityFramework.Options;
@@ -27,9 +27,9 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
         _auditableEntitySaveChangesInterceptor = auditableEntitySaveChangesInterceptor;
     }
 
-    public DbSet<TodoList> TodoLists => Set<TodoList>();
+    //public DbSet<TodoList> TodoLists => Set<TodoList>();
 
-    public DbSet<TodoItem> TodoItems => Set<TodoItem>();
+    //public DbSet<TodoItem> TodoItems => Set<TodoItem>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
