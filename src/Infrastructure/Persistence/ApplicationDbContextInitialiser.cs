@@ -1,4 +1,4 @@
-﻿//using MvDb.Domain.Entities;
+﻿using MvDb.Domain.Entities;
 using MvDb.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
