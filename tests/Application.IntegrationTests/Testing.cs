@@ -1,4 +1,5 @@
-﻿using MvDb.Infrastructure.Identity;
+﻿using MvDb.Domain.Entities;
+using MvDb.Infrastructure.Identity;
 using MvDb.Infrastructure.Persistence;
 using MediatR;
 using Microsoft.AspNetCore.Identity;

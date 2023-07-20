@@ -1,5 +1,6 @@
 ﻿using MvDb.Application.Common.Interfaces;
 //using MvDb.Infrastructure.Files;
+using MvDb.Domain.Entities;
 using MvDb.Infrastructure.Identity;
 using MvDb.Infrastructure.Persistence;
 using MvDb.Infrastructure.Persistence.Interceptors;

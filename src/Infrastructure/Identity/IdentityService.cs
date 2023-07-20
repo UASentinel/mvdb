@@ -3,6 +3,7 @@ using MvDb.Application.Common.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using MvDb.Domain.Entities;
 
 namespace MvDb.Infrastructure.Identity;
 
