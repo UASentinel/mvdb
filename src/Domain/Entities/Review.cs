@@ -1,4 +1,6 @@
-﻿namespace MvDb.Domain.Entities;
+﻿using System.Net;
+
+namespace MvDb.Domain.Entities;
 public class Review : BaseAuditableEntity
 {
     public byte Rate { get; set; }
@@ -9,5 +11,5 @@ public class Review : BaseAuditableEntity
     public Media Media { get; set; }
     // Problem with Review-User RelationShip
     public string UserId { get; set; }
-    //public User { get; set; }
+    public ApplicationUser User { get; set; }
 }
