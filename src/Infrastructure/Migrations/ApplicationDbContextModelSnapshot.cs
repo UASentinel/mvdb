@@ -22,36 +22,6 @@ namespace MvDb.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ActorMedia", b =>
-                {
-                    b.Property<int>("ActorsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MediaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ActorsId", "MediaId");
-
-                    b.HasIndex("MediaId");
-
-                    b.ToTable("ActorMedia");
-                });
-
-            modelBuilder.Entity("DirectorMedia", b =>
-                {
-                    b.Property<int>("DirectorsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MediaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DirectorsId", "MediaId");
-
-                    b.HasIndex("MediaId");
-
-                    b.ToTable("DirectorMedia");
-                });
-
             modelBuilder.Entity("Duende.IdentityServer.EntityFramework.Entities.DeviceFlowCodes", b =>
                 {
                     b.Property<string>("UserCode")
@@ -191,21 +161,6 @@ namespace MvDb.Infrastructure.Migrations
                     b.HasIndex("SubjectId", "SessionId", "Type");
 
                     b.ToTable("PersistedGrants", (string)null);
-                });
-
-            modelBuilder.Entity("GenreMedia", b =>
-                {
-                    b.Property<int>("GenresId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MediaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GenresId", "MediaId");
-
-                    b.HasIndex("MediaId");
-
-                    b.ToTable("GenreMedia");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -563,11 +518,14 @@ namespace MvDb.Infrastructure.Migrations
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MediaId")
+                    b.Property<int>("Order")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("SeasonId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .HasMaxLength(150)
@@ -575,7 +533,7 @@ namespace MvDb.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MediaId");
+                    b.HasIndex("SeasonId");
 
                     b.ToTable("Episodes");
                 });
@@ -631,6 +589,9 @@ namespace MvDb.Infrastructure.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("LastModified")
                         .HasColumnType("datetime2");
 
@@ -642,6 +603,9 @@ namespace MvDb.Infrastructure.Migrations
 
                     b.Property<string>("PosterLink")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ReleaseDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -656,6 +620,120 @@ namespace MvDb.Infrastructure.Migrations
                     b.HasIndex("AgeRatingId");
 
                     b.ToTable("Medias");
+                });
+
+            modelBuilder.Entity("MvDb.Domain.Entities.MediaActor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ActorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MediaId")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("Order")
+                        .HasColumnType("tinyint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActorId");
+
+                    b.HasIndex("MediaId");
+
+                    b.ToTable("MediaActors");
+                });
+
+            modelBuilder.Entity("MvDb.Domain.Entities.MediaDirector", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DirectorId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MediaId")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("Order")
+                        .HasColumnType("tinyint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DirectorId");
+
+                    b.HasIndex("MediaId");
+
+                    b.ToTable("MediaDirectors");
+                });
+
+            modelBuilder.Entity("MvDb.Domain.Entities.MediaGenre", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MediaId")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("Order")
+                        .HasColumnType("tinyint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GenreId");
+
+                    b.HasIndex("MediaId");
+
+                    b.ToTable("MediaGenres");
                 });
 
             modelBuilder.Entity("MvDb.Domain.Entities.Review", b =>
@@ -708,49 +786,51 @@ namespace MvDb.Infrastructure.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("ActorMedia", b =>
+            modelBuilder.Entity("MvDb.Domain.Entities.Season", b =>
                 {
-                    b.HasOne("MvDb.Domain.Entities.Actor", null)
-                        .WithMany()
-                        .HasForeignKey("ActorsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.HasOne("MvDb.Domain.Entities.Media", null)
-                        .WithMany()
-                        .HasForeignKey("MediaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-            modelBuilder.Entity("DirectorMedia", b =>
-                {
-                    b.HasOne("MvDb.Domain.Entities.Director", null)
-                        .WithMany()
-                        .HasForeignKey("DirectorsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
 
-                    b.HasOne("MvDb.Domain.Entities.Media", null)
-                        .WithMany()
-                        .HasForeignKey("MediaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
-            modelBuilder.Entity("GenreMedia", b =>
-                {
-                    b.HasOne("MvDb.Domain.Entities.Genre", null)
-                        .WithMany()
-                        .HasForeignKey("GenresId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
-                    b.HasOne("MvDb.Domain.Entities.Media", null)
-                        .WithMany()
-                        .HasForeignKey("MediaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MediaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PosterLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("TrailerLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MediaId");
+
+                    b.ToTable("Seasons");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -806,9 +886,13 @@ namespace MvDb.Infrastructure.Migrations
 
             modelBuilder.Entity("MvDb.Domain.Entities.Episode", b =>
                 {
-                    b.HasOne("MvDb.Domain.Entities.Media", null)
+                    b.HasOne("MvDb.Domain.Entities.Season", "Season")
                         .WithMany("Episodes")
-                        .HasForeignKey("MediaId");
+                        .HasForeignKey("SeasonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Season");
                 });
 
             modelBuilder.Entity("MvDb.Domain.Entities.Media", b =>
@@ -820,6 +904,63 @@ namespace MvDb.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("AgeRating");
+                });
+
+            modelBuilder.Entity("MvDb.Domain.Entities.MediaActor", b =>
+                {
+                    b.HasOne("MvDb.Domain.Entities.Actor", "Actor")
+                        .WithMany("MediaActors")
+                        .HasForeignKey("ActorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MvDb.Domain.Entities.Media", "Media")
+                        .WithMany("MediaActors")
+                        .HasForeignKey("MediaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Actor");
+
+                    b.Navigation("Media");
+                });
+
+            modelBuilder.Entity("MvDb.Domain.Entities.MediaDirector", b =>
+                {
+                    b.HasOne("MvDb.Domain.Entities.Director", "Director")
+                        .WithMany("MediaDirectors")
+                        .HasForeignKey("DirectorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MvDb.Domain.Entities.Media", "Media")
+                        .WithMany("MediaDirectors")
+                        .HasForeignKey("MediaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Director");
+
+                    b.Navigation("Media");
+                });
+
+            modelBuilder.Entity("MvDb.Domain.Entities.MediaGenre", b =>
+                {
+                    b.HasOne("MvDb.Domain.Entities.Genre", "Genre")
+                        .WithMany("MediaGenres")
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MvDb.Domain.Entities.Media", "Media")
+                        .WithMany("MediaGenres")
+                        .HasForeignKey("MediaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Genre");
+
+                    b.Navigation("Media");
                 });
 
             modelBuilder.Entity("MvDb.Domain.Entities.Review", b =>
@@ -841,6 +982,22 @@ namespace MvDb.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("MvDb.Domain.Entities.Season", b =>
+                {
+                    b.HasOne("MvDb.Domain.Entities.Media", "Media")
+                        .WithMany("Seasons")
+                        .HasForeignKey("MediaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Media");
+                });
+
+            modelBuilder.Entity("MvDb.Domain.Entities.Actor", b =>
+                {
+                    b.Navigation("MediaActors");
+                });
+
             modelBuilder.Entity("MvDb.Domain.Entities.AgeRating", b =>
                 {
                     b.Navigation("Media");
@@ -851,11 +1008,32 @@ namespace MvDb.Infrastructure.Migrations
                     b.Navigation("Reviews");
                 });
 
+            modelBuilder.Entity("MvDb.Domain.Entities.Director", b =>
+                {
+                    b.Navigation("MediaDirectors");
+                });
+
+            modelBuilder.Entity("MvDb.Domain.Entities.Genre", b =>
+                {
+                    b.Navigation("MediaGenres");
+                });
+
             modelBuilder.Entity("MvDb.Domain.Entities.Media", b =>
                 {
-                    b.Navigation("Episodes");
+                    b.Navigation("MediaActors");
+
+                    b.Navigation("MediaDirectors");
+
+                    b.Navigation("MediaGenres");
 
                     b.Navigation("Reviews");
+
+                    b.Navigation("Seasons");
+                });
+
+            modelBuilder.Entity("MvDb.Domain.Entities.Season", b =>
+                {
+                    b.Navigation("Episodes");
                 });
 #pragma warning restore 612, 618
         }

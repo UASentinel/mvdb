@@ -197,6 +197,8 @@ namespace MvDb.Infrastructure.Migrations
                     PosterLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TrailerLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AgeRatingId = table.Column<int>(type: "int", nullable: false),
+                    Duration = table.Column<int>(type: "int", nullable: false),
+                    ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -320,97 +322,92 @@ namespace MvDb.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ActorMedia",
-                columns: table => new
-                {
-                    ActorsId = table.Column<int>(type: "int", nullable: false),
-                    MediaId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ActorMedia", x => new { x.ActorsId, x.MediaId });
-                    table.ForeignKey(
-                        name: "FK_ActorMedia_Actors_ActorsId",
-                        column: x => x.ActorsId,
-                        principalTable: "Actors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ActorMedia_Medias_MediaId",
-                        column: x => x.MediaId,
-                        principalTable: "Medias",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DirectorMedia",
-                columns: table => new
-                {
-                    DirectorsId = table.Column<int>(type: "int", nullable: false),
-                    MediaId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DirectorMedia", x => new { x.DirectorsId, x.MediaId });
-                    table.ForeignKey(
-                        name: "FK_DirectorMedia_Directors_DirectorsId",
-                        column: x => x.DirectorsId,
-                        principalTable: "Directors",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DirectorMedia_Medias_MediaId",
-                        column: x => x.MediaId,
-                        principalTable: "Medias",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Episodes",
+                name: "MediaActors",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
-                    Duration = table.Column<int>(type: "int", nullable: false),
-                    ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    MediaId = table.Column<int>(type: "int", nullable: true),
+                    ActorId = table.Column<int>(type: "int", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MediaId = table.Column<int>(type: "int", nullable: false),
+                    Order = table.Column<byte>(type: "tinyint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Episodes", x => x.Id);
+                    table.PrimaryKey("PK_MediaActors", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Episodes_Medias_MediaId",
+                        name: "FK_MediaActors_Actors_ActorId",
+                        column: x => x.ActorId,
+                        principalTable: "Actors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MediaActors_Medias_MediaId",
                         column: x => x.MediaId,
                         principalTable: "Medias",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "GenreMedia",
+                name: "MediaDirectors",
                 columns: table => new
                 {
-                    GenresId = table.Column<int>(type: "int", nullable: false),
-                    MediaId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DirectorId = table.Column<int>(type: "int", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MediaId = table.Column<int>(type: "int", nullable: false),
+                    Order = table.Column<byte>(type: "tinyint", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GenreMedia", x => new { x.GenresId, x.MediaId });
+                    table.PrimaryKey("PK_MediaDirectors", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_GenreMedia_Genres_GenresId",
-                        column: x => x.GenresId,
+                        name: "FK_MediaDirectors_Directors_DirectorId",
+                        column: x => x.DirectorId,
+                        principalTable: "Directors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MediaDirectors_Medias_MediaId",
+                        column: x => x.MediaId,
+                        principalTable: "Medias",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MediaGenres",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GenreId = table.Column<int>(type: "int", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MediaId = table.Column<int>(type: "int", nullable: false),
+                    Order = table.Column<byte>(type: "tinyint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MediaGenres", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MediaGenres_Genres_GenreId",
+                        column: x => x.GenreId,
                         principalTable: "Genres",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GenreMedia_Medias_MediaId",
+                        name: "FK_MediaGenres_Medias_MediaId",
                         column: x => x.MediaId,
                         principalTable: "Medias",
                         principalColumn: "Id",
@@ -451,10 +448,61 @@ namespace MvDb.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_ActorMedia_MediaId",
-                table: "ActorMedia",
-                column: "MediaId");
+            migrationBuilder.CreateTable(
+                name: "Seasons",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Order = table.Column<int>(type: "int", nullable: false),
+                    PosterLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TrailerLink = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MediaId = table.Column<int>(type: "int", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Seasons", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Seasons_Medias_MediaId",
+                        column: x => x.MediaId,
+                        principalTable: "Medias",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Episodes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
+                    Duration = table.Column<int>(type: "int", nullable: false),
+                    Order = table.Column<int>(type: "int", nullable: false),
+                    ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SeasonId = table.Column<int>(type: "int", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastModified = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LastModifiedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Episodes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Episodes_Seasons_SeasonId",
+                        column: x => x.SeasonId,
+                        principalTable: "Seasons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -507,24 +555,44 @@ namespace MvDb.Infrastructure.Migrations
                 column: "Expiration");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DirectorMedia_MediaId",
-                table: "DirectorMedia",
-                column: "MediaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Episodes_MediaId",
+                name: "IX_Episodes_SeasonId",
                 table: "Episodes",
-                column: "MediaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GenreMedia_MediaId",
-                table: "GenreMedia",
-                column: "MediaId");
+                column: "SeasonId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Keys_Use",
                 table: "Keys",
                 column: "Use");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MediaActors_ActorId",
+                table: "MediaActors",
+                column: "ActorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MediaActors_MediaId",
+                table: "MediaActors",
+                column: "MediaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MediaDirectors_DirectorId",
+                table: "MediaDirectors",
+                column: "DirectorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MediaDirectors_MediaId",
+                table: "MediaDirectors",
+                column: "MediaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MediaGenres_GenreId",
+                table: "MediaGenres",
+                column: "GenreId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MediaGenres_MediaId",
+                table: "MediaGenres",
+                column: "MediaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Medias_AgeRatingId",
@@ -560,14 +628,16 @@ namespace MvDb.Infrastructure.Migrations
                 name: "IX_Reviews_UserId",
                 table: "Reviews",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Seasons_MediaId",
+                table: "Seasons",
+                column: "MediaId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "ActorMedia");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -587,16 +657,19 @@ namespace MvDb.Infrastructure.Migrations
                 name: "DeviceCodes");
 
             migrationBuilder.DropTable(
-                name: "DirectorMedia");
-
-            migrationBuilder.DropTable(
                 name: "Episodes");
 
             migrationBuilder.DropTable(
-                name: "GenreMedia");
+                name: "Keys");
 
             migrationBuilder.DropTable(
-                name: "Keys");
+                name: "MediaActors");
+
+            migrationBuilder.DropTable(
+                name: "MediaDirectors");
+
+            migrationBuilder.DropTable(
+                name: "MediaGenres");
 
             migrationBuilder.DropTable(
                 name: "PersistedGrants");
@@ -605,10 +678,13 @@ namespace MvDb.Infrastructure.Migrations
                 name: "Reviews");
 
             migrationBuilder.DropTable(
-                name: "Actors");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "Seasons");
+
+            migrationBuilder.DropTable(
+                name: "Actors");
 
             migrationBuilder.DropTable(
                 name: "Directors");

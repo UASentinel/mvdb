@@ -28,13 +28,17 @@ public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, 
     }
 
     public DbSet<Actor> Actors => Set<Actor>();
+    public DbSet<MediaActor> MediaActors => Set<MediaActor>();
     public DbSet<AgeRating> AgeRatings => Set<AgeRating>();
     public DbSet<ApplicationUser> ApplicationUsers => Set<ApplicationUser>();
     public DbSet<Director> Directors => Set<Director>();
+    public DbSet<MediaDirector> MediaDirectors => Set<MediaDirector>();
     public DbSet<Episode> Episodes => Set<Episode>();
     public DbSet<Genre> Genres => Set<Genre>();
+    public DbSet<MediaGenre> MediaGenres => Set<MediaGenre>();
     public DbSet<Media> Medias => Set<Media>();
     public DbSet<Review> Reviews => Set<Review>();
+    public DbSet<Season> Seasons => Set<Season>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

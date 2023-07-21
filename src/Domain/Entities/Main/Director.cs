@@ -1,10 +1,10 @@
 ﻿namespace MvDb.Domain.Entities;
-public class Actor : BaseAuditableEntity
+public class Director : BaseAuditableEntity
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public DateTime? DateOfBirth { get; set; }
     public string? Biography { get; set; }
     public string? PhotoLink { get; set; }
-    public ICollection<Media> Media { get; set; } = new List<Media>();
+    public ICollection<MediaDirector> MediaDirectors { get; set; } = new List<MediaDirector>();
 }
