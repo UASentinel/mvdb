@@ -6,5 +6,5 @@ public class Director : BaseAuditableEntity
     public DateTime? DateOfBirth { get; set; }
     public string? Biography { get; set; }
     public string? PhotoLink { get; set; }
-    public List<Media> Media { get; set; } = new List<Media>();
+    public ICollection<Media> Media { get; set; } = new List<Media>();
 }

@@ -9,7 +9,6 @@ public class Review : BaseAuditableEntity
     public DateTime Date { get; set; }
     public int MediaId { get; set; }
     public Media Media { get; set; }
-    // Problem with Review-User RelationShip
     public string UserId { get; set; }
     public ApplicationUser User { get; set; }
 }
