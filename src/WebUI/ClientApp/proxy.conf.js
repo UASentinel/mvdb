@@ -14,7 +14,11 @@ const PROXY_CONFIG = [
       "/ApplyDatabaseMigrations",
       "/_framework",
       "/api",
-      "/favicon.ico"
+      "/favicon.ico",
+      "/css",
+      "/images",
+      "/js",
+      "/lib"
    ],
     target: target,
     secure: false,
