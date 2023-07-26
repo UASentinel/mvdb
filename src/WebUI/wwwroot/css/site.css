@@ -1,11 +1,55 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    padding: 0px;
+    background-color: #080808;
+}
+
+.navbar-user-management {
+    background-color: #111111;
+    margin-bottom: 0px;
+}
+
+.div-button {
+    width: 100%;
+    text-align: center;
+}
+
+.div-main {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.div-secondary {
+    width: 50%;
+    height: 95vh;
+}
+
+.div-form{
+    background-color: white;
+    padding: 30px;
+    margin: auto;
+    margin-top: 30px;
+    width: 320px;
+    border-radius: 10px;
+}
+
+.div-movies-background {
+    background: url("../images/app/backgrounds/movies.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.btn-primary {
+    background-color: #5E0094;
+    border-width: 0px;
+}
+
+.btn-primary:hover {
+    background-color: #AE37FF;
 }
 
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 0px;
 }
 
 input,
@@ -38,6 +82,20 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
-h1{
-    color: red;
+@media (max-width: 900px) {
+    .div-main {
+        background: url("../images/app/backgrounds/movies.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .div-user-management {
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.35);
+    }
+
+    .div-movies-background {
+        width: 0%;
+    }
 }
