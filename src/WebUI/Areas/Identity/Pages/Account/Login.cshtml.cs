@@ -64,7 +64,6 @@ public class LoginModel : PageModel
 
         returnUrl ??= Url.Content("~/");
 
-        // Clear the existing external cookie to ensure a clean login process
         await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
         ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -80,9 +79,6 @@ public class LoginModel : PageModel
     
         if (ModelState.IsValid)
         {
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-
             var user = await _userManager.FindByEmailAsync(Input.Email);
             var result = new Microsoft.AspNetCore.Identity.SignInResult();
 
@@ -112,7 +108,6 @@ public class LoginModel : PageModel
             }
         }
 
-        // If we got this far, something failed, redisplay form
         return Page();
     }
 }

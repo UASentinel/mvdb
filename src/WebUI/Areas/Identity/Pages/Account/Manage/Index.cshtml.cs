@@ -40,7 +40,7 @@ public partial class IndexModel : PageModel
     public class InputModel
     {
         [DataType(DataType.Upload)]
-        [Display(Name = "Profile photo")]
+        [Display(Name = "Change profile photo")]
         public IFormFile ProfilePhoto { get; set; }
     }
 
