@@ -3,6 +3,15 @@
     background-color: #080808;
 }
 
+a {
+    text-decoration: none;
+}
+
+.h2-main {
+    color: white;
+    margin: 50px;
+}
+
 .navbar-user-management {
     background-color: #111111;
     margin-bottom: 0px;
@@ -17,6 +26,14 @@
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
+    width: 100%;
+    /*border: 1px solid red;*/
+    margin: 0px;
+    justify-content: flex-start;
+}
+
+.div-manage-parent {
+    flex-wrap: wrap;
 }
 
 .div-secondary {
@@ -39,6 +56,26 @@
     background-repeat: no-repeat;
 }
 
+.div-manage-main {
+    
+}
+
+.div-manage-content {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.div-manage-secondary {
+    
+}
+
+.div-manage-main, .div-manage-secondary {
+    width: fit-content;
+    padding: 20px 50px;
+    /*border: 1px solid white;*/
+}
+
 .btn-primary {
     background-color: #5E0094;
     border-width: 0px;
@@ -46,6 +83,27 @@
 
 .btn-primary:hover {
     background-color: #AE37FF;
+}
+
+.btn-warning {
+    background-color: #EB5300;
+    border-width: 0px;
+    color: white;
+}
+
+.btn-warning:hover {
+    background-color: #EE8247;
+}
+
+.profile-photo-big {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.profile-photo-manage {
+    margin-right: 30px;
+    margin-bottom: 10px;
 }
 
 .body-content {
@@ -83,7 +141,7 @@ input[type="checkbox"].input-validation-error {
 }
 
 @media (max-width: 900px) {
-    .div-main {
+    .div-movies-background-main {
         background: url("../images/app/backgrounds/movies.png");
         background-size: cover;
         background-repeat: no-repeat;
@@ -97,5 +155,14 @@ input[type="checkbox"].input-validation-error {
 
     .div-movies-background {
         width: 0%;
+    }
+
+    .div-manage-main, .div-manage-secondary {
+        width: 100%;
+    }
+
+    .div-manage-secondary {
+        text-align: center;
+        padding-top: 0px;
     }
 }

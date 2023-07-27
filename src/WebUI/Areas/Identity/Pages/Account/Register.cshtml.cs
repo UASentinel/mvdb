@@ -51,7 +51,7 @@ public class RegisterModel : PageModel
         public string Email { get; set; }
         [Required]
         [RegularExpression(@"^[a-zA-Z0-9.]{3,}$", ErrorMessage = "The username must have at least 3 characters and can only contain letters, numbers, and dots.")]
-        [Display(Name = "UserName")]
+        [Display(Name = "Username")]
         public string UserName { get; set; }
 
         [Required]
@@ -66,6 +66,7 @@ public class RegisterModel : PageModel
         public string ConfirmPassword { get; set; }
 
         [DataType(DataType.Upload)]
+        [Display(Name = "Profile photo")]
         public IFormFile ProfilePhoto { get; set; }
     }
 
