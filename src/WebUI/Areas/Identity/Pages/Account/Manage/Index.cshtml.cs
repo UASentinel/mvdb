@@ -27,8 +27,6 @@ public partial class IndexModel : PageModel
         _imageService = imageService;
     }
 
-    //public string Username { get; set; }
-
     public ApplicationUser CurrentUser { get; set; }
 
     [TempData]
@@ -44,17 +42,6 @@ public partial class IndexModel : PageModel
         public IFormFile ProfilePhoto { get; set; }
     }
 
-    //private async Task LoadAsync(ApplicationUser user)
-    //{
-    //    var user = await _userManager.GetUserAsync(User);
-    //    if (user == null)
-    //    {
-    //        return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-    //    }
-
-    //    CurrentUser = user;
-    //}
-
     public async Task<IActionResult> OnGetAsync()
     {
         var user = await _userManager.GetUserAsync(User);
@@ -63,7 +50,6 @@ public partial class IndexModel : PageModel
             return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
         }
 
-        //await LoadAsync(user);
         CurrentUser = user;
 
         return Page();
