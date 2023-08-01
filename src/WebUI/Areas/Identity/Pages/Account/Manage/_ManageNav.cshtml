@@ -1,0 +1,7 @@
+﻿@using MvDb.Domain.Entities
+@inject SignInManager<ApplicationUser> SignInManager
+
+<div class="btn-group-vertical btn-group-lg" role="group" aria-label="Large button group">
+    <a type="button" class="btn btn-outline-light @ManageNavPages.IndexNavClass(ViewContext)" asp-page="./Index">Profile</a>
+    <a type="button" class="btn btn-outline-light @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a>
+</div>

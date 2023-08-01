@@ -52,6 +52,32 @@ public class ApplicationDbContextInitialiser
 
     public async Task TrySeedAsync()
     {
-        
+        // Default roles
+        var administratorRole = new IdentityRole("Administrator");
+
+        if (_roleManager.Roles.All(r => r.Name != administratorRole.Name))
+        {
+            await _roleManager.CreateAsync(administratorRole);
+        }
+
+        var userRole = new IdentityRole("User");
+
+        if (_roleManager.Roles.All(r => r.Name != userRole.Name))
+        {
+            await _roleManager.CreateAsync(userRole);
+        }
+
+        // Default users
+        var administrator = new ApplicationUser { UserName = "v.fedorenko", Email = "volodymyr.fedorenko@chisw.com" };
+
+        if (_userManager.Users.All(u => u.UserName != administrator.UserName && u.Email != administrator.Email))
+        {
+            await _userManager.CreateAsync(administrator, "MvDbAdmin1!");
+            if (!string.IsNullOrWhiteSpace(administratorRole.Name))
+            {
+                await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
+            }
+        }
+
     }
 }

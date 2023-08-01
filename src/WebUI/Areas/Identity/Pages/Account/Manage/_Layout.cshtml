@@ -1,0 +1,21 @@
+﻿@{ 
+    Layout = "/Pages/_Layout.cshtml";
+}
+
+
+<h2 class="h2-main">Manage your account</h2>
+
+
+<div class="div-main div-manage-parent">
+    <div class="div-manage-secondary">
+        <partial name="_ManageNav" />
+    </div>
+    <div class="div-manage-main">
+        @RenderBody()
+    </div>
+</div>
+
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}
