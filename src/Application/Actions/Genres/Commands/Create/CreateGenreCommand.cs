@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using MvDb.Application.Common.Interfaces;
 
-namespace MvDb.Application.Genres.Commands.Create;
+namespace MvDb.Application.Actions.Genres.Commands.Create;
 
 public record CreateGenreCommand : IRequest<int>
 {

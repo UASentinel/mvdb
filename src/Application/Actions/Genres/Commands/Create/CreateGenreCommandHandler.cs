@@ -3,7 +3,7 @@ using MvDb.Application.Common.Interfaces;
 using MvDb.Application.Common.Interfaces.EntityServices;
 using MvDb.Domain.Entities;
 
-namespace MvDb.Application.Genres.Commands.Create;
+namespace MvDb.Application.Actions.Genres.Commands.Create;
 
 public class CreateGenreCommandHandler : IRequestHandler<CreateGenreCommand, int>
 {

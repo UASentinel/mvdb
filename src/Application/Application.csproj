@@ -19,11 +19,4 @@
         <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Actions\Genres\Commands\Delete\" />
-      <Folder Include="Actions\Genres\Commands\Update\" />
-      <Folder Include="Actions\Genres\Queries\GetById\" />
-      <Folder Include="Actions\Genres\Queries\Get\" />
-    </ItemGroup>
-
 </Project>

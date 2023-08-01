@@ -37,14 +37,7 @@ public class MediaRepository : IMediaRepository
 
     public async Task<bool> Update(Media media, CancellationToken cancellationToken)
     {
-        var dbMedia = await _applicationDbContext.Medias.FirstOrDefaultAsync(m => m.Id == media.Id);
-        if (dbMedia == null)
-            return false;
-
-        _applicationDbContext.Medias.Entry(dbMedia).CurrentValues.SetValues(media);
-        var result = await _applicationDbContext.SaveChangesAsync(cancellationToken);
-
-        return result > 0 ? true : false;
+        throw new NotImplementedException();
     }
 
     public async Task<bool> Delete(int id, CancellationToken cancellationToken)

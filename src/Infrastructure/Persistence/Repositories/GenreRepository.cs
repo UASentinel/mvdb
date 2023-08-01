@@ -41,7 +41,8 @@ public class GenreRepository : IGenreRepository
         if (dbGenre == null)
             return false;
 
-        _applicationDbContext.Genres.Entry(dbGenre).CurrentValues.SetValues(genre);
+        dbGenre.Name = genre.Name;
+
         var result = await _applicationDbContext.SaveChangesAsync(cancellationToken);
 
         return result > 0 ? true : false;

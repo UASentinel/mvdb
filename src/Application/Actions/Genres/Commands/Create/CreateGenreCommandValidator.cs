@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace MvDb.Application.Genres.Commands.Create;
+namespace MvDb.Application.Actions.Genres.Commands.Create;
 
 public class CreateGenreCommandValidator : AbstractValidator<CreateGenreCommand>
 {
