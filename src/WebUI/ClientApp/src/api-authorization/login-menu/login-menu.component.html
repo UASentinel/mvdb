@@ -1,6 +1,6 @@
 <ul class="navbar-nav" *ngIf="isAuthenticated | async">
     <li class="nav-item">
-        <a class="btn btn-outline-dark" style="margin: 1px 5px 0px 5px" [routerLink]='["/authentication/profile"]' title="Manage">{{ userName | async }}</a>
+        <a class="btn btn-outline-dark nav-username" [routerLink]='["/authentication/profile"]' title="Manage">{{ userName | async }}</a>
     </li>
     <li class="nav-item">
         <a  class="nav-link text-dark" [routerLink]='["/authentication/logout"]' [state]='{ local: true }' title="Logout">Logout</a>

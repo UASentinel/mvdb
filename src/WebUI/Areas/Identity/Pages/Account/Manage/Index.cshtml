@@ -11,11 +11,11 @@
     <div class="div-main" style="flex-wrap: wrap">
         @if (Model.CurrentUser.ProfilePhotoLink == null)
         {
-            <img src="~/images/app/shared/no_profile_photo.png" class="profile-photo-big profile-photo-manage" />
+            <img src="~/images/app/shared/no_profile_photo.png" class="profile-photo-manage" />
         }
         else
         {
-            <img src="@Model.CurrentUser.ProfilePhotoLink" class="profile-photo-big profile-photo-manage" />
+            <img src="@Model.CurrentUser.ProfilePhotoLink" class="profile-photo-manage" />
         }
 
         <form id="profile-form" method="post" enctype="multipart/form-data">
