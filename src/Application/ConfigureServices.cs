@@ -3,6 +3,8 @@ using MvDb.Application.Common.Behaviours;
 using MvDb.Application.Common.Exceptions;
 using FluentValidation;
 using MediatR;
+using MvDb.Application.Common.Interfaces.EntityServices;
+using MvDb.Application.Services;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -20,6 +22,8 @@ public static class ConfigureServices
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
 
         });
+
+        services.AddScoped<IGenreService, GenreService>();
 
         return services;
     }

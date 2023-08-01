@@ -1,5 +1,4 @@
 ﻿using MvDb.Application.Common.Interfaces;
-//using MvDb.Infrastructure.Files;
 using MvDb.Domain.Entities;
 using MvDb.Infrastructure.Identity;
 using MvDb.Infrastructure.Persistence;
@@ -9,6 +8,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using MvDb.Application.Common.Interfaces.Repositories;
+using MvDb.Infrastructure.Repositories;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -41,6 +42,9 @@ public static class ConfigureServices
 
         services.AddIdentityServer()
             .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+
+        services.AddScoped<IMediaRepository, MediaRepository>();
+        services.AddScoped<IGenreRepository, GenreRepository>();
 
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IIdentityService, IdentityService>();
