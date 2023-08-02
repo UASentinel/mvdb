@@ -3,36 +3,34 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using MediatR;
 using MvDb.Application.Common.Models;
-using MvDb.Application.Actions.Genres.Commands.Create;
-using MvDb.Application.Actions.Genres.Commands.Delete;
-using MvDb.Application.Actions.Genres.Commands.Update;
-using MvDb.Application.Actions.Genres.Queries.GetById;
-using MvDb.Application.Actions.Genres.Queries.Get;
-using MvDb.Application.Actions.Genres.DataTransferObjects;
 using MvDb.Application.Actions.AgeRatings.Commands.Create;
 using MvDb.Application.Actions.AgeRatings.Commands.Update;
+using MvDb.Application.Actions.AgeRatings.DataTransferObjects;
+using MvDb.Application.Actions.AgeRatings.Queries.Get;
+using MvDb.Application.Actions.AgeRatings.Queries.GetById;
+using MvDb.Application.Actions.AgeRatings.Commands.Delete;
 
 namespace MvDb.WebUI.Controllers;
 
 //[Authorize(Roles = "Administrator")]
-public class GenresController : ApiControllerBase
+public class AgeRatingsController : ApiControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<ICollection<GenreDto>>> Get()
+    public async Task<ActionResult<ICollection<AgeRatingDto>>> Get()
     {
-        var genres = await Mediator.Send(new GetGenresQuery());
+        var genres = await Mediator.Send(new GetAgeRatingsQuery());
 
         return Ok(genres);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<GenreDto>> Get(int id)
+    public async Task<ActionResult<AgeRatingDto>> Get(int id)
     {
-        return await Mediator.Send(new GetGenreByIdQuery(id));
+        return await Mediator.Send(new GetAgeRatingByIdQuery(id));
     }
 
     [HttpPost]
-    public async Task<ActionResult<int>> Create(CreateGenreCommand command)
+    public async Task<ActionResult<int>> Create(CreateAgeRatingCommand command)
     {
         return await Mediator.Send(command);
     }
@@ -41,7 +39,7 @@ public class GenresController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesDefaultResponseType]
-    public async Task<IActionResult> Update(int id, UpdateGenreCommand command)
+    public async Task<IActionResult> Update(int id, UpdateAgeRatingCommand command)
     {
         if (id != command.Id)
         {
@@ -58,7 +56,7 @@ public class GenresController : ApiControllerBase
     [ProducesDefaultResponseType]
     public async Task<IActionResult> Delete(int id)
     {
-        await Mediator.Send(new DeleteGenreCommand(id));
+        await Mediator.Send(new DeleteAgeRatingCommand(id));
 
         return NoContent();
     }

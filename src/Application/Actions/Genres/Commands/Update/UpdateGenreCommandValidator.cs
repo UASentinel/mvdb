@@ -2,9 +2,9 @@
 
 namespace MvDb.Application.Actions.Genres.Commands.Update;
 
-public class CreateUpdateGenreCommandValidator : AbstractValidator<UpdateGenreCommand>
+public class UpdateGenreCommandValidator : AbstractValidator<UpdateGenreCommand>
 {
-    public CreateUpdateGenreCommandValidator()
+    public UpdateGenreCommandValidator()
     {
         RuleFor(g => g.Name)
             .MaximumLength(20)

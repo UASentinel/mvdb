@@ -25,14 +25,14 @@ public class GenreService : IGenreService
         return await _genreRepository.GetById(id);
     }
 
-    public async Task<bool> Create(Genre entity, CancellationToken cancellationToken)
+    public async Task<bool> Create(Genre genre, CancellationToken cancellationToken)
     {
-        return await _genreRepository.Create(entity, cancellationToken);
+        return await _genreRepository.Create(genre, cancellationToken);
     }
 
-    public async Task<bool> Update(Genre entity, CancellationToken cancellationToken)
+    public async Task<bool> Update(Genre genre, CancellationToken cancellationToken)
     {
-        return await _genreRepository.Update(entity, cancellationToken);
+        return await _genreRepository.Update(genre, cancellationToken);
     }
 
     public async Task<bool> Delete(int id, CancellationToken cancellationToken)

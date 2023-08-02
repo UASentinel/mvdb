@@ -6,6 +6,180 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/AgeRatings": {
+      "get": {
+        "tags": [
+          "AgeRatings"
+        ],
+        "operationId": "AgeRatings_GetAll",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AgeRatingDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "AgeRatings"
+        ],
+        "operationId": "AgeRatings_Create",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAgeRatingCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/AgeRatings/{id}": {
+      "get": {
+        "tags": [
+          "AgeRatings"
+        ],
+        "operationId": "AgeRatings_Get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AgeRatingDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "AgeRatings"
+        ],
+        "operationId": "AgeRatings_Update",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAgeRatingCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "AgeRatings"
+        ],
+        "operationId": "AgeRatings_Delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Genres": {
       "get": {
         "tags": [
@@ -183,7 +357,7 @@
   },
   "components": {
     "schemas": {
-      "GenreDto": {
+      "AgeRatingDto": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -193,19 +367,30 @@
           },
           "name": {
             "type": "string"
+          },
+          "minAge": {
+            "type": "integer",
+            "format": "byte"
           }
         }
       },
-      "CreateGenreCommand": {
+      "CreateAgeRatingCommand": {
         "type": "object",
         "additionalProperties": false,
         "required": [
-          "name"
+          "name",
+          "minAge"
         ],
         "properties": {
           "name": {
             "type": "string",
             "maxLength": 20,
+            "minLength": 1,
+            "nullable": false
+          },
+          "minAge": {
+            "type": "integer",
+            "format": "byte",
             "minLength": 1,
             "nullable": false
           }
@@ -237,6 +422,60 @@
           "instance": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "UpdateAgeRatingCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "minAge"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1,
+            "nullable": false
+          },
+          "minAge": {
+            "type": "integer",
+            "format": "byte",
+            "minLength": 1,
+            "nullable": false
+          }
+        }
+      },
+      "GenreDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateGenreCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 20,
+            "minLength": 1,
+            "nullable": false
           }
         }
       },
