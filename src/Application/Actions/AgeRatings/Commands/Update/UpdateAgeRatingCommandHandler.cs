@@ -16,7 +16,12 @@ public class UpdateAgeRatingCommandHandler : IRequestHandler<UpdateAgeRatingComm
 
     public async Task Handle(UpdateAgeRatingCommand request, CancellationToken cancellationToken)
     {
-        var ageRating = new AgeRating(id: request.Id, name: request.Name, minAge: request.MinAge);
+        var ageRating = new AgeRating()
+        {
+            Id = request.Id,
+            Name = request.Name,
+            MinAge = request.MinAge
+        };
 
         await _ageRatingService.Update(ageRating, cancellationToken);
     }

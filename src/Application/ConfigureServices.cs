@@ -25,6 +25,7 @@ public static class ConfigureServices
 
         services.AddScoped<IGenreService, GenreService>();
         services.AddScoped<IAgeRatingService, AgeRatingService>();
+        services.AddScoped<IActorService, ActorService>();
 
         return services;
     }

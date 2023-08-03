@@ -7,7 +7,5 @@ public interface IEntityService<TEntity> where TEntity : class
 {
     ICollection<TEntity> Get();
     Task<TEntity?> GetById(int id);
-    Task<bool> Create(TEntity entity, CancellationToken cancellationToken);
-    Task<bool> Update(TEntity entity, CancellationToken cancellationToken);
     Task<bool> Delete(int id, CancellationToken cancellationToken);
 }

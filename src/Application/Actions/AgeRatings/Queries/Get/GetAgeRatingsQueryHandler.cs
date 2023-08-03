@@ -26,7 +26,16 @@ public class GetAgeRatingsCommandHandler : IRequestHandler<GetAgeRatingsQuery, I
 
         var ageRatingDtos = new List<AgeRatingDto>();
         foreach (var ageRating in ageRatings)
-            ageRatingDtos.Add(new AgeRatingDto(id: ageRating.Id, name: ageRating.Name, minAge: ageRating.MinAge));
+        {
+            var ageRatingDto = new AgeRatingDto()
+            {
+                Id = ageRating.Id,
+                Name = ageRating.Name,
+                MinAge = ageRating.MinAge
+            };
+
+            ageRatingDtos.Add(ageRatingDto);
+        }
 
         return ageRatingDtos;
     }

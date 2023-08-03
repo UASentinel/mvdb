@@ -10,11 +10,4 @@ public class AgeRatingDto
     public int Id { get; set; }
     public string Name { get; set; }
     public byte MinAge { get; set; }
-    public AgeRatingDto() { }
-    public AgeRatingDto(int id, string name, byte minAge)
-    {
-        Id = id;
-        Name = name;
-        MinAge = minAge;
-    }
 }

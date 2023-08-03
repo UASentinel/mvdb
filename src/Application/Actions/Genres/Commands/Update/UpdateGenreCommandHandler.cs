@@ -16,7 +16,11 @@ public class UpdateGenreCommandHandler : IRequestHandler<UpdateGenreCommand>
 
     public async Task Handle(UpdateGenreCommand request, CancellationToken cancellationToken)
     {
-        var genre = new Genre(id: request.Id, name: request.Name);
+        var genre = new Genre()
+        {
+            Id = request.Id,
+            Name = request.Name
+        };
 
         await _genreService.Update(genre, cancellationToken);
     }

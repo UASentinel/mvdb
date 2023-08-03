@@ -24,7 +24,14 @@ public class GetGenresCommandHandler : IRequestHandler<GetGenresQuery, ICollecti
 
         var genreDtos = new List<GenreDto>();
         foreach (var genre in genres)
-            genreDtos.Add(new GenreDto(id: genre.Id, name: genre.Name));
+        {
+            var genreDto = new GenreDto()
+            {
+                Id = genre.Id,
+                Name = genre.Name
+            };
+            genreDtos.Add(genreDto);
+        }
 
         return genreDtos;
     }

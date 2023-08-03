@@ -23,7 +23,12 @@ public class GetAgeRatingByIdQueryHandler : IRequestHandler<GetAgeRatingByIdQuer
         if (ageRating == null)
             return null;
 
-        var ageRatingDto = new AgeRatingDto(id: ageRating.Id, name: ageRating.Name, minAge: ageRating.MinAge);
+        var ageRatingDto = new AgeRatingDto()
+        {
+            Id = ageRating.Id,
+            Name = ageRating.Name,
+            MinAge = ageRating.MinAge
+        };
         return ageRatingDto;
     }
 }

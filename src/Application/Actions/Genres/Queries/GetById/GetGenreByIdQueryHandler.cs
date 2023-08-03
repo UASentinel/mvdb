@@ -22,7 +22,11 @@ public class GetGenreByIdQueryHandler : IRequestHandler<GetGenreByIdQuery, Genre
         if (genre == null)
             return null;
 
-        var genreDto = new GenreDto(id: genre.Id, name: genre.Name);
+        var genreDto = new GenreDto()
+        {
+            Id = genre.Id,
+            Name = genre.Name
+        };
         return genreDto;
     }
 }

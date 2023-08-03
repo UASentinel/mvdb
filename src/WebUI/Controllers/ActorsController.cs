@@ -3,35 +3,34 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using MediatR;
 using MvDb.Application.Common.Models;
-using MvDb.Application.Actions.Genres.Commands.Create;
-using MvDb.Application.Actions.Genres.Commands.Delete;
-using MvDb.Application.Actions.Genres.Commands.Update;
-using MvDb.Application.Actions.Genres.Queries.GetById;
-using MvDb.Application.Actions.Genres.Queries.Get;
-using MvDb.Application.Actions.Genres.DataTransferObjects;
+using MvDb.Application.Actions.Actors.Commands.Create;
+using MvDb.Application.Actions.Actors.Commands.Delete;
 using MvDb.Application.Actions.Actors.Commands.Update;
+using MvDb.Application.Actions.Actors.DataTransferObjects;
+using MvDb.Application.Actions.Actors.Queries.Get;
+using MvDb.Application.Actions.Actors.Queries.GetById;
 
 namespace MvDb.WebUI.Controllers;
 
 //[Authorize(Roles = "Administrator")]
-public class GenresController : ApiControllerBase
+public class ActorsController : ApiControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<ICollection<GenreDto>>> Get()
+    public async Task<ActionResult<ICollection<ActorDto>>> Get()
     {
-        var genres = await Mediator.Send(new GetGenresQuery());
+        var genres = await Mediator.Send(new GetActorsQuery());
 
         return Ok(genres);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<GenreDto>> Get(int id)
+    public async Task<ActionResult<ActorDto>> Get(int id)
     {
-        return await Mediator.Send(new GetGenreByIdQuery(id));
+        return await Mediator.Send(new GetActorByIdQuery(id));
     }
 
     [HttpPost]
-    public async Task<ActionResult<int>> Create(CreateGenreCommand command)
+    public async Task<ActionResult<int>> Create([FromForm] CreateActorCommand command)
     {
         return await Mediator.Send(command);
     }
@@ -40,7 +39,7 @@ public class GenresController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesDefaultResponseType]
-    public async Task<IActionResult> Update(int id, UpdateGenreCommand command)
+    public async Task<IActionResult> Update(int id, [FromForm] UpdateActorCommand command)
     {
         if (id != command.Id)
         {
@@ -57,7 +56,7 @@ public class GenresController : ApiControllerBase
     [ProducesDefaultResponseType]
     public async Task<IActionResult> Delete(int id)
     {
-        await Mediator.Send(new DeleteGenreCommand(id));
+        await Mediator.Send(new DeleteActorCommand(id));
 
         return NoContent();
     }

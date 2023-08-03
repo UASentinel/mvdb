@@ -16,7 +16,10 @@ public class CreateGenreCommandHandler : IRequestHandler<CreateGenreCommand, int
 
     public async Task<int> Handle(CreateGenreCommand request, CancellationToken cancellationToken)
     {
-        var genre = new Genre(name: request.Name);
+        var genre = new Genre()
+        {
+            Name = request.Name
+        };
 
         await _genreService.Create(genre, cancellationToken);
 
