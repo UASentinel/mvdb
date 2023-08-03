@@ -47,12 +47,32 @@ public class ImageService : IImageService
             folderPathHost: Constants.ActorsFolderPathHost);
     }
 
+    public async Task<string> UploadDirectorPhoto(IFormFile imageFile, int directorId)
+    {
+        if (imageFile == null)
+            return null;
+
+        return await UploadPhoto(imageFile: imageFile,
+            folderName: directorId.ToString(),
+            fileName: Constants.DirectorPhotoFileName,
+            folderPathLocal: Constants.DirectorsFolderPathLocal,
+            folderPathHost: Constants.DirectorsFolderPathHost);
+    }
+
     public async Task<bool> DeleteActorPhoto(int actorId)
     {
         return await DeletePhoto(folderName: actorId.ToString(),
             fileName: Constants.ActorPhotoFileName,
             folderPathLocal: Constants.ActorsFolderPathLocal,
             folderPathHost: Constants.ActorsFolderPathHost);
+    }
+
+    public async Task<bool> DeleteDirectorPhoto(int directorId)
+    {
+        return await DeletePhoto(folderName: directorId.ToString(),
+            fileName: Constants.DirectorPhotoFileName,
+            folderPathLocal: Constants.DirectorsFolderPathLocal,
+            folderPathHost: Constants.DirectorsFolderPathHost);
     }
 
     private async Task<string> UploadPhoto(

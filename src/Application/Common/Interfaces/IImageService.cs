@@ -8,4 +8,6 @@ public interface IImageService
     Task<string> UploadProfilePhoto(IFormFile formFile, string userId);
     Task<string> UploadActorPhoto(IFormFile formFile, int actorId);
     Task<bool> DeleteActorPhoto(int actorId);
+    Task<string> UploadDirectorPhoto(IFormFile formFile, int directorId);
+    Task<bool> DeleteDirectorPhoto(int directorId);
 }

@@ -47,6 +47,7 @@ public static class ConfigureServices
         services.AddScoped<IGenreRepository, GenreRepository>();
         services.AddScoped<IAgeRatingRepository, AgeRatingRepository>();
         services.AddScoped<IActorRepository, ActorRepository>();
+        services.AddScoped<IDirectorRepository, DirectorRepository>();
 
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IIdentityService, IdentityService>();

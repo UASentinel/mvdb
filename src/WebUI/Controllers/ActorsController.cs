@@ -9,6 +9,8 @@ using MvDb.Application.Actions.Actors.Commands.Update;
 using MvDb.Application.Actions.Actors.DataTransferObjects;
 using MvDb.Application.Actions.Actors.Queries.Get;
 using MvDb.Application.Actions.Actors.Queries.GetById;
+using MvDb.Application.Actions.Directors.Commands.Create;
+using MvDb.Application.Actions.Directors.Commands.Update;
 
 namespace MvDb.WebUI.Controllers;
 
@@ -42,9 +44,7 @@ public class ActorsController : ApiControllerBase
     public async Task<IActionResult> Update(int id, [FromForm] UpdateActorCommand command)
     {
         if (id != command.Id)
-        {
             return BadRequest();
-        }
 
         await Mediator.Send(command);
 
