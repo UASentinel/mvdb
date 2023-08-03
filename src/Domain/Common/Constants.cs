@@ -6,6 +6,7 @@ public static class Constants
     public const string ProfilePhotoFileName = "profile_photo.png";
     public const string ActorPhotoFileName = "photo.png";
     public const string DirectorPhotoFileName = "photo.png";
+    public const string SeasonPosterFileName = "poster.png";
 
     // Folder paths
     public const string UsersFolderPathLocal = "images\\users";
@@ -16,4 +17,10 @@ public static class Constants
 
     public const string DirectorsFolderPathLocal = "images\\staff\\directors";
     public const string DirectorsFolderPathHost = "images/staff/directors";
+
+    public const string MediasFolderPathLocal = "images\\medias";
+    public const string MediasFolderPathHost = "images/medias";
+
+    public const string SeasonsFolderPathLocal = "seasons";
+    public const string SeasonsFolderPathHost = "seasons";
 }

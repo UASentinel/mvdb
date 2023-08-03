@@ -59,6 +59,18 @@ public class ImageService : IImageService
             folderPathHost: Constants.DirectorsFolderPathHost);
     }
 
+    public async Task<string> UploadSeasonPoster(IFormFile imageFile, int seasonId, int mediaId)
+    {
+        if (imageFile == null)
+            return null;
+
+        return await UploadPhoto(imageFile: imageFile,
+            folderName: seasonId.ToString(),
+            fileName: Constants.SeasonPosterFileName,
+            folderPathLocal: $"{Constants.MediasFolderPathLocal}\\{mediaId}\\{Constants.SeasonsFolderPathLocal}",
+            folderPathHost: $"{Constants.MediasFolderPathHost}/{mediaId}/{Constants.SeasonsFolderPathHost}");
+    }
+
     public async Task<bool> DeleteActorPhoto(int actorId)
     {
         return await DeletePhoto(folderName: actorId.ToString(),
@@ -73,6 +85,14 @@ public class ImageService : IImageService
             fileName: Constants.DirectorPhotoFileName,
             folderPathLocal: Constants.DirectorsFolderPathLocal,
             folderPathHost: Constants.DirectorsFolderPathHost);
+    }
+
+    public async Task<bool> DeleteSeasonPoster(int seasonId, int mediaId)
+    {
+        return await DeletePhoto(folderName: seasonId.ToString(),
+            fileName: Constants.SeasonPosterFileName,
+            folderPathLocal: $"{Constants.MediasFolderPathLocal}\\{mediaId}\\{Constants.SeasonsFolderPathLocal}",
+            folderPathHost: $"{Constants.MediasFolderPathHost}/{mediaId}/{Constants.SeasonsFolderPathHost}");
     }
 
     private async Task<string> UploadPhoto(

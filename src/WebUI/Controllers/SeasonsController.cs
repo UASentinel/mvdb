@@ -3,36 +3,34 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using MediatR;
 using MvDb.Application.Common.Models;
-using MvDb.Application.Actions.Episodes.Commands.Create;
-using MvDb.Application.Actions.Episodes.Commands.Update;
-using MvDb.Application.Actions.Episodes.DataTransferObjects;
-using MvDb.Application.Actions.Episodes.Queries.Get;
-using MvDb.Application.Actions.Episodes.Queries.GetById;
-using MvDb.Application.Actions.Episodes.Commands.Delete;
+using MvDb.Application.Actions.Seasons.DataTransferObjects;
+using MvDb.Application.Actions.Seasons.Queries.Get;
+using MvDb.Application.Actions.Seasons.Queries.GetById;
 using MvDb.Application.Actions.Seasons.Commands.Create;
 using MvDb.Application.Actions.Seasons.Commands.Update;
+using MvDb.Application.Actions.Seasons.Commands.Delete;
 
 namespace MvDb.WebUI.Controllers;
 
 //[Authorize(Roles = "Administrator")]
-public class EpisodesController : ApiControllerBase
+public class SeasonsController : ApiControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<ICollection<EpisodeDto>>> Get()
+    public async Task<ActionResult<ICollection<SeasonDto>>> Get()
     {
-        var genres = await Mediator.Send(new GetEpisodesQuery());
+        var genres = await Mediator.Send(new GetSeasonsQuery());
 
         return Ok(genres);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<EpisodeDto>> Get(int id)
+    public async Task<ActionResult<SeasonDto>> Get(int id)
     {
-        return await Mediator.Send(new GetEpisodeByIdQuery(id));
+        return await Mediator.Send(new GetSeasonByIdQuery(id));
     }
 
     [HttpPost]
-    public async Task<ActionResult<int>> Create(CreateEpisodeCommand command)
+    public async Task<ActionResult<int>> Create([FromForm] CreateSeasonCommand command)
     {
         return await Mediator.Send(command);
     }
@@ -41,7 +39,7 @@ public class EpisodesController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesDefaultResponseType]
-    public async Task<IActionResult> Update(int id, UpdateEpisodeCommand command)
+    public async Task<IActionResult> Update(int id, [FromForm] UpdateSeasonCommand command)
     {
         if (id != command.Id)
             return BadRequest();
@@ -56,7 +54,7 @@ public class EpisodesController : ApiControllerBase
     [ProducesDefaultResponseType]
     public async Task<IActionResult> Delete(int id)
     {
-        await Mediator.Send(new DeleteEpisodeCommand(id));
+        await Mediator.Send(new DeleteSeasonCommand(id));
 
         return NoContent();
     }
