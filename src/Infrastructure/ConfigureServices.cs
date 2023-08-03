@@ -48,6 +48,7 @@ public static class ConfigureServices
         services.AddScoped<IAgeRatingRepository, AgeRatingRepository>();
         services.AddScoped<IActorRepository, ActorRepository>();
         services.AddScoped<IDirectorRepository, DirectorRepository>();
+        services.AddScoped<IEpisodeRepository, EpisodeRepository>();
 
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IIdentityService, IdentityService>();
