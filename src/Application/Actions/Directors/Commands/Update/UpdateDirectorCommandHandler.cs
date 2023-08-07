@@ -18,7 +18,7 @@ public class UpdateDirectorCommandHandler : IRequestHandler<UpdateDirectorComman
     {
         var director = new Director()
         {
-            Id = request.Id,
+            Id = request.DirectorId,
             FirstName = request.FirstName,
             LastName = request.LastName,
             DateOfBirth = request.DateOfBirth,

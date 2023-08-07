@@ -18,7 +18,7 @@ public class UpdateSeasonCommandHandler : IRequestHandler<UpdateSeasonCommand>
     {
         var season = new Season()
         {
-            Id = request.Id,
+            Id = request.SeasonId,
             Title = request.Title,
             Description = request.Description,
             Order = request.Order,

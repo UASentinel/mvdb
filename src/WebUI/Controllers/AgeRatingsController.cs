@@ -41,7 +41,7 @@ public class AgeRatingsController : ApiControllerBase
     [ProducesDefaultResponseType]
     public async Task<IActionResult> Update(int id, UpdateAgeRatingCommand command)
     {
-        if (id != command.Id)
+        if (id != command.AgeRatingId)
             return BadRequest();
 
         await Mediator.Send(command);

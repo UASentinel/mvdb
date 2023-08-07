@@ -43,6 +43,9 @@ public class GetMediaByIdQueryHandler : IRequestHandler<GetMediaByIdQuery, Media
             Duration = media.Duration,
             ReleaseDate = media.ReleaseDate
         };
+
+        mediaDto.Rating = _mediaService.CountRating(media);
+
         return mediaDto;
     }
 }

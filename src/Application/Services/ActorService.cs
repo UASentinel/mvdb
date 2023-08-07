@@ -56,4 +56,9 @@ public class ActorService : IActorService
 
         return await _actorRepository.Delete(id, cancellationToken);
     }
+
+    public ICollection<Actor> Search(object searchPattern)
+    {
+        throw new NotImplementedException();
+    }
 }

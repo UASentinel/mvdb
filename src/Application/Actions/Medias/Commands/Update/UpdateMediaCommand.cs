@@ -7,7 +7,7 @@ namespace MvDb.Application.Actions.Medias.Commands.Update;
 
 public record UpdateMediaCommand : IRequest
 {
-    public int Id { get; init; }
+    public int MediaId { get; init; }
     public string Title { get; set; }
     public string? Description { get; set; }
     public MediaType MediaType { get; set; }

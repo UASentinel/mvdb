@@ -43,7 +43,7 @@ public class EpisodesController : ApiControllerBase
     [ProducesDefaultResponseType]
     public async Task<IActionResult> Update(int id, UpdateEpisodeCommand command)
     {
-        if (id != command.Id)
+        if (id != command.EpisodeId)
             return BadRequest();
 
         await Mediator.Send(command);

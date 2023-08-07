@@ -18,7 +18,7 @@ public class UpdateActorCommandHandler : IRequestHandler<UpdateActorCommand>
     {
         var actor = new Actor()
         {
-            Id = request.Id,
+            Id = request.ActorId,
             FirstName = request.FirstName,
             LastName = request.LastName,
             DateOfBirth = request.DateOfBirth,

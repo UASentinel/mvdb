@@ -35,4 +35,9 @@ public class AgeRatingService : IAgeRatingService
     {
         return await _ageRatingRepository.Delete(id, cancellationToken);
     }
+
+    public ICollection<AgeRating> Search(object searchPattern)
+    {
+        throw new NotImplementedException();
+    }
 }

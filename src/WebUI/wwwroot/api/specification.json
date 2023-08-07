@@ -134,7 +134,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "Id": {
+                  "ActorId": {
                     "type": "integer",
                     "format": "int32"
                   },
@@ -526,7 +526,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "Id": {
+                  "DirectorId": {
                     "type": "integer",
                     "format": "int32"
                   },
@@ -1103,7 +1103,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "Id": {
+                  "MediaId": {
                     "type": "integer",
                     "format": "int32"
                   },
@@ -1197,6 +1197,41 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Medias/Search": {
+      "post": {
+        "tags": [
+          "Medias"
+        ],
+        "operationId": "Medias_Search",
+        "requestBody": {
+          "x-name": "query",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchMediasQuery"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MediaDto"
+                  }
                 }
               }
             }
@@ -1393,7 +1428,7 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "Id": {
+                  "SeasonId": {
                     "type": "integer",
                     "format": "int32"
                   },
@@ -1595,7 +1630,7 @@
           "minAge"
         ],
         "properties": {
-          "id": {
+          "ageRatingId": {
             "type": "integer",
             "format": "int32"
           },
@@ -1727,7 +1762,7 @@
           "releaseDate"
         ],
         "properties": {
-          "id": {
+          "episodeId": {
             "type": "integer",
             "format": "int32"
           },
@@ -1796,7 +1831,7 @@
           "name"
         ],
         "properties": {
-          "id": {
+          "genreId": {
             "type": "integer",
             "format": "int32"
           },
@@ -1845,6 +1880,10 @@
             "type": "string",
             "format": "date-time",
             "nullable": true
+          },
+          "rating": {
+            "type": "integer",
+            "format": "byte"
           }
         }
       },
@@ -1861,6 +1900,15 @@
           1,
           2
         ]
+      },
+      "SearchMediasQuery": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string"
+          }
+        }
       },
       "UpdateGenresCommand": {
         "type": "object",

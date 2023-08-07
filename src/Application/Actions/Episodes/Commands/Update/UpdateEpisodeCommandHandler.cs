@@ -18,7 +18,7 @@ public class UpdateEpisodeCommandHandler : IRequestHandler<UpdateEpisodeCommand>
     {
         var episode = new Episode()
         {
-            Id = request.Id,
+            Id = request.EpisodeId,
             Title = request.Title,
             Description = request.Description,
             Duration = request.Duration,

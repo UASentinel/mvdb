@@ -6,7 +6,7 @@ namespace MvDb.Application.Actions.Actors.Commands.Update;
 
 public record UpdateActorCommand : IRequest
 {
-    public int Id { get; init; }
+    public int ActorId { get; init; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public DateTime DateOfBirth { get; set; }

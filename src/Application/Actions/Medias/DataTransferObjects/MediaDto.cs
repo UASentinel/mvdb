@@ -19,4 +19,5 @@ public class MediaDto
     public AgeRatingDto AgeRating { get; set; }
     public int Duration { get; set; }
     public DateTime? ReleaseDate { get; set; }
+    public byte Rating { get; set; }
 }

@@ -56,4 +56,9 @@ public class DirectorService : IDirectorService
 
         return await _directorRepository.Delete(id, cancellationToken);
     }
+
+    public ICollection<Director> Search(object searchPattern)
+    {
+        throw new NotImplementedException();
+    }
 }

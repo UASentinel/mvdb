@@ -6,7 +6,7 @@ namespace MvDb.Application.Actions.Directors.Commands.Update;
 
 public record UpdateDirectorCommand : IRequest
 {
-    public int Id { get; init; }
+    public int DirectorId { get; init; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public DateTime DateOfBirth { get; set; }

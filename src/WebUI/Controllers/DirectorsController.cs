@@ -41,7 +41,7 @@ public class DirectorsController : ApiControllerBase
     [ProducesDefaultResponseType]
     public async Task<IActionResult> Update(int id, [FromForm] UpdateDirectorCommand command)
     {
-        if (id != command.Id)
+        if (id != command.DirectorId)
             return BadRequest();
 
         await Mediator.Send(command);

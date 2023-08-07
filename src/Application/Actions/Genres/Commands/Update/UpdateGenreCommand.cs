@@ -5,6 +5,6 @@ namespace MvDb.Application.Actions.Genres.Commands.Update;
 
 public record UpdateGenreCommand : IRequest
 {
-    public int Id { get; init; }
+    public int GenreId { get; init; }
     public string Name { get; init; }
 }

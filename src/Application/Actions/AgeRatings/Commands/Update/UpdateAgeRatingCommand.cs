@@ -5,7 +5,7 @@ namespace MvDb.Application.Actions.AgeRatings.Commands.Update;
 
 public record UpdateAgeRatingCommand : IRequest
 {
-    public int Id { get; init; }
+    public int AgeRatingId { get; init; }
     public string Name { get; init; }
     public byte MinAge { get; init; }
 }

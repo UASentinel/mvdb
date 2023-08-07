@@ -1,6 +1,8 @@
 ﻿using System.Security.AccessControl;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using MvDb.Application.Actions.Medias.DataTransferObjects;
+using MvDb.Application.Actions.Medias.Queries.Search;
 using MvDb.Application.Common.Interfaces;
 using MvDb.Application.Common.Interfaces.EntityServices;
 using MvDb.Application.Common.Interfaces.Repositories;
@@ -73,6 +75,47 @@ public class MediaService : IMediaService
             if (mediaGenres.FirstOrDefault(m => m.GenreId == dbMediaGenre.GenreId) == null)
                 await _mediaRepository.DeleteGenre(dbMediaGenre.MediaId, dbMediaGenre.GenreId, cancellationToken);
         }
+
+        return true;
+    }
+
+    public ICollection<Media> Search(SearchMediasQuery searchPattern)
+    {
+        var medias = _mediaRepository.Get();
+
+        if (searchPattern.Title == null || searchPattern.Title == String.Empty)
+            return medias;
+
+        return medias.Where(m => FilterMedia(m, searchPattern)).ToList();
+    }
+
+    public byte CountRating(Media media)
+    {
+        var rating = 0;
+
+        var reviewList = media.Reviews.Select(r => r.Rate).ToList();
+        if (reviewList.Count() != 0)
+            rating = reviewList.Sum(r => r) / reviewList.Count();
+
+        return (byte)rating;
+    }
+
+    private bool FilterMedia(Media media, SearchMediasQuery searchPattern)
+    {
+        var titleKeyWords = searchPattern.Title.Split(" ").ToList();
+
+        var flag = false;
+        foreach (var titleKeyWord in titleKeyWords)
+        {
+            if (media.Title.ToLower().Contains(titleKeyWord.ToLower()))
+            {
+                flag = true;
+                break;
+            }
+        }
+
+        if (!flag)
+            return flag;
 
         return true;
     }

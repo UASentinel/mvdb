@@ -18,7 +18,7 @@ public class UpdateAgeRatingCommandHandler : IRequestHandler<UpdateAgeRatingComm
     {
         var ageRating = new AgeRating()
         {
-            Id = request.Id,
+            Id = request.AgeRatingId,
             Name = request.Name,
             MinAge = request.MinAge
         };

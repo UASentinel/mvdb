@@ -39,4 +39,9 @@ public class GenreService : IGenreService
     {
         return await _genreRepository.Delete(id, cancellationToken);
     }
+
+    public ICollection<Genre> Search(object searchPattern)
+    {
+        throw new NotImplementedException();
+    }
 }

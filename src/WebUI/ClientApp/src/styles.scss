@@ -1,6 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+@import "node_modules/bootstrap/scss/bootstrap";
 
-/* Provide sufficient contrast against white background */
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+
+@import "node_modules/bootstrap-icons/font/bootstrap-icons";
+
+
+:root {
+  --background-dark: #080808;
+  --grey-dark: #1D1D1D;
+  --backgroung-dark-alpha: #00000059;
+  --navbar-dark: #111111;
+  --primary-main: #5E0094;
+  --primary-secondary: #AE37FF;
+  --warning-main: #EB5300;
+  --warning-secondary: #EE8247;
+  --light-main: #D06BE8;
+  --light-secondary: #D79BEB;
+  --success-main: #03A67A;
+  --success-secondary: #04D19A;
+  --danger-main: #EB0149;
+  --danger-secondary: #EF4859;
+}
+
 a {
   color: #0366d6;
 }
@@ -13,17 +34,74 @@ code {
   color: #e01a76;
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+body {
+  padding: 0px;
+  background-color: var(--background-dark);
 }
 
-/* Importing Bootstrap SCSS file. */
-@import "node_modules/bootstrap/scss/bootstrap";
+a {
+  text-decoration: none;
+}
 
-/* Importing Datepicker SCSS file. */
-@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+.h2-main {
+  color: white;
+  margin: 50px;
+}
 
-/* Importing Bootstrap Icons SCSS file. */
-@import "node_modules/bootstrap-icons/font/bootstrap-icons";
+.div-button {
+  width: 100%;
+  text-align: center;
+}
+
+.div-main {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  width: 100%;
+  margin: 0px;
+  justify-content: flex-start;
+}
+
+.btn-primary {
+  background-color: var(--primary-main);
+  border-width: 0px;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-secondary);
+}
+
+.btn-warning {
+  background-color: var(--warning-main);
+  border-width: 0px;
+  color: white;
+}
+
+.btn-warning:hover {
+  background-color: var(--warning-secondary);
+}
+
+.btn-success {
+  background-color: var(--success-main);
+  border-width: 0px;
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: var(--success-secondary);
+}
+
+.btn-danger {
+  background-color: var(--danger-main);
+  border-width: 0px;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: var(--danger-secondary);
+  color: black;
+}
+
+.body-content {
+  padding: 0px;
+}

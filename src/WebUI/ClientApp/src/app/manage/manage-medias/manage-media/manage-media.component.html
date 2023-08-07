@@ -1,0 +1,75 @@
+<div *ngIf="media">
+
+
+  
+  <div class="div-main mt-5 justify-content-between flex-wrap">
+    <img src="{{media?.posterLink}}" alt="" class="img-poster">
+    <div class="div-movie-info-secondary">
+      <h1 class="text-light">{{media?.title}}</h1>
+      <h3 *ngIf="media?.rating === 0" class="text-light"><i class="bi bi-star-fill rating-icon"></i>-</h3>
+      <h3 *ngIf="media?.rating !== 0" class="text-light"><i class="bi bi-star-fill rating-icon"></i>{{media.rating}}</h3>
+      <h4 class="text-light">{{media?.releaseDate?.toDateString()}}</h4>
+      <h5 class="text-light">{{duration}}</h5>
+      <h5 class="text-light">{{media?.ageRating?.name}}</h5>
+    </div>
+    <div class="div-movie-info-description">
+      <h6 class="text-light">{{media?.description}}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac magna id est dictum pretium in id dolor. Quisque id maximus tellus, ac egestas augue. Mauris ligula mauris, finibus vulputate tempor sed, vehicula et felis. Cras ornare at ligula eget efficitur. Morbi ante dolor, suscipit et venenatis id, pretium non magna. Proin vel mi magna. Sed imperdiet suscipit odio. Integer vel ligula velit. Duis luctus aliquet leo ut tincidunt. Curabitur auctor purus ex, sit amet facilisis urna aliquet condimentum. Morbi eget fringilla dolor. Aliquam sit amet convallis dui. Suspendisse et mattis leo. Nam eget neque nec sem volutpat cursus ac blandit leo. Cras elementum lacus id risus commodo, sed accumsan dui lacinia. Duis arcu est, euismod eu semper at, ullamcorper non mauris.</h6>
+    </div>
+  </div>
+
+  <div class="div-main mt-5 justify-content-between flex-wrap">
+    <iframe class="iframe-trailer" [src]="trailerLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+
+  <h1 class="text-light mt-10">
+    <i class="bi bi-pencil-square"></i>&nbsp;&nbsp;Management panel
+  </h1>
+
+  <h2 class="text-light mt-5">Media</h2>
+
+  <div class="div-main mt-3">
+    <button type="submit" class="btn btn-lg btn-warning">
+      <i class="bi bi-pencil"></i>&nbsp;&nbsp;Edit
+    </button>
+    <button type="submit" class="btn btn-lg btn-danger btn-delete">
+      <i class="bi bi-trash"></i>&nbsp;&nbsp;Delete
+    </button>
+  </div>
+
+  <h2 class="text-light mt-10">Directors</h2>
+
+  <div class="div-main mt-3">
+    <a routerLink="" class="staff-container">
+      <img src="{{media.posterLink}}" alt="Photo" class="staff-photo">
+      <div class="div-staff-info">
+        <h5 class="text-light">Volodymyr Fedorenko</h5>
+      </div>
+    </a>
+  </div>
+
+  <h2 class="text-light mt-10">Actors</h2>
+
+  <div class="div-main mt-3">
+    <a routerLink="" class="staff-container">
+      <img src="{{media.posterLink}}" alt="Photo" class="staff-photo">
+      <div class="div-staff-info">
+        <h5 class="text-light">Volodymyr Fedorenko</h5>
+      </div>
+    </a>
+    <a routerLink="" class="staff-container">
+      <img src="{{media.posterLink}}" alt="Photo" class="staff-photo">
+      <div class="div-staff-info">
+        <h5 class="text-light">Volodymyr Fedorenko</h5>
+      </div>
+    </a>
+    <a routerLink="" class="staff-container">
+      <img src="{{media.posterLink}}" alt="Photo" class="staff-photo">
+      <div class="div-staff-info">
+        <h5 class="text-light">Volodymyr Fedorenko</h5>
+      </div>
+    </a>
+  </div>
+
+
+
+</div>

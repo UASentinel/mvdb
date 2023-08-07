@@ -19,7 +19,7 @@ export interface IActorsClient {
     getAll(): Observable<ActorDto[]>;
     create(firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined): Observable<number>;
     get(id: number): Observable<ActorDto>;
-    update(id: number, id: number | undefined, firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined): Observable<void>;
+    update(id: number, actorId: number | undefined, firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined): Observable<void>;
     delete(id: number): Observable<void>;
 }
 
@@ -206,7 +206,7 @@ export class ActorsClient implements IActorsClient {
         return _observableOf(null as any);
     }
 
-    update(id: number, id: number | undefined, firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined): Observable<void> {
+    update(id: number, actorId: number | undefined, firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/Actors/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -214,10 +214,10 @@ export class ActorsClient implements IActorsClient {
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = new FormData();
-        if (id === null || id === undefined)
-            throw new Error("The parameter 'id' cannot be null.");
+        if (actorId === null || actorId === undefined)
+            throw new Error("The parameter 'actorId' cannot be null.");
         else
-            content_.append("Id", id.toString());
+            content_.append("ActorId", actorId.toString());
         if (firstName !== null && firstName !== undefined)
             content_.append("FirstName", firstName.toString());
         if (lastName !== null && lastName !== undefined)
@@ -625,7 +625,7 @@ export interface IDirectorsClient {
     getAll(): Observable<DirectorDto[]>;
     create(firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined): Observable<number>;
     get(id: number): Observable<DirectorDto>;
-    update(id: number, id: number | undefined, firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined): Observable<void>;
+    update(id: number, directorId: number | undefined, firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined): Observable<void>;
     delete(id: number): Observable<void>;
 }
 
@@ -812,7 +812,7 @@ export class DirectorsClient implements IDirectorsClient {
         return _observableOf(null as any);
     }
 
-    update(id: number, id: number | undefined, firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined): Observable<void> {
+    update(id: number, directorId: number | undefined, firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/Directors/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -820,10 +820,10 @@ export class DirectorsClient implements IDirectorsClient {
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = new FormData();
-        if (id === null || id === undefined)
-            throw new Error("The parameter 'id' cannot be null.");
+        if (directorId === null || directorId === undefined)
+            throw new Error("The parameter 'directorId' cannot be null.");
         else
-            content_.append("Id", id.toString());
+            content_.append("DirectorId", directorId.toString());
         if (firstName !== null && firstName !== undefined)
             content_.append("FirstName", firstName.toString());
         if (lastName !== null && lastName !== undefined)
@@ -1521,8 +1521,9 @@ export interface IMediasClient {
     getAll(): Observable<MediaDto[]>;
     create(title: string | undefined, description: string | null | undefined, mediaType: MediaType | undefined, posterFile: FileParameter | null | undefined, trailerLink: string | null | undefined, ageRatingId: number | undefined, duration: number | undefined, releaseDate: Date | null | undefined): Observable<number>;
     get(id: number): Observable<MediaDto>;
-    update(id: number, id: number | undefined, title: string | undefined, description: string | null | undefined, mediaType: MediaType | undefined, posterFile: FileParameter | null | undefined, trailerLink: string | null | undefined, ageRatingId: number | undefined, duration: number | undefined, releaseDate: Date | null | undefined): Observable<void>;
+    update(id: number, mediaId: number | undefined, title: string | undefined, description: string | null | undefined, mediaType: MediaType | undefined, posterFile: FileParameter | null | undefined, trailerLink: string | null | undefined, ageRatingId: number | undefined, duration: number | undefined, releaseDate: Date | null | undefined): Observable<void>;
     delete(id: number): Observable<void>;
+    search(query: SearchMediasQuery): Observable<MediaDto[]>;
     updateGenres(id: number, command: UpdateGenresCommand): Observable<void>;
 }
 
@@ -1721,7 +1722,7 @@ export class MediasClient implements IMediasClient {
         return _observableOf(null as any);
     }
 
-    update(id: number, id: number | undefined, title: string | undefined, description: string | null | undefined, mediaType: MediaType | undefined, posterFile: FileParameter | null | undefined, trailerLink: string | null | undefined, ageRatingId: number | undefined, duration: number | undefined, releaseDate: Date | null | undefined): Observable<void> {
+    update(id: number, mediaId: number | undefined, title: string | undefined, description: string | null | undefined, mediaType: MediaType | undefined, posterFile: FileParameter | null | undefined, trailerLink: string | null | undefined, ageRatingId: number | undefined, duration: number | undefined, releaseDate: Date | null | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/Medias/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -1729,10 +1730,10 @@ export class MediasClient implements IMediasClient {
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = new FormData();
-        if (id === null || id === undefined)
-            throw new Error("The parameter 'id' cannot be null.");
+        if (mediaId === null || mediaId === undefined)
+            throw new Error("The parameter 'mediaId' cannot be null.");
         else
-            content_.append("Id", id.toString());
+            content_.append("MediaId", mediaId.toString());
         if (title === null || title === undefined)
             throw new Error("The parameter 'title' cannot be null.");
         else
@@ -1857,6 +1858,65 @@ export class MediasClient implements IMediasClient {
         }
     }
 
+    search(query: SearchMediasQuery): Observable<MediaDto[]> {
+        let url_ = this.baseUrl + "/api/Medias/Search";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(query);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSearch(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSearch(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<MediaDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<MediaDto[]>;
+        }));
+    }
+
+    protected processSearch(response: HttpResponseBase): Observable<MediaDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(MediaDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
+
     updateGenres(id: number, command: UpdateGenresCommand): Observable<void> {
         let url_ = this.baseUrl + "/api/Medias/Genres/Update/{id}";
         if (id === undefined || id === null)
@@ -1922,7 +1982,7 @@ export interface ISeasonsClient {
     getAll(): Observable<SeasonDto[]>;
     create(title: string | null | undefined, description: string | null | undefined, order: number | undefined, posterFile: FileParameter | null | undefined, trailerLink: string | null | undefined, mediaId: number | undefined): Observable<number>;
     get(id: number): Observable<SeasonDto>;
-    update(id: number, id: number | undefined, title: string | null | undefined, description: string | null | undefined, order: number | undefined, posterFile: FileParameter | null | undefined, trailerLink: string | null | undefined, mediaId: number | undefined): Observable<void>;
+    update(id: number, seasonId: number | undefined, title: string | null | undefined, description: string | null | undefined, order: number | undefined, posterFile: FileParameter | null | undefined, trailerLink: string | null | undefined, mediaId: number | undefined): Observable<void>;
     delete(id: number): Observable<void>;
 }
 
@@ -2113,7 +2173,7 @@ export class SeasonsClient implements ISeasonsClient {
         return _observableOf(null as any);
     }
 
-    update(id: number, id: number | undefined, title: string | null | undefined, description: string | null | undefined, order: number | undefined, posterFile: FileParameter | null | undefined, trailerLink: string | null | undefined, mediaId: number | undefined): Observable<void> {
+    update(id: number, seasonId: number | undefined, title: string | null | undefined, description: string | null | undefined, order: number | undefined, posterFile: FileParameter | null | undefined, trailerLink: string | null | undefined, mediaId: number | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/Seasons/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -2121,10 +2181,10 @@ export class SeasonsClient implements ISeasonsClient {
         url_ = url_.replace(/[?&]$/, "");
 
         const content_ = new FormData();
-        if (id === null || id === undefined)
-            throw new Error("The parameter 'id' cannot be null.");
+        if (seasonId === null || seasonId === undefined)
+            throw new Error("The parameter 'seasonId' cannot be null.");
         else
-            content_.append("Id", id.toString());
+            content_.append("SeasonId", seasonId.toString());
         if (title !== null && title !== undefined)
             content_.append("Title", title.toString());
         if (description !== null && description !== undefined)
@@ -2447,7 +2507,7 @@ export interface ICreateAgeRatingCommand {
 }
 
 export class UpdateAgeRatingCommand implements IUpdateAgeRatingCommand {
-    id?: number;
+    ageRatingId?: number;
     name!: string;
     minAge!: number;
 
@@ -2462,7 +2522,7 @@ export class UpdateAgeRatingCommand implements IUpdateAgeRatingCommand {
 
     init(_data?: any) {
         if (_data) {
-            this.id = _data["id"];
+            this.ageRatingId = _data["ageRatingId"];
             this.name = _data["name"];
             this.minAge = _data["minAge"];
         }
@@ -2477,7 +2537,7 @@ export class UpdateAgeRatingCommand implements IUpdateAgeRatingCommand {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
+        data["ageRatingId"] = this.ageRatingId;
         data["name"] = this.name;
         data["minAge"] = this.minAge;
         return data;
@@ -2485,7 +2545,7 @@ export class UpdateAgeRatingCommand implements IUpdateAgeRatingCommand {
 }
 
 export interface IUpdateAgeRatingCommand {
-    id?: number;
+    ageRatingId?: number;
     name: string;
     minAge: number;
 }
@@ -2659,7 +2719,7 @@ export interface ICreateEpisodeCommand {
 }
 
 export class UpdateEpisodeCommand implements IUpdateEpisodeCommand {
-    id?: number;
+    episodeId?: number;
     title?: string;
     description?: string;
     duration!: number;
@@ -2677,7 +2737,7 @@ export class UpdateEpisodeCommand implements IUpdateEpisodeCommand {
 
     init(_data?: any) {
         if (_data) {
-            this.id = _data["id"];
+            this.episodeId = _data["episodeId"];
             this.title = _data["title"];
             this.description = _data["description"];
             this.duration = _data["duration"];
@@ -2695,7 +2755,7 @@ export class UpdateEpisodeCommand implements IUpdateEpisodeCommand {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
+        data["episodeId"] = this.episodeId;
         data["title"] = this.title;
         data["description"] = this.description;
         data["duration"] = this.duration;
@@ -2706,7 +2766,7 @@ export class UpdateEpisodeCommand implements IUpdateEpisodeCommand {
 }
 
 export interface IUpdateEpisodeCommand {
-    id?: number;
+    episodeId?: number;
     title?: string;
     description?: string;
     duration: number;
@@ -2791,7 +2851,7 @@ export interface ICreateGenreCommand {
 }
 
 export class UpdateGenreCommand implements IUpdateGenreCommand {
-    id?: number;
+    genreId?: number;
     name!: string;
 
     constructor(data?: IUpdateGenreCommand) {
@@ -2805,7 +2865,7 @@ export class UpdateGenreCommand implements IUpdateGenreCommand {
 
     init(_data?: any) {
         if (_data) {
-            this.id = _data["id"];
+            this.genreId = _data["genreId"];
             this.name = _data["name"];
         }
     }
@@ -2819,14 +2879,14 @@ export class UpdateGenreCommand implements IUpdateGenreCommand {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
+        data["genreId"] = this.genreId;
         data["name"] = this.name;
         return data;
     }
 }
 
 export interface IUpdateGenreCommand {
-    id?: number;
+    genreId?: number;
     name: string;
 }
 
@@ -2840,6 +2900,7 @@ export class MediaDto implements IMediaDto {
     ageRating?: AgeRatingDto;
     duration?: number;
     releaseDate?: Date | undefined;
+    rating?: number;
 
     constructor(data?: IMediaDto) {
         if (data) {
@@ -2861,6 +2922,7 @@ export class MediaDto implements IMediaDto {
             this.ageRating = _data["ageRating"] ? AgeRatingDto.fromJS(_data["ageRating"]) : <any>undefined;
             this.duration = _data["duration"];
             this.releaseDate = _data["releaseDate"] ? new Date(_data["releaseDate"].toString()) : <any>undefined;
+            this.rating = _data["rating"];
         }
     }
 
@@ -2882,6 +2944,7 @@ export class MediaDto implements IMediaDto {
         data["ageRating"] = this.ageRating ? this.ageRating.toJSON() : <any>undefined;
         data["duration"] = this.duration;
         data["releaseDate"] = this.releaseDate ? this.releaseDate.toISOString() : <any>undefined;
+        data["rating"] = this.rating;
         return data;
     }
 }
@@ -2896,12 +2959,49 @@ export interface IMediaDto {
     ageRating?: AgeRatingDto;
     duration?: number;
     releaseDate?: Date | undefined;
+    rating?: number;
 }
 
 export enum MediaType {
     None = 0,
     Movie = 1,
     Series = 2,
+}
+
+export class SearchMediasQuery implements ISearchMediasQuery {
+    title?: string;
+
+    constructor(data?: ISearchMediasQuery) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.title = _data["title"];
+        }
+    }
+
+    static fromJS(data: any): SearchMediasQuery {
+        data = typeof data === 'object' ? data : {};
+        let result = new SearchMediasQuery();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["title"] = this.title;
+        return data;
+    }
+}
+
+export interface ISearchMediasQuery {
+    title?: string;
 }
 
 export class UpdateGenresCommand implements IUpdateGenresCommand {

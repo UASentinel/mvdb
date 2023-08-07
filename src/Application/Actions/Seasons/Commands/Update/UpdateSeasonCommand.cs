@@ -6,7 +6,7 @@ namespace MvDb.Application.Actions.Seasons.Commands.Update;
 
 public record UpdateSeasonCommand : IRequest
 {
-    public int Id { get; init; }
+    public int SeasonId { get; init; }
     public string? Title { get; set; }
     public string? Description { get; set; }
     public int Order { get; set; }

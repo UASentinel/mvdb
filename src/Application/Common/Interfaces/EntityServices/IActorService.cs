@@ -4,7 +4,7 @@ using MvDb.Domain.Entities;
 
 namespace MvDb.Application.Common.Interfaces.EntityServices;
 
-public interface IActorService : IPhotoEntityService<Actor>
+public interface IActorService : IPhotoEntityService<Actor, object>
 {
     
 }

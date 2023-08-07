@@ -1,0 +1,28 @@
+<h1 class="mt-5 text-light">Manage medias</h1>
+
+<div class="div-manage">
+  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="form-search">
+    <h4>Search</h4>
+
+    <label for="title" class="form-label text-dark">Title</label>
+    <input type="text" class="form-control" id="title" placeholder="Enter title" formControlName="title">
+    <div class="div-button">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </form>
+
+  <button type="submit" class="btn btn-lg btn-success btn-add">
+    <i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Create
+  </button>
+</div>
+
+<div class="div-main flex-wrap">
+  <a routerLink="{{media.id}}" *ngFor="let media of medias" class="media-container">
+    <img src="{{media.posterLink}}" alt="Poster" class="media-poster">
+    <div class="div-media-info">
+      <h5 *ngIf="media.rating === 0" class="text-light"><i class="bi bi-star-fill rating-icon"></i>-</h5>
+      <h5 *ngIf="media.rating !== 0" class="text-light"><i class="bi bi-star-fill rating-icon"></i>{{media.rating}}</h5>
+      <h5 class="text-light">{{media.title}}</h5>
+    </div>
+  </a>
+</div>

@@ -39,4 +39,9 @@ public class EpisodeService : IEpisodeService
     {
         return await _episodeRepository.Delete(id, cancellationToken);
     }
+
+    public ICollection<Episode> Search(object searchPattern)
+    {
+        throw new NotImplementedException();
+    }
 }

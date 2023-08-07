@@ -43,7 +43,7 @@ public class ActorsController : ApiControllerBase
     [ProducesDefaultResponseType]
     public async Task<IActionResult> Update(int id, [FromForm] UpdateActorCommand command)
     {
-        if (id != command.Id)
+        if (id != command.ActorId)
             return BadRequest();
 
         await Mediator.Send(command);

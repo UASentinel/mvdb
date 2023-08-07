@@ -1,0 +1,80 @@
+.img-poster {
+  width: 25%;
+  object-fit: cover;
+}
+
+.iframe-trailer {
+  width: 100%;
+  aspect-ratio : 16/9;
+}
+
+.div-movie-info {
+  width: 70%;
+  text-align: left;
+}
+
+.rating-icon {
+  color: var(--primary-secondary);
+  margin-right: 7px;
+}
+
+.div-movie-info-secondary, .div-movie-info-description {
+  width: 35%;
+}
+
+td{
+  border: 1px solid white;
+  width: 50%;
+}
+
+table {
+  width: 100%;
+}
+
+.btn-delete {
+  margin-left: 20px;
+}
+
+.mt-10 {
+  margin-top: 100px;
+}
+
+.staff-container {
+  width: 200px;
+  height: fit-content;
+  background-color: var(--grey-dark);
+  transition-duration: 0.5s;
+  margin: 0px 30px 30px 0px;
+}
+
+.staff-photo {
+  width: 100%;
+}
+
+.div-staff-info {
+  padding: 10px;
+}
+
+.staff-container:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 1100px) {
+  .img-poster {
+    width: 40%;
+    margin-bottom: 20px;
+  }
+
+  .div-movie-info {
+    width: 100%;
+  }
+
+  .div-movie-info-secondary {
+    width: 55%;
+    margin-bottom: 20px;
+  }
+
+  .div-movie-info-description {
+    width: 100%;
+  }
+}

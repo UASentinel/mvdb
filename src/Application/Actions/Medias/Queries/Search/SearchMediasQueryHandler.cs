@@ -8,20 +8,20 @@ using MvDb.Application.Common.Interfaces;
 using MvDb.Application.Common.Interfaces.EntityServices;
 using MvDb.Domain.Entities;
 
-namespace MvDb.Application.Actions.Medias.Queries.Get;
+namespace MvDb.Application.Actions.Medias.Queries.Search;
 
-public class GetMediasCommandHandler : IRequestHandler<GetMediasQuery, ICollection<MediaDto>>
+public class SearchMediasQueryHandler : IRequestHandler<SearchMediasQuery, ICollection<MediaDto>>
 {
     private readonly IMediaService _mediaService;
 
-    public GetMediasCommandHandler(IMediaService mediaService)
+    public SearchMediasQueryHandler(IMediaService mediaService)
     {
         _mediaService = mediaService;
     }
 
-    public async Task<ICollection<MediaDto>> Handle(GetMediasQuery request, CancellationToken cancellationToken)
+    public async Task<ICollection<MediaDto>> Handle(SearchMediasQuery request, CancellationToken cancellationToken)
     {
-        var medias = _mediaService.Get();
+        var medias = _mediaService.Search(request);
 
         if (medias == null)
             return new List<MediaDto>();
@@ -37,7 +37,8 @@ public class GetMediasCommandHandler : IRequestHandler<GetMediasQuery, ICollecti
                 TrailerLink = media.TrailerLink,
                 PosterLink = media.PosterLink,
                 MediaType = media.MediaType,
-                AgeRating = new AgeRatingDto() {
+                AgeRating = new AgeRatingDto()
+                {
                     Id = media.AgeRating.Id,
                     Name = media.AgeRating.Name,
                     MinAge = media.AgeRating.MinAge

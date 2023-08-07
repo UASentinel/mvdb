@@ -5,7 +5,7 @@ namespace MvDb.Application.Actions.Episodes.Commands.Update;
 
 public record UpdateEpisodeCommand : IRequest
 {
-    public int Id { get; init; }
+    public int EpisodeId { get; init; }
     public string Title { get; set; }
     public string Description { get; set; }
     public int Duration { get; set; }

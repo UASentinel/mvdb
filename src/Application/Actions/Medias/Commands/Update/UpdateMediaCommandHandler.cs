@@ -18,7 +18,7 @@ public class UpdateMediaCommandHandler : IRequestHandler<UpdateMediaCommand>
     {
         var media = new Media()
         {
-            Id = request.Id,
+            Id = request.MediaId,
             Title = request.Title,
             Description = request.Description,
             TrailerLink = request.TrailerLink,

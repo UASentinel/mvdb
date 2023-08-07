@@ -4,7 +4,7 @@ using MvDb.Domain.Entities;
 
 namespace MvDb.Application.Common.Interfaces.EntityServices;
 
-public interface IEpisodeService : IBaseEntityService<Episode>
+public interface IEpisodeService : IBaseEntityService<Episode, object>
 {
     
 }

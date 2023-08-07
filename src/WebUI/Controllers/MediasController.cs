@@ -10,6 +10,7 @@ using MvDb.Application.Actions.Medias.Queries.Get;
 using MvDb.Application.Actions.Medias.Queries.GetById;
 using MvDb.Application.Actions.Medias.Commands.Update;
 using MvDb.Application.Actions.Medias.Commands.Delete;
+using MvDb.Application.Actions.Medias.Queries.Search;
 
 namespace MvDb.WebUI.Controllers;
 
@@ -19,15 +20,23 @@ public class MediasController : ApiControllerBase
     [HttpGet]
     public async Task<ActionResult<ICollection<MediaDto>>> Get()
     {
-        var genres = await Mediator.Send(new GetMediasQuery());
+        var medias = await Mediator.Send(new GetMediasQuery());
 
-        return Ok(genres);
+        return Ok(medias);
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<MediaDto>> Get(int id)
     {
         return await Mediator.Send(new GetMediaByIdQuery(id));
+    }
+
+    [HttpPost("Search")]
+    public async Task<ActionResult<ICollection<MediaDto>>> Search(SearchMediasQuery query)
+    {
+        var medias = await Mediator.Send(query);
+
+        return Ok(medias);
     }
 
     [HttpPost]
@@ -42,7 +51,7 @@ public class MediasController : ApiControllerBase
     [ProducesDefaultResponseType]
     public async Task<IActionResult> Update(int id, [FromForm] UpdateMediaCommand command)
     {
-        if (id != command.Id)
+        if (id != command.MediaId)
             return BadRequest();
 
         await Mediator.Send(command);

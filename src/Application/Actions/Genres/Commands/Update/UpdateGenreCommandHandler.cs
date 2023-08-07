@@ -18,7 +18,7 @@ public class UpdateGenreCommandHandler : IRequestHandler<UpdateGenreCommand>
     {
         var genre = new Genre()
         {
-            Id = request.Id,
+            Id = request.GenreId,
             Name = request.Name
         };
 

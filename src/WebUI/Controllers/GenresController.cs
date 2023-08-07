@@ -44,7 +44,7 @@ public class GenresController : ApiControllerBase
     [ProducesDefaultResponseType]
     public async Task<IActionResult> Update(int id, UpdateGenreCommand command)
     {
-        if (id != command.Id)
+        if (id != command.GenreId)
             return BadRequest();
 
         await Mediator.Send(command);

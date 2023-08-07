@@ -72,4 +72,9 @@ public class SeasonService : ISeasonService
 
         return season.MediaId;
     }
+
+    public ICollection<Season> Search(object searchPattern)
+    {
+        throw new NotImplementedException();
+    }
 }

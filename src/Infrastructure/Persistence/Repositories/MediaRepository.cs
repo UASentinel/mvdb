@@ -19,12 +19,12 @@ public class MediaRepository : IMediaRepository
 
     public ICollection<Media> Get()
     {
-        return _applicationDbContext.Medias.Include(m => m.AgeRating).ToList();
+        return _applicationDbContext.Medias.Include(m => m.AgeRating).Include(m => m.Reviews).ToList();
     }
 
     public async Task<Media?> GetById(int id)
     {
-        return await _applicationDbContext.Medias.Include(m => m.AgeRating).FirstOrDefaultAsync(m => m.Id == id);
+        return await _applicationDbContext.Medias.Include(m => m.AgeRating).Include(m => m.Reviews).FirstOrDefaultAsync(m => m.Id == id);
     }
 
     public async Task<bool> Create(Media media, CancellationToken cancellationToken)

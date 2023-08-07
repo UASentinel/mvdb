@@ -43,7 +43,7 @@ public class SeasonsController : ApiControllerBase
     [ProducesDefaultResponseType]
     public async Task<IActionResult> Update(int id, [FromForm] UpdateSeasonCommand command)
     {
-        if (id != command.Id)
+        if (id != command.SeasonId)
             return BadRequest();
 
         await Mediator.Send(command);
