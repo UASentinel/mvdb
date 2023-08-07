@@ -7,6 +7,7 @@ public static class Constants
     public const string ActorPhotoFileName = "photo.png";
     public const string DirectorPhotoFileName = "photo.png";
     public const string SeasonPosterFileName = "poster.png";
+    public const string MediaPosterFileName = "poster.png";
 
     // Folder paths
     public const string UsersFolderPathLocal = "images\\users";

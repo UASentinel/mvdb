@@ -9,6 +9,8 @@ using MvDb.Application.Actions.Seasons.Queries.GetById;
 using MvDb.Application.Actions.Seasons.Commands.Create;
 using MvDb.Application.Actions.Seasons.Commands.Update;
 using MvDb.Application.Actions.Seasons.Commands.Delete;
+using MvDb.Application.Actions.Medias.Commands.Create;
+using MvDb.Application.Actions.Medias.Commands.Update;
 
 namespace MvDb.WebUI.Controllers;
 

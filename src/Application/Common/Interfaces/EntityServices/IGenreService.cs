@@ -4,8 +4,7 @@ using MvDb.Domain.Entities;
 
 namespace MvDb.Application.Common.Interfaces.EntityServices;
 
-public interface IGenreService : IEntityService<Genre>
+public interface IGenreService : IBaseEntityService<Genre>
 {
-    Task<bool> Create(Genre genre, CancellationToken cancellationToken);
-    Task<bool> Update(Genre genre, CancellationToken cancellationToken);
+    
 }

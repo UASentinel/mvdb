@@ -12,4 +12,6 @@ public interface IImageService
     Task<bool> DeleteDirectorPhoto(int directorId);
     Task<string> UploadSeasonPoster(IFormFile formFile, int seasonId, int mediaId);
     Task<bool> DeleteSeasonPoster(int seasonId, int mediaId);
+    Task<string> UploadMediaPoster(IFormFile formFile, int mediaId);
+    Task<bool> DeleteMediaPoster(int mediaId);
 }

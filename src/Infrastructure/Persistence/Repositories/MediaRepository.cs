@@ -19,12 +19,12 @@ public class MediaRepository : IMediaRepository
 
     public ICollection<Media> Get()
     {
-        return _applicationDbContext.Medias.ToList();
+        return _applicationDbContext.Medias.Include(m => m.AgeRating).ToList();
     }
 
     public async Task<Media?> GetById(int id)
     {
-        return await _applicationDbContext.Medias.FirstOrDefaultAsync(m => m.Id == id);
+        return await _applicationDbContext.Medias.Include(m => m.AgeRating).FirstOrDefaultAsync(m => m.Id == id);
     }
 
     public async Task<bool> Create(Media media, CancellationToken cancellationToken)
@@ -37,7 +37,22 @@ public class MediaRepository : IMediaRepository
 
     public async Task<bool> Update(Media media, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var dbMedia = await _applicationDbContext.Medias.FirstOrDefaultAsync(m => m.Id == media.Id);
+        if (dbMedia == null)
+            return false;
+
+        dbMedia.Title = media.Title;
+        dbMedia.Description = media.Description;
+        dbMedia.MediaType = media.MediaType;
+        dbMedia.PosterLink = media.PosterLink;
+        dbMedia.TrailerLink = media.TrailerLink;
+        dbMedia.AgeRatingId = media.AgeRatingId;
+        dbMedia.Duration = media.Duration;
+        dbMedia.ReleaseDate = media.ReleaseDate;
+
+        var result = await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+        return result > 0 ? true : false;
     }
 
     public async Task<bool> Delete(int id, CancellationToken cancellationToken)
@@ -47,6 +62,46 @@ public class MediaRepository : IMediaRepository
             return false;
 
         _applicationDbContext.Medias.Remove(media);
+        var result = await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+        return result > 0 ? true : false;
+    }
+
+    public ICollection<MediaGenre> GetMediaGenres(int mediaId)
+    {
+        return _applicationDbContext.MediaGenres.Include(m => m.Genre).Where(m => m.MediaId == mediaId).ToList();
+    }
+
+    public async Task<bool> AddGenre(MediaGenre mediaGenre, CancellationToken cancellationToken)
+    {
+        _applicationDbContext.MediaGenres.Add(mediaGenre);
+        var result = await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+        return result > 0 ? true : false;
+    }
+
+    public async Task<bool> UpdateGenre(MediaGenre mediaGenre, CancellationToken cancellationToken)
+    {
+        var dbMediaGenre = await _applicationDbContext.MediaGenres.FirstOrDefaultAsync(m => m.MediaId == mediaGenre.MediaId && m.GenreId == mediaGenre.GenreId);
+        if (dbMediaGenre == null)
+            return false;
+
+        dbMediaGenre.MediaId = mediaGenre.MediaId;
+        dbMediaGenre.GenreId = mediaGenre.GenreId;
+        dbMediaGenre.Order = mediaGenre.Order;
+
+        var result = await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+        return result > 0 ? true : false;
+    }
+
+    public async Task<bool> DeleteGenre(int mediaId, int genreId, CancellationToken cancellationToken)
+    {
+        var mediaGenre = _applicationDbContext.MediaGenres.FirstOrDefault(m => m.MediaId == mediaId && m.GenreId == genreId);
+        if (mediaGenre == null)
+            return false;
+
+        _applicationDbContext.MediaGenres.Remove(mediaGenre);
         var result = await _applicationDbContext.SaveChangesAsync(cancellationToken);
 
         return result > 0 ? true : false;

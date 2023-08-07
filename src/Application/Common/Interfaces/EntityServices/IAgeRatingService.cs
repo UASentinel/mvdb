@@ -4,8 +4,7 @@ using MvDb.Domain.Entities;
 
 namespace MvDb.Application.Common.Interfaces.EntityServices;
 
-public interface IAgeRatingService : IEntityService<AgeRating>
+public interface IAgeRatingService : IBaseEntityService<AgeRating>
 {
-    Task<bool> Create(AgeRating ageRating, CancellationToken cancellationToken);
-    Task<bool> Update(AgeRating ageRating, CancellationToken cancellationToken);
+    
 }

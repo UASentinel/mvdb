@@ -4,8 +4,7 @@ using MvDb.Domain.Entities;
 
 namespace MvDb.Application.Common.Interfaces.EntityServices;
 
-public interface IEpisodeService : IEntityService<Episode>
+public interface IEpisodeService : IBaseEntityService<Episode>
 {
-    Task<bool> Create(Episode episode, CancellationToken cancellationToken);
-    Task<bool> Update(Episode episode, CancellationToken cancellationToken);
+    
 }

@@ -29,6 +29,7 @@ public static class ConfigureServices
         services.AddScoped<IDirectorService, DirectorService>();
         services.AddScoped<IEpisodeService, EpisodeService>();
         services.AddScoped<ISeasonService, SeasonService>();
+        services.AddScoped<IMediaService, MediaService>();
 
         return services;
     }

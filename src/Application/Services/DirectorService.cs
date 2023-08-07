@@ -45,9 +45,7 @@ public class DirectorService : IDirectorService
             await _imageService.DeleteDirectorPhoto(director.Id);
         }
         else
-        {
             director.PhotoLink = await _imageService.UploadDirectorPhoto(photoFile, director.Id);
-        }
 
         return await _directorRepository.Update(director, cancellationToken);
     }

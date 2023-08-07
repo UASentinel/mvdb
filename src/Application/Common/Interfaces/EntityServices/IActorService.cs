@@ -4,8 +4,7 @@ using MvDb.Domain.Entities;
 
 namespace MvDb.Application.Common.Interfaces.EntityServices;
 
-public interface IActorService : IEntityService<Actor>
+public interface IActorService : IPhotoEntityService<Actor>
 {
-    Task<bool> Create(Actor actor, IFormFile photoFile, CancellationToken cancellationToken);
-    Task<bool> Update(Actor actor, IFormFile photoFile, CancellationToken cancellationToken);
+    
 }

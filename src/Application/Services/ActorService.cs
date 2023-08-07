@@ -45,9 +45,7 @@ public class ActorService : IActorService
             await _imageService.DeleteActorPhoto(actor.Id);
         }
         else
-        {
             actor.PhotoLink = await _imageService.UploadActorPhoto(photoFile, actor.Id);
-        }
 
         return await _actorRepository.Update(actor, cancellationToken);
     }
