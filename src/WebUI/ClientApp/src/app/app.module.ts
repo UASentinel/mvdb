@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ManageComponent} from "./manage/manage.component";
 import {ManageMediasComponent} from "./manage/manage-medias/manage-medias.component";
 import {ManageMediaComponent} from "./manage/manage-medias/manage-media/manage-media.component";
+import {CreateMediaComponent} from "./manage/manage-medias/create-media/create-media.component";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {ManageMediaComponent} from "./manage/manage-medias/manage-media/manage-m
     HomeComponent,
     ManageComponent,
     ManageMediasComponent,
-    ManageMediaComponent
+    CreateMediaComponent,
+    ManageMediaComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

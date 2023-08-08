@@ -1,0 +1,92 @@
+<h1 class="mt-5 text-light">Create media</h1>
+
+<p class="text-light">{{createForm.value | json}}</p>
+
+<div class="div-main mt-5">
+  <form [formGroup]="createForm" (ngSubmit)="onSubmit()" class="form-create" enctype="multipart/form-data">
+    <h4>Create</h4>
+
+    <div class="div-main flex-wrap">
+      <div class="form-part-left">
+        <div>
+          <label class="form-label text-dark" for="title">Title</label>
+          <input class="form-control" type="text" id="title" formControlName="title" placeholder="Enter title"/>
+        </div>
+        <div>
+          <label class="form-label text-dark" for="trailerLink">Trailer Link</label>
+          <input class="form-control" type="text" id="trailerLink" formControlName="trailerLink" placeholder="Enter trailer link"/>
+        </div>
+        <div>
+          <label class="form-label text-dark" for="duration">Duration</label>
+          <input class="form-control" type="number" id="duration" formControlName="duration"/>
+        </div>
+        <div>
+          <label class="form-label text-dark" for="releaseDate">Release Date</label>
+          <input class="form-control" type="date" id="releaseDate" formControlName="releaseDate" />
+        </div>
+        <div>
+          <label class="form-label text-dark" for="mediaType">Media Type</label>
+          <select class="form-select" id="mediaType" formControlName="mediaType">
+            <option *ngFor="let mediaType of mediaTypes">{{MediaType[mediaType]}}</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label text-dark" for="ageRating">Age Rating</label>
+          <select class="form-select" id="ageRating" formControlName="ageRating">
+            <option *ngFor="let ageRating of ageRatings">{{ageRating.name}}</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label text-dark" for="poster">Poster</label>
+          <input #file (change)="uploadFile(file.files)" class="form-control" type="file" id="poster" formControlName="poster" />
+        </div>
+      </div>
+
+      <div class="form-part-right">
+        <div>
+          <label class="form-label text-dark" for="description">Description</label>
+          <textarea rows="5" class="form-control" id="description" formControlName="description" placeholder="Enter description"></textarea>
+        </div>
+        <div formArrayName="genres">
+          <label class="form-label text-dark">Genres</label>
+          <div class="div-main div-genre" *ngFor="let genre of createForm.get('genres')['controls']; let i = index" [formGroupName]="i">
+            <select class="form-select" formControlName="name">
+              <!--        <input type="text" formControlName="genreName" placeholder="Genre" />-->
+              <option *ngFor="let genre of genres">{{genre.name}}</option>
+            </select>
+            <button type="button" class="btn btn-warning btn-sm" (click)="genreUp(i)"><i class="bi bi-chevron-up"></i></button>
+            <button type="button" class="btn btn-warning btn-sm" (click)="genreDown(i)"><i class="bi bi-chevron-down"></i></button>
+            <button type="button" class="btn btn-danger btn-sm" (click)="removeGenre(i)"><i class="bi bi-trash"></i></button>
+          </div>
+        </div>
+        <button type="button" class="btn btn-success" (click)="addGenre()">
+          <i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Add Genre
+        </button>
+      </div>
+    </div>
+<!--    <label for="title" class="form-label text-dark">Title</label>-->
+<!--    <input type="text" class="form-control" id="title" placeholder="Enter title" formControlName="title">-->
+
+
+    <!-- Description -->
+
+    <!-- Media Type -->
+
+    <!-- Trailer Link -->
+
+    <!-- Age Rating -->
+
+    <!-- Duration -->
+
+    <!-- Release Date -->
+
+    <!-- Poster -->
+
+    <!-- Genres FormArray -->
+
+
+    <div class="div-button">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>

@@ -1,7 +1,7 @@
 <div *ngIf="media">
 
 
-  
+
   <div class="div-main mt-5 justify-content-between flex-wrap">
     <img src="{{media?.posterLink}}" alt="" class="img-poster">
     <div class="div-movie-info-secondary">
@@ -10,10 +10,12 @@
       <h3 *ngIf="media?.rating !== 0" class="text-light"><i class="bi bi-star-fill rating-icon"></i>{{media.rating}}</h3>
       <h4 class="text-light">{{media?.releaseDate?.toDateString()}}</h4>
       <h5 class="text-light">{{duration}}</h5>
-      <h5 class="text-light">{{media?.ageRating?.name}}</h5>
+      <span *ngIf="media?.ageRating?.minAge < 13" class="badge rounded-pill text-light badge-success">{{media?.ageRating?.name}}</span>
+      <span *ngIf="media?.ageRating?.minAge >= 13 && media?.ageRating?.minAge < 18" class="badge rounded-pill text-light badge-warning">{{media?.ageRating?.name}}</span>
+      <span *ngIf="media?.ageRating?.minAge >= 18" class="badge rounded-pill text-light badge-danger">{{media?.ageRating?.name}}</span>
     </div>
     <div class="div-movie-info-description">
-      <h6 class="text-light">{{media?.description}}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac magna id est dictum pretium in id dolor. Quisque id maximus tellus, ac egestas augue. Mauris ligula mauris, finibus vulputate tempor sed, vehicula et felis. Cras ornare at ligula eget efficitur. Morbi ante dolor, suscipit et venenatis id, pretium non magna. Proin vel mi magna. Sed imperdiet suscipit odio. Integer vel ligula velit. Duis luctus aliquet leo ut tincidunt. Curabitur auctor purus ex, sit amet facilisis urna aliquet condimentum. Morbi eget fringilla dolor. Aliquam sit amet convallis dui. Suspendisse et mattis leo. Nam eget neque nec sem volutpat cursus ac blandit leo. Cras elementum lacus id risus commodo, sed accumsan dui lacinia. Duis arcu est, euismod eu semper at, ullamcorper non mauris.</h6>
+      <h5 class="text-light">{{media?.description}}</h5>
     </div>
   </div>
 

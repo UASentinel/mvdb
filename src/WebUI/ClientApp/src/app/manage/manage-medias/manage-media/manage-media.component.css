@@ -59,6 +59,11 @@ table {
   transform: scale(1.05);
 }
 
+.badge {
+  font-size: 18px;
+  margin-top: 5px;
+}
+
 @media (max-width: 1100px) {
   .img-poster {
     width: 40%;

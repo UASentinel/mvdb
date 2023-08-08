@@ -105,3 +105,15 @@ a {
 .body-content {
   padding: 0px;
 }
+
+.badge-success {
+  background-color: var(--success-main);
+}
+
+.badge-warning {
+  background-color: var(--warning-main);
+}
+
+.badge-danger {
+  background-color: var(--danger-main);
+}
