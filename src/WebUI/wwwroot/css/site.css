@@ -57,24 +57,22 @@ a {
     border-radius: 10px;
 }
 
-.div-movies-background {
-    background: url("../images/app/backgrounds/movies.png");
+.div-movies-background-main {
+    background: url("../images/app/backgrounds/movies_wide.png");
     background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
+    justify-content: flex-end;
 }
 
-.div-manage-main {
-    
+.div-user-management {
+    background-color: var(--backgroung-dark-alpha);
 }
 
 .div-manage-content {
     background-color: white;
     border-radius: 10px;
     padding: 30px;
-}
-
-.div-manage-secondary {
-    
 }
 
 .div-manage-main, .div-manage-secondary {
@@ -144,16 +142,15 @@ input[type="checkbox"].input-validation-error {
 }
 
 @media (max-width: 900px) {
-    .div-movies-background-main {
+    /*.div-movies-background-main {
         background: url("../images/app/backgrounds/movies.png");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
-    }
+    }*/
 
     .div-user-management {
         width: 100%;
-        background-color: var(--backgroung-dark-alpha);
     }
 
     .div-movies-background {

@@ -158,6 +158,9 @@
                     "type": "string",
                     "format": "binary",
                     "nullable": true
+                  },
+                  "DeletePhoto": {
+                    "type": "boolean"
                   }
                 }
               }
@@ -550,6 +553,9 @@
                     "type": "string",
                     "format": "binary",
                     "nullable": true
+                  },
+                  "DeletePhoto": {
+                    "type": "boolean"
                   }
                 }
               }
@@ -1122,6 +1128,9 @@
                     "format": "binary",
                     "nullable": true
                   },
+                  "DeletePoster": {
+                    "type": "boolean"
+                  },
                   "TrailerLink": {
                     "type": "string",
                     "nullable": true
@@ -1448,6 +1457,9 @@
                     "type": "string",
                     "format": "binary",
                     "nullable": true
+                  },
+                  "DeletePoster": {
+                    "type": "boolean"
                   },
                   "TrailerLink": {
                     "type": "string",
@@ -1884,6 +1896,24 @@
           "rating": {
             "type": "integer",
             "format": "byte"
+          },
+          "genres": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GenreOrderDto"
+            }
+          },
+          "actors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ActorOrderDto"
+            }
+          },
+          "directors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DirectorOrderDto"
+            }
           }
         }
       },
@@ -1901,12 +1931,66 @@
           2
         ]
       },
+      "GenreOrderDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GenreDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "order": {
+                "type": "integer",
+                "format": "byte"
+              }
+            }
+          }
+        ]
+      },
+      "ActorOrderDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ActorDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "order": {
+                "type": "integer",
+                "format": "byte"
+              }
+            }
+          }
+        ]
+      },
+      "DirectorOrderDto": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/DirectorDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "order": {
+                "type": "integer",
+                "format": "byte"
+              }
+            }
+          }
+        ]
+      },
       "SearchMediasQuery": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
           "title": {
             "type": "string"
+          },
+          "mediaType": {
+            "$ref": "#/components/schemas/MediaType"
           }
         }
       },

@@ -19,12 +19,40 @@ public class MediaRepository : IMediaRepository
 
     public ICollection<Media> Get()
     {
-        return _applicationDbContext.Medias.Include(m => m.AgeRating).Include(m => m.Reviews).ToList();
+        var medias = _applicationDbContext.Medias
+            .Include(m => m.AgeRating)
+            .Include(m => m.Reviews)
+            .Include(m => m.MediaGenres)
+            .ThenInclude(m => m.Genre)
+            .ToList();
+
+        foreach(var media in medias)
+            media.MediaGenres = media.MediaGenres.OrderBy(m => m.Order).ToList();
+
+        return medias;
     }
 
     public async Task<Media?> GetById(int id)
     {
-        return await _applicationDbContext.Medias.Include(m => m.AgeRating).Include(m => m.Reviews).FirstOrDefaultAsync(m => m.Id == id);
+        var media = await _applicationDbContext.Medias
+            .Include(m => m.AgeRating)
+            .Include(m => m.Reviews)
+            .Include(m => m.MediaActors)
+            .ThenInclude(m => m.Actor)
+            .Include(m => m.MediaDirectors)
+            .ThenInclude(m => m.Director)
+            .Include(m => m.MediaGenres)
+            .ThenInclude(m => m.Genre)
+            .FirstOrDefaultAsync(m => m.Id == id);
+
+        if(media != null)
+        {
+            media.MediaGenres = media.MediaGenres.OrderBy(m => m.Order).ToList();
+            media.MediaActors = media.MediaActors.OrderBy(m => m.Order).ToList();
+            media.MediaDirectors = media.MediaDirectors.OrderBy(m => m.Order).ToList();
+        }
+
+        return media;
     }
 
     public async Task<bool> Create(Media media, CancellationToken cancellationToken)
@@ -105,5 +133,20 @@ public class MediaRepository : IMediaRepository
         var result = await _applicationDbContext.SaveChangesAsync(cancellationToken);
 
         return result > 0 ? true : false;
+    }
+
+    public async Task<bool> RestoreGenresOrder(int mediaId, CancellationToken cancellationToken)
+    {
+        var genres = _applicationDbContext.MediaGenres
+            .Where(m => m.MediaId == mediaId)
+            .OrderBy(m => m.Order)
+            .ToList();
+
+        for (int i = 0; i < genres.Count; i++)
+            genres[i].Order = (byte)i;
+
+        await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+        return true;
     }
 }

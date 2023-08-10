@@ -46,6 +46,13 @@ public class GetMediaByIdQueryHandler : IRequestHandler<GetMediaByIdQuery, Media
 
         mediaDto.Rating = _mediaService.CountRating(media);
 
+        mediaDto.SetGenres(media.MediaGenres);
+        mediaDto.SetActors(media.MediaActors);
+        mediaDto.SetDirectors(media.MediaDirectors);
+
+        if (mediaDto.ReleaseDate == null)
+            mediaDto.ReleaseDate = DateTime.MinValue;
+
         return mediaDto;
     }
 }

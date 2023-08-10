@@ -19,7 +19,7 @@ export interface IActorsClient {
     getAll(): Observable<ActorDto[]>;
     create(firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined): Observable<number>;
     get(id: number): Observable<ActorDto>;
-    update(id: number, actorId: number | undefined, firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined): Observable<void>;
+    update(id: number, actorId: number | undefined, firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined, deletePhoto: boolean | undefined): Observable<void>;
     delete(id: number): Observable<void>;
 }
 
@@ -206,7 +206,7 @@ export class ActorsClient implements IActorsClient {
         return _observableOf(null as any);
     }
 
-    update(id: number, actorId: number | undefined, firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined): Observable<void> {
+    update(id: number, actorId: number | undefined, firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined, deletePhoto: boolean | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/Actors/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -230,6 +230,10 @@ export class ActorsClient implements IActorsClient {
             content_.append("Biography", biography.toString());
         if (photoFile !== null && photoFile !== undefined)
             content_.append("PhotoFile", photoFile.data, photoFile.fileName ? photoFile.fileName : "PhotoFile");
+        if (deletePhoto === null || deletePhoto === undefined)
+            throw new Error("The parameter 'deletePhoto' cannot be null.");
+        else
+            content_.append("DeletePhoto", deletePhoto.toString());
 
         let options_ : any = {
             body: content_,
@@ -625,7 +629,7 @@ export interface IDirectorsClient {
     getAll(): Observable<DirectorDto[]>;
     create(firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined): Observable<number>;
     get(id: number): Observable<DirectorDto>;
-    update(id: number, directorId: number | undefined, firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined): Observable<void>;
+    update(id: number, directorId: number | undefined, firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined, deletePhoto: boolean | undefined): Observable<void>;
     delete(id: number): Observable<void>;
 }
 
@@ -812,7 +816,7 @@ export class DirectorsClient implements IDirectorsClient {
         return _observableOf(null as any);
     }
 
-    update(id: number, directorId: number | undefined, firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined): Observable<void> {
+    update(id: number, directorId: number | undefined, firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined, deletePhoto: boolean | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/Directors/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -836,6 +840,10 @@ export class DirectorsClient implements IDirectorsClient {
             content_.append("Biography", biography.toString());
         if (photoFile !== null && photoFile !== undefined)
             content_.append("PhotoFile", photoFile.data, photoFile.fileName ? photoFile.fileName : "PhotoFile");
+        if (deletePhoto === null || deletePhoto === undefined)
+            throw new Error("The parameter 'deletePhoto' cannot be null.");
+        else
+            content_.append("DeletePhoto", deletePhoto.toString());
 
         let options_ : any = {
             body: content_,
@@ -1521,7 +1529,7 @@ export interface IMediasClient {
     getAll(): Observable<MediaDto[]>;
     create(title: string | undefined, description: string | null | undefined, mediaType: MediaType | undefined, posterFile: FileParameter | null | undefined, trailerLink: string | null | undefined, ageRatingId: number | undefined, duration: number | undefined, releaseDate: Date | null | undefined): Observable<number>;
     get(id: number): Observable<MediaDto>;
-    update(id: number, mediaId: number | undefined, title: string | undefined, description: string | null | undefined, mediaType: MediaType | undefined, posterFile: FileParameter | null | undefined, trailerLink: string | null | undefined, ageRatingId: number | undefined, duration: number | undefined, releaseDate: Date | null | undefined): Observable<void>;
+    update(id: number, mediaId: number | undefined, title: string | undefined, description: string | null | undefined, mediaType: MediaType | undefined, posterFile: FileParameter | null | undefined, deletePoster: boolean | undefined, trailerLink: string | null | undefined, ageRatingId: number | undefined, duration: number | undefined, releaseDate: Date | null | undefined): Observable<void>;
     delete(id: number): Observable<void>;
     search(query: SearchMediasQuery): Observable<MediaDto[]>;
     updateGenres(id: number, command: UpdateGenresCommand): Observable<void>;
@@ -1722,7 +1730,7 @@ export class MediasClient implements IMediasClient {
         return _observableOf(null as any);
     }
 
-    update(id: number, mediaId: number | undefined, title: string | undefined, description: string | null | undefined, mediaType: MediaType | undefined, posterFile: FileParameter | null | undefined, trailerLink: string | null | undefined, ageRatingId: number | undefined, duration: number | undefined, releaseDate: Date | null | undefined): Observable<void> {
+    update(id: number, mediaId: number | undefined, title: string | undefined, description: string | null | undefined, mediaType: MediaType | undefined, posterFile: FileParameter | null | undefined, deletePoster: boolean | undefined, trailerLink: string | null | undefined, ageRatingId: number | undefined, duration: number | undefined, releaseDate: Date | null | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/Medias/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -1746,6 +1754,10 @@ export class MediasClient implements IMediasClient {
             content_.append("MediaType", mediaType.toString());
         if (posterFile !== null && posterFile !== undefined)
             content_.append("PosterFile", posterFile.data, posterFile.fileName ? posterFile.fileName : "PosterFile");
+        if (deletePoster === null || deletePoster === undefined)
+            throw new Error("The parameter 'deletePoster' cannot be null.");
+        else
+            content_.append("DeletePoster", deletePoster.toString());
         if (trailerLink !== null && trailerLink !== undefined)
             content_.append("TrailerLink", trailerLink.toString());
         if (ageRatingId === null || ageRatingId === undefined)
@@ -1982,7 +1994,7 @@ export interface ISeasonsClient {
     getAll(): Observable<SeasonDto[]>;
     create(title: string | null | undefined, description: string | null | undefined, order: number | undefined, posterFile: FileParameter | null | undefined, trailerLink: string | null | undefined, mediaId: number | undefined): Observable<number>;
     get(id: number): Observable<SeasonDto>;
-    update(id: number, seasonId: number | undefined, title: string | null | undefined, description: string | null | undefined, order: number | undefined, posterFile: FileParameter | null | undefined, trailerLink: string | null | undefined, mediaId: number | undefined): Observable<void>;
+    update(id: number, seasonId: number | undefined, title: string | null | undefined, description: string | null | undefined, order: number | undefined, posterFile: FileParameter | null | undefined, deletePoster: boolean | undefined, trailerLink: string | null | undefined, mediaId: number | undefined): Observable<void>;
     delete(id: number): Observable<void>;
 }
 
@@ -2173,7 +2185,7 @@ export class SeasonsClient implements ISeasonsClient {
         return _observableOf(null as any);
     }
 
-    update(id: number, seasonId: number | undefined, title: string | null | undefined, description: string | null | undefined, order: number | undefined, posterFile: FileParameter | null | undefined, trailerLink: string | null | undefined, mediaId: number | undefined): Observable<void> {
+    update(id: number, seasonId: number | undefined, title: string | null | undefined, description: string | null | undefined, order: number | undefined, posterFile: FileParameter | null | undefined, deletePoster: boolean | undefined, trailerLink: string | null | undefined, mediaId: number | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/Seasons/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
@@ -2195,6 +2207,10 @@ export class SeasonsClient implements ISeasonsClient {
             content_.append("Order", order.toString());
         if (posterFile !== null && posterFile !== undefined)
             content_.append("PosterFile", posterFile.data, posterFile.fileName ? posterFile.fileName : "PosterFile");
+        if (deletePoster === null || deletePoster === undefined)
+            throw new Error("The parameter 'deletePoster' cannot be null.");
+        else
+            content_.append("DeletePoster", deletePoster.toString());
         if (trailerLink !== null && trailerLink !== undefined)
             content_.append("TrailerLink", trailerLink.toString());
         if (mediaId === null || mediaId === undefined)
@@ -2901,6 +2917,9 @@ export class MediaDto implements IMediaDto {
     duration?: number;
     releaseDate?: Date | undefined;
     rating?: number;
+    genres?: GenreOrderDto[];
+    actors?: ActorOrderDto[];
+    directors?: DirectorOrderDto[];
 
     constructor(data?: IMediaDto) {
         if (data) {
@@ -2923,6 +2942,21 @@ export class MediaDto implements IMediaDto {
             this.duration = _data["duration"];
             this.releaseDate = _data["releaseDate"] ? new Date(_data["releaseDate"].toString()) : <any>undefined;
             this.rating = _data["rating"];
+            if (Array.isArray(_data["genres"])) {
+                this.genres = [] as any;
+                for (let item of _data["genres"])
+                    this.genres!.push(GenreOrderDto.fromJS(item));
+            }
+            if (Array.isArray(_data["actors"])) {
+                this.actors = [] as any;
+                for (let item of _data["actors"])
+                    this.actors!.push(ActorOrderDto.fromJS(item));
+            }
+            if (Array.isArray(_data["directors"])) {
+                this.directors = [] as any;
+                for (let item of _data["directors"])
+                    this.directors!.push(DirectorOrderDto.fromJS(item));
+            }
         }
     }
 
@@ -2945,6 +2979,21 @@ export class MediaDto implements IMediaDto {
         data["duration"] = this.duration;
         data["releaseDate"] = this.releaseDate ? this.releaseDate.toISOString() : <any>undefined;
         data["rating"] = this.rating;
+        if (Array.isArray(this.genres)) {
+            data["genres"] = [];
+            for (let item of this.genres)
+                data["genres"].push(item.toJSON());
+        }
+        if (Array.isArray(this.actors)) {
+            data["actors"] = [];
+            for (let item of this.actors)
+                data["actors"].push(item.toJSON());
+        }
+        if (Array.isArray(this.directors)) {
+            data["directors"] = [];
+            for (let item of this.directors)
+                data["directors"].push(item.toJSON());
+        }
         return data;
     }
 }
@@ -2960,6 +3009,9 @@ export interface IMediaDto {
     duration?: number;
     releaseDate?: Date | undefined;
     rating?: number;
+    genres?: GenreOrderDto[];
+    actors?: ActorOrderDto[];
+    directors?: DirectorOrderDto[];
 }
 
 export enum MediaType {
@@ -2968,8 +3020,108 @@ export enum MediaType {
     Series = 2,
 }
 
+export class GenreOrderDto extends GenreDto implements IGenreOrderDto {
+    order?: number;
+
+    constructor(data?: IGenreOrderDto) {
+        super(data);
+    }
+
+    override init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.order = _data["order"];
+        }
+    }
+
+    static override fromJS(data: any): GenreOrderDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GenreOrderDto();
+        result.init(data);
+        return result;
+    }
+
+    override toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["order"] = this.order;
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface IGenreOrderDto extends IGenreDto {
+    order?: number;
+}
+
+export class ActorOrderDto extends ActorDto implements IActorOrderDto {
+    order?: number;
+
+    constructor(data?: IActorOrderDto) {
+        super(data);
+    }
+
+    override init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.order = _data["order"];
+        }
+    }
+
+    static override fromJS(data: any): ActorOrderDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ActorOrderDto();
+        result.init(data);
+        return result;
+    }
+
+    override toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["order"] = this.order;
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface IActorOrderDto extends IActorDto {
+    order?: number;
+}
+
+export class DirectorOrderDto extends DirectorDto implements IDirectorOrderDto {
+    order?: number;
+
+    constructor(data?: IDirectorOrderDto) {
+        super(data);
+    }
+
+    override init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.order = _data["order"];
+        }
+    }
+
+    static override fromJS(data: any): DirectorOrderDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new DirectorOrderDto();
+        result.init(data);
+        return result;
+    }
+
+    override toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["order"] = this.order;
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface IDirectorOrderDto extends IDirectorDto {
+    order?: number;
+}
+
 export class SearchMediasQuery implements ISearchMediasQuery {
     title?: string;
+    mediaType?: MediaType;
 
     constructor(data?: ISearchMediasQuery) {
         if (data) {
@@ -2983,6 +3135,7 @@ export class SearchMediasQuery implements ISearchMediasQuery {
     init(_data?: any) {
         if (_data) {
             this.title = _data["title"];
+            this.mediaType = _data["mediaType"];
         }
     }
 
@@ -2996,12 +3149,14 @@ export class SearchMediasQuery implements ISearchMediasQuery {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["title"] = this.title;
+        data["mediaType"] = this.mediaType;
         return data;
     }
 }
 
 export interface ISearchMediasQuery {
     title?: string;
+    mediaType?: MediaType;
 }
 
 export class UpdateGenresCommand implements IUpdateGenresCommand {

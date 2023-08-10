@@ -26,6 +26,6 @@ public class UpdateActorCommandHandler : IRequestHandler<UpdateActorCommand>
             PhotoLink = null
         };
 
-        await _actorService.Update(actor, request.PhotoFile, cancellationToken);
+        await _actorService.Update(actor, request.PhotoFile, request.DeletePhoto, cancellationToken);
     }
 }

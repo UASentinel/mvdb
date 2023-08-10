@@ -26,6 +26,6 @@ public class UpdateDirectorCommandHandler : IRequestHandler<UpdateDirectorComman
             PhotoLink = null
         };
 
-        await _directorService.Update(director, request.PhotoFile, cancellationToken);
+        await _directorService.Update(director, request.PhotoFile, request.DeletePhoto, cancellationToken);
     }
 }

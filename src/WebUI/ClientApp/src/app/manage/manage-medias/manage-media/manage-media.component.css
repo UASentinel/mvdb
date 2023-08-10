@@ -61,7 +61,18 @@ table {
 
 .badge {
   font-size: 18px;
-  margin-top: 5px;
+  margin: 5px 0;
+}
+
+.div-genres {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.badge-light {
+  font-size: 15px;
+  margin: 5px 5px 0 0;
 }
 
 @media (max-width: 1100px) {

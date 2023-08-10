@@ -48,6 +48,11 @@ public class GetMediasCommandHandler : IRequestHandler<GetMediasQuery, ICollecti
 
             mediaDto.Rating = _mediaService.CountRating(media);
 
+            mediaDto.SetGenres(media.MediaGenres);
+
+            if (mediaDto.ReleaseDate == null)
+                mediaDto.ReleaseDate = DateTime.MinValue;
+
             mediaDtos.Add(mediaDto);
         }
 

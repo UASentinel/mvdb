@@ -12,6 +12,7 @@ using MvDb.Application.Actions.Genres.DataTransferObjects;
 using MvDb.Application.Actions.Actors.Commands.Update;
 using MvDb.Application.Actions.Episodes.Commands.Create;
 using MvDb.Application.Actions.Episodes.Commands.Update;
+using MvDb.Application.Actions.Medias.DataTransferObjects;
 
 namespace MvDb.WebUI.Controllers;
 

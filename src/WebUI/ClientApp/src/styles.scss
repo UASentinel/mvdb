@@ -8,7 +8,7 @@
 :root {
   --background-dark: #080808;
   --grey-dark: #1D1D1D;
-  --backgroung-dark-alpha: #00000059;
+  --backgroung-dark-alpha: #0000008E;
   --navbar-dark: #111111;
   --primary-main: #5E0094;
   --primary-secondary: #AE37FF;
@@ -67,6 +67,14 @@ a {
   border-width: 0px;
 }
 
+.btn-outline-light:not(:checked) {
+  color: white;
+}
+
+.btn-outline-light:checked::before{
+  color: black;
+}
+
 .btn-primary:hover {
   background-color: var(--primary-secondary);
 }
@@ -104,6 +112,11 @@ a {
 
 .body-content {
   padding: 0px;
+}
+
+.badge-light {
+  background-color: transparent;
+  border: 1px solid white;
 }
 
 .badge-success {

@@ -6,6 +6,7 @@ import {ManageMediasComponent} from "./manage/manage-medias/manage-medias.compon
 import {ManageComponent} from "./manage/manage.component";
 import {ManageMediaComponent} from "./manage/manage-medias/manage-media/manage-media.component";
 import {CreateMediaComponent} from "./manage/manage-medias/create-media/create-media.component";
+import {UpdateMediaComponent} from "./manage/manage-medias/update-media/update-media.component";
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -14,6 +15,7 @@ export const routes: Routes = [
       { path: 'medias', children: [
           { path: '', component: ManageMediasComponent },
           { path: 'create', component: CreateMediaComponent },
+          { path: 'update/:id', component: UpdateMediaComponent },
           { path: ':id', component: ManageMediaComponent },
         ] }
     ] }

@@ -1,0 +1,84 @@
+<h1 class="mt-5 text-light">Update media</h1>
+
+<div *ngIf="updateForm" class="div-main mt-5">
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-update" enctype="multipart/form-data">
+    <h4>Update</h4>
+
+    <div class="div-main flex-wrap">
+      <div class="form-part-left">
+        <div>
+          <label class="form-label text-dark" for="title">Title</label>
+          <input class="form-control" type="text" id="title" formControlName="title" placeholder="Enter title"/>
+        </div>
+        <div>
+          <label class="form-label text-dark" for="trailerLink">Trailer Link</label>
+          <input class="form-control" type="text" id="trailerLink" formControlName="trailerLink" placeholder="Enter trailer link"/>
+        </div>
+        <div *ngIf="currentMediaType === 'Movie'">
+          <label class="form-label text-dark" for="duration">Duration</label>
+          <input class="form-control" type="number" id="duration" formControlName="duration"/>
+        </div>
+        <div *ngIf="currentMediaType === 'Movie'">
+          <label class="form-label text-dark" for="releaseDate">Release Date</label>
+          <input class="form-control" type="date" id="releaseDate" formControlName="releaseDate" />
+        </div>
+        <div>
+          <label class="form-label text-dark" for="mediaType">Media Type</label>
+          <select class="form-select" id="mediaType" formControlName="mediaType" (change)="onMediaTypeChange()">
+            <option *ngFor="let mediaType of mediaTypes">{{MediaType[mediaType]}}</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label text-dark" for="ageRating">Age Rating</label>
+          <select class="form-select" id="ageRating" formControlName="ageRating">
+<!--            <option value="">None</option>-->
+            <option *ngFor="let ageRating of ageRatings">{{ageRating.name}}</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label text-dark" for="poster">Poster</label>
+          <input #file (change)="uploadFile(file.files)" class="form-control" type="file" id="poster" formControlName="poster" />
+        </div>
+        <div class="mt-3">
+          <input type="checkbox" class="form-check-input" id="deletePoster" formControlName="deletePoster" />
+          <label class="form-check-label text-danger" for="deletePoster">Delete poster</label>
+        </div>
+      </div>
+
+      <div class="form-part-right">
+        <div>
+          <label class="form-label text-dark" for="description">Description</label>
+          <textarea rows="5" class="form-control" id="description" formControlName="description" placeholder="Enter description"></textarea>
+        </div>
+        <div formArrayName="genres">
+          <label class="form-label text-dark">Genres</label><br>
+
+          <button type="button" class="btn btn-sm btn-primary btn-show" (click)="showGenres()">
+            <i *ngIf="!showGenresFlag" class="bi bi-caret-down"></i>
+            <i *ngIf="showGenresFlag" class="bi bi-caret-up"></i>
+            &nbsp;Show
+          </button>
+
+          <div class="{{showGenresClass}}">
+            <div class="div-main div-genre" *ngFor="let genre of updateForm.get('genres')['controls']; let i = index" [formGroupName]="i">
+              <select class="form-select" formControlName="name" [value]="genre.name">
+                <option *ngFor="let genre of genres">{{genre.name}}</option>
+              </select>
+              <button type="button" class="btn btn-warning btn-sm" (click)="genreUp(i)"><i class="bi bi-chevron-up"></i></button>
+              <button type="button" class="btn btn-warning btn-sm" (click)="genreDown(i)"><i class="bi bi-chevron-down"></i></button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="removeGenre(i)"><i class="bi bi-trash"></i></button>
+            </div>
+          </div>
+
+        </div>
+        <button type="button" class="btn btn-success" (click)="addGenre()">
+          <i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Add Genre
+        </button>
+      </div>
+    </div>
+
+    <div class="div-button">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>

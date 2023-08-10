@@ -12,4 +12,5 @@ public record UpdateDirectorCommand : IRequest
     public DateTime DateOfBirth { get; set; }
     public string Biography { get; set; }
     public IFormFile PhotoFile { get; set; }
+    public bool DeletePhoto { get; set; }
 }

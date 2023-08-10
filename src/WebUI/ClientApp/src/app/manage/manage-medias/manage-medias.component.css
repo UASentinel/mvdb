@@ -4,7 +4,7 @@ label {
 
 .media-container {
   width: 200px;
-  height: 390px;
+  height: fit-content;
   background-color: var(--grey-dark);
   transition-duration: 0.5s;
   margin: 0px 30px 30px 0px;
@@ -32,6 +32,7 @@ label {
   border-radius: 10px;
   width: 400px;
   padding: 20px;
+  margin-bottom: 20px;
 }
 
 .div-button {
@@ -44,5 +45,73 @@ label {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap;
   margin: 50px 0;
+}
+
+.badge-light {
+  font-size: 11px;
+  margin: 0 5px 3px 0;
+}
+
+.div-medias {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.div-search-left, .div-search-right {
+  width: 50%;
+}
+
+.div-search-left {
+  padding-right: 5px;
+}
+
+.div-search-right {
+  padding-left: 5px;
+}
+
+.page-selector {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+
+.page-number {
+  margin: 0 20px;
+}
+
+.order-by {
+  margin: 0 20px 20px 0;
+}
+
+.form-sort {
+  margin-bottom: 30px;
+}
+
+
+@media (max-width: 767px) {
+  .div-medias {
+    justify-content: center;
+  }
+
+  .media-container {
+    margin: 0 30px 30px 30px;
+  }
+
+  .div-search-left, .div-search-right {
+    width: 100%;
+  }
+
+  .div-search-left {
+    padding-right: 0;
+  }
+
+  .div-search-right {
+    padding-left: 0;
+    margin-top: 20px;
+  }
 }

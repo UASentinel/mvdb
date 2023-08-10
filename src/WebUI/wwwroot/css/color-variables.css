@@ -1,9 +1,16 @@
 ﻿:root {
     --background-dark: #080808;
-    --backgroung-dark-alpha: #00000059;
+    --grey-dark: #1D1D1D;
+    --backgroung-dark-alpha: #0000008E;
     --navbar-dark: #111111;
     --primary-main: #5E0094;
     --primary-secondary: #AE37FF;
     --warning-main: #EB5300;
     --warning-secondary: #EE8247;
+    --light-main: #D06BE8;
+    --light-secondary: #D79BEB;
+    --success-main: #03A67A;
+    --success-secondary: #04D19A;
+    --danger-main: #EB0149;
+    --danger-secondary: #EF4859;
 }

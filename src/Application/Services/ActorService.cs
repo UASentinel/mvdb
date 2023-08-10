@@ -37,9 +37,9 @@ public class ActorService : IActorService
         return await _actorRepository.Update(actor, cancellationToken);
     }
 
-    public async Task<bool> Update(Actor actor, IFormFile photoFile, CancellationToken cancellationToken)
+    public async Task<bool> Update(Actor actor, IFormFile photoFile, bool deletePhoto, CancellationToken cancellationToken)
     {
-        if (photoFile == null)
+        if (deletePhoto)
         {
             actor.PhotoLink = null;
             await _imageService.DeleteActorPhoto(actor.Id);

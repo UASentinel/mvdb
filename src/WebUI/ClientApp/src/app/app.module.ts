@@ -17,6 +17,7 @@ import {ManageComponent} from "./manage/manage.component";
 import {ManageMediasComponent} from "./manage/manage-medias/manage-medias.component";
 import {ManageMediaComponent} from "./manage/manage-medias/manage-media/manage-media.component";
 import {CreateMediaComponent} from "./manage/manage-medias/create-media/create-media.component";
+import {UpdateMediaComponent} from "./manage/manage-medias/update-media/update-media.component";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {CreateMediaComponent} from "./manage/manage-medias/create-media/create-m
     ManageMediasComponent,
     CreateMediaComponent,
     ManageMediaComponent,
+    UpdateMediaComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

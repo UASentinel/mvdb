@@ -25,6 +25,6 @@ public class UpdateSeasonCommandHandler : IRequestHandler<UpdateSeasonCommand>
             TrailerLink = request.TrailerLink
         };
 
-        await _seasonService.Update(season, request.PosterFile, cancellationToken);
+        await _seasonService.Update(season, request.PosterFile, request.DeletePoster, cancellationToken);
     }
 }

@@ -10,4 +10,5 @@ public interface IMediaRepository : IRepository<Media>
     Task<bool> AddGenre(MediaGenre mediaGenre, CancellationToken cancellationToken);
     Task<bool> UpdateGenre(MediaGenre mediaGenre, CancellationToken cancellationToken);
     Task<bool> DeleteGenre(int mediaId, int genreId, CancellationToken cancellationToken);
+    Task<bool> RestoreGenresOrder(int mediaId, CancellationToken cancellationToken);
 }

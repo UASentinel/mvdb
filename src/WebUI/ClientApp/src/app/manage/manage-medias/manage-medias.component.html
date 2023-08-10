@@ -1,11 +1,27 @@
 <h1 class="mt-5 text-light">Manage medias</h1>
 
 <div class="div-manage">
-  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="form-search">
+  <form [formGroup]="searchForm" (ngSubmit)="onSearchSubmit()" class="form-search">
     <h4>Search</h4>
 
-    <label for="title" class="form-label text-dark">Title</label>
-    <input type="text" class="form-control" id="title" placeholder="Enter title" formControlName="title">
+    <div class="div-main flex-wrap">
+      <div class="div-search-left">
+        <div>
+          <label for="title" class="form-label text-dark">Title</label>
+          <input type="text" class="form-control" id="title" placeholder="Enter title" formControlName="title">
+        </div>
+      </div>
+
+      <div class="div-search-right">
+        <div>
+          <label class="form-label text-dark" for="mediaType">Media Type</label>
+          <select class="form-select" id="mediaType" formControlName="mediaType">
+            <option *ngFor="let mediaType of mediaTypes">{{MediaType[mediaType]}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
     <div class="div-button">
       <button type="submit" class="btn btn-primary">Search</button>
     </div>
@@ -16,13 +32,54 @@
   </button>
 </div>
 
-<div class="div-main flex-wrap">
-  <a routerLink="{{media.id}}" *ngFor="let media of medias" class="media-container">
+<form [formGroup]="sortForm" class="div-main flex-wrap form-sort">
+  <div class="order-by">
+    <h5 class="text-light">Sort by</h5>
+    <div class="btn-group" role="group">
+      <input #title (click)="onOrderByChange(title)" type="radio" class="btn-check" value="title" name="orderBy" id="radioOrderBy1" formControlName="orderBy">
+      <label for="radioOrderBy1" class="btn btn-outline-light">Title</label>
+      <input #duration (click)="onOrderByChange(duration)" type="radio" class="btn-check" value="duration" name="orderBy" id="radioOrderBy2" formControlName="orderBy">
+      <label for="radioOrderBy2" class="btn btn-outline-light">Duration</label>
+      <input #releaseDate (click)="onOrderByChange(releaseDate)" type="radio" class="btn-check" value="releaseDate" name="orderBy" id="radioOrderBy3" formControlName="orderBy">
+      <label for="radioOrderBy3" class="btn btn-outline-light">Release date</label>
+    </div>
+  </div>
+
+  <div>
+    <h5 class="text-light">Order</h5>
+    <div class="btn-group" role="group">
+      <input #asc (click)="onOrderChange(asc)" type="radio" class="btn-check" value="asc" name="order" id="radioOrder1" formControlName="order">
+      <label for="radioOrder1" class="btn btn-outline-light">Asc</label>
+      <input #desc (click)="onOrderChange(desc)" type="radio" class="btn-check" value="desc" name="order" id="radioOrder2" formControlName="order">
+      <label for="radioOrder2" class="btn btn-outline-light">Desc</label>
+    </div>
+  </div>
+</form>
+
+<div class="div-medias">
+  <a routerLink="{{media.id}}" *ngFor="let media of selectedMedias" class="media-container">
     <img src="{{media.posterLink}}" alt="Poster" class="media-poster">
     <div class="div-media-info">
       <h5 *ngIf="media.rating === 0" class="text-light"><i class="bi bi-star-fill rating-icon"></i>-</h5>
       <h5 *ngIf="media.rating !== 0" class="text-light"><i class="bi bi-star-fill rating-icon"></i>{{media.rating}}</h5>
       <h5 class="text-light">{{media.title}}</h5>
+      <div *ngIf="media.genres" class="div-genres">
+        <span *ngFor="let genre of media.genres" class="badge rounded-pill text-light badge-light">{{genre.name}}</span>
+      </div>
     </div>
   </a>
+</div>
+
+<div class="div-main justify-content-center">
+  <div class="page-selector">
+    <button class="btn btn-sm btn-outline-light" (click)="previousPage()">
+      <i class="bi bi-chevron-left"></i>
+    </button>
+
+    <h4 class="text-light page-number">{{currentPage}}</h4>
+
+    <button class="btn btn-sm btn-outline-light" (click)="nextPage()">
+      <i class="bi bi-chevron-right"></i>
+    </button>
+  </div>
 </div>

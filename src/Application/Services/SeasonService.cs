@@ -38,9 +38,9 @@ public class SeasonService : ISeasonService
         return await _seasonRepository.Update(season, cancellationToken);
     }
 
-    public async Task<bool> Update(Season season, IFormFile posterFile, CancellationToken cancellationToken)
+    public async Task<bool> Update(Season season, IFormFile posterFile, bool deletePoster, CancellationToken cancellationToken)
     {
-        if (posterFile == null)
+        if (deletePoster)
         {
             season.PosterLink = null;
             var mediaId = await GetMediaId(season.Id);

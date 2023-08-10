@@ -28,6 +28,6 @@ public class UpdateMediaCommandHandler : IRequestHandler<UpdateMediaCommand>
             ReleaseDate = request.ReleaseDate
         };
 
-        await _mediaService.Update(media, request.PosterFile, cancellationToken);
+        await _mediaService.Update(media, request.PosterFile, request.DeletePoster, cancellationToken);
     }
 }

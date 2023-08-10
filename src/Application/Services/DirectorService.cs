@@ -37,9 +37,9 @@ public class DirectorService : IDirectorService
         return await _directorRepository.Update(director, cancellationToken);
     }
 
-    public async Task<bool> Update(Director director, IFormFile photoFile, CancellationToken cancellationToken)
+    public async Task<bool> Update(Director director, IFormFile photoFile, bool deletePhoto, CancellationToken cancellationToken)
     {
-        if (photoFile == null)
+        if (deletePhoto)
         {
             director.PhotoLink = null;
             await _imageService.DeleteDirectorPhoto(director.Id);
