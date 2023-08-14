@@ -8,7 +8,7 @@ using MvDb.Application.Actions.AgeRatings.DataTransferObjects;
 using MvDb.Domain.Entities;
 using MvDb.Domain.Enums;
 
-namespace MvDb.Application.Actions.Medias.DataTransferObjects;
+namespace MvDb.Application.Actions.Medias.DataTransferObjects.Objects;
 public class MediaDto
 {
     public int Id { get; set; }

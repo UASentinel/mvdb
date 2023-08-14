@@ -5,12 +5,14 @@ using MediatR;
 using MvDb.Application.Common.Models;
 using MvDb.Application.Actions.Medias.Commands.Create;
 using MvDb.Application.Actions.Medias.Commands.AddGenres;
-using MvDb.Application.Actions.Medias.DataTransferObjects;
 using MvDb.Application.Actions.Medias.Queries.Get;
 using MvDb.Application.Actions.Medias.Queries.GetById;
 using MvDb.Application.Actions.Medias.Commands.Update;
 using MvDb.Application.Actions.Medias.Commands.Delete;
 using MvDb.Application.Actions.Medias.Queries.Search;
+using MvDb.Application.Actions.Medias.Commands.UpdateDirectors;
+using MvDb.Application.Actions.Medias.DataTransferObjects.Objects;
+using MvDb.Application.Actions.Medias.Commands.UpdateActors;
 
 namespace MvDb.WebUI.Controllers;
 
@@ -64,6 +66,34 @@ public class MediasController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesDefaultResponseType]
     public async Task<IActionResult> UpdateGenres(int id, UpdateGenresCommand command)
+    {
+        if (id != command.MediaId)
+            return BadRequest();
+
+        await Mediator.Send(command);
+
+        return NoContent();
+    }
+
+    [HttpPut("Directors/Update/{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesDefaultResponseType]
+    public async Task<IActionResult> UpdateDirectors(int id, UpdateDirectorsCommand command)
+    {
+        if (id != command.MediaId)
+            return BadRequest();
+
+        await Mediator.Send(command);
+
+        return NoContent();
+    }
+
+    [HttpPut("Actors/Update/{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesDefaultResponseType]
+    public async Task<IActionResult> UpdateActors(int id, UpdateActorsCommand command)
     {
         if (id != command.MediaId)
             return BadRequest();

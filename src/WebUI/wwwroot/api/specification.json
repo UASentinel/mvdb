@@ -227,6 +227,41 @@
         }
       }
     },
+    "/api/Actors/Search": {
+      "post": {
+        "tags": [
+          "Actors"
+        ],
+        "operationId": "Actors_Search",
+        "requestBody": {
+          "x-name": "query",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchActorsQuery"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ActorDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/AgeRatings": {
       "get": {
         "tags": [
@@ -615,6 +650,41 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Directors/Search": {
+      "post": {
+        "tags": [
+          "Directors"
+        ],
+        "operationId": "Directors_Search",
+        "requestBody": {
+          "x-name": "query",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchDirectorsQuery"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DirectorDto"
+                  }
                 }
               }
             }
@@ -1305,6 +1375,120 @@
         }
       }
     },
+    "/api/Medias/Directors/Update/{id}": {
+      "put": {
+        "tags": [
+          "Medias"
+        ],
+        "operationId": "Medias_UpdateDirectors",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDirectorsCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Medias/Actors/Update/{id}": {
+      "put": {
+        "tags": [
+          "Medias"
+        ],
+        "operationId": "Medias_UpdateActors",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateActorsCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Seasons": {
       "get": {
         "tags": [
@@ -1566,6 +1750,15 @@
           }
         }
       },
+      "SearchActorsQuery": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
       "ProblemDetails": {
         "type": "object",
         "additionalProperties": {
@@ -1686,6 +1879,15 @@
           "photoLink": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "SearchDirectorsQuery": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
           }
         }
       },
@@ -2015,6 +2217,66 @@
         "additionalProperties": false,
         "properties": {
           "genreId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "order": {
+            "type": "integer",
+            "format": "byte"
+          }
+        }
+      },
+      "UpdateDirectorsCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "mediaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mediaDirectorDtos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MediaDirectorDto"
+            }
+          }
+        }
+      },
+      "MediaDirectorDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "directorId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "order": {
+            "type": "integer",
+            "format": "byte"
+          }
+        }
+      },
+      "UpdateActorsCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "mediaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mediaActorDtos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MediaActorDto"
+            }
+          }
+        }
+      },
+      "MediaActorDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "actorId": {
             "type": "integer",
             "format": "int32"
           },

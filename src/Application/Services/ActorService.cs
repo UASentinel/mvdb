@@ -1,6 +1,8 @@
 ﻿using System.Security.AccessControl;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using MvDb.Application.Actions.Actors.Queries.Search;
+using MvDb.Application.Actions.Directors.Queries.Search;
 using MvDb.Application.Common.Interfaces;
 using MvDb.Application.Common.Interfaces.EntityServices;
 using MvDb.Application.Common.Interfaces.Repositories;
@@ -13,10 +15,12 @@ public class ActorService : IActorService
 {
     private readonly IActorRepository _actorRepository;
     private readonly IImageService _imageService;
-    public ActorService(IActorRepository actorRepository, IImageService imageService)
+    private readonly ISearchService _searchService;
+    public ActorService(IActorRepository actorRepository, IImageService imageService, ISearchService searchService)
     {
         _actorRepository = actorRepository;
         _imageService = imageService;
+        _searchService = searchService;
     }
     public ICollection<Actor> Get()
     {
@@ -57,8 +61,25 @@ public class ActorService : IActorService
         return await _actorRepository.Delete(id, cancellationToken);
     }
 
-    public ICollection<Actor> Search(object searchPattern)
+    public ICollection<Actor> Search(SearchActorsQuery searchPattern)
     {
-        throw new NotImplementedException();
+        var directors = _actorRepository.Get();
+
+        return directors.Where(d => FilterActor(d, searchPattern)).ToList();
+    }
+
+    private bool FilterActor(Actor actor, SearchActorsQuery searchPattern)
+    {
+        if (searchPattern.Name != null && searchPattern.Name != String.Empty)
+        {
+            var flag = _searchService.CheckKeyWords(actor.FirstName, searchPattern.Name);
+            if (!flag)
+                flag = flag || _searchService.CheckKeyWords(actor.LastName, searchPattern.Name);
+
+            if (!flag)
+                return flag;
+        }
+
+        return true;
     }
 }

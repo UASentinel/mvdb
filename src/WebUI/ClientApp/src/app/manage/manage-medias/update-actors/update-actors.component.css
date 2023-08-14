@@ -1,0 +1,67 @@
+.form-search {
+  background-color: white;
+  border-radius: 10px;
+  width: 400px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.div-manage {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin: 50px 0;
+}
+
+.div-button {
+  text-align: right;
+  margin-top: 15px;
+}
+
+.actors-container-main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.actors-container {
+  width: 45%;
+  height: fit-content;
+  background-color: white;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  padding: 20px 20px 10px 20px;
+}
+
+.div-actor {
+  border: 1px solid grey;
+  width: 100%;
+  height: fit-content;
+  border-radius: 5px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.btn-sm {
+  margin-left: 5px;
+  height: fit-content;
+}
+
+.div-buttons {
+  display: flex;
+  flex-wrap: nowrap;
+  width: fit-content;
+}
+
+@media (max-width: 767px) {
+  .actors-container {
+    width: 100%;
+  }
+}

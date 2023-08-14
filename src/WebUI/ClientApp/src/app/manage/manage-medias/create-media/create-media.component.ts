@@ -138,7 +138,6 @@ export class CreateMediaComponent implements OnInit{
 
   updateGenres(id: number): void {
     if(id !== 0){
-      console.log('start');
       const command = {
         mediaId: id,
         mediaGenreDtos: []
@@ -150,9 +149,6 @@ export class CreateMediaComponent implements OnInit{
       for(let i = 0; i < mediaGenres.length; i++){
         const genreIndex = this.genres.findIndex(g => g.name === mediaGenres[i].name);
         const genreId = this.genres[genreIndex].id;
-
-        console.log(genreIndex);
-        console.log(genreId);
 
         const mediaGenreDto = {
           genreId: genreId,

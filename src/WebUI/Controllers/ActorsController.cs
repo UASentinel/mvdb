@@ -9,8 +9,7 @@ using MvDb.Application.Actions.Actors.Commands.Update;
 using MvDb.Application.Actions.Actors.DataTransferObjects;
 using MvDb.Application.Actions.Actors.Queries.Get;
 using MvDb.Application.Actions.Actors.Queries.GetById;
-using MvDb.Application.Actions.Directors.Commands.Create;
-using MvDb.Application.Actions.Directors.Commands.Update;
+using MvDb.Application.Actions.Actors.Queries.Search;
 
 namespace MvDb.WebUI.Controllers;
 
@@ -29,6 +28,14 @@ public class ActorsController : ApiControllerBase
     public async Task<ActionResult<ActorDto>> Get(int id)
     {
         return await Mediator.Send(new GetActorByIdQuery(id));
+    }
+
+    [HttpPost("Search")]
+    public async Task<ActionResult<ICollection<ActorDto>>> Search(SearchActorsQuery query)
+    {
+        var medias = await Mediator.Send(query);
+
+        return Ok(medias);
     }
 
     [HttpPost]

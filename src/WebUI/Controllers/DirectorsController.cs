@@ -9,6 +9,10 @@ using MvDb.Application.Actions.Directors.DataTransferObjects;
 using MvDb.Application.Actions.Directors.Queries.Get;
 using MvDb.Application.Actions.Directors.Queries.GetById;
 using MvDb.Application.Actions.Directors.Commands.Delete;
+using MvDb.Application.Actions.Medias.DataTransferObjects;
+using MvDb.Application.Actions.Medias.Queries.Search;
+using MvDb.Application.Actions.Directors.Queries.Search;
+using MvDb.Application.Actions.Actors.Queries.Search;
 
 namespace MvDb.WebUI.Controllers;
 
@@ -27,6 +31,14 @@ public class DirectorsController : ApiControllerBase
     public async Task<ActionResult<DirectorDto>> Get(int id)
     {
         return await Mediator.Send(new GetDirectorByIdQuery(id));
+    }
+
+    [HttpPost("Search")]
+    public async Task<ActionResult<ICollection<DirectorDto>>> Search(SearchDirectorsQuery query)
+    {
+        var medias = await Mediator.Send(query);
+
+        return Ok(medias);
     }
 
     [HttpPost]

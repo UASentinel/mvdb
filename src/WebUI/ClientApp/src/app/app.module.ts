@@ -18,6 +18,8 @@ import {ManageMediasComponent} from "./manage/manage-medias/manage-medias.compon
 import {ManageMediaComponent} from "./manage/manage-medias/manage-media/manage-media.component";
 import {CreateMediaComponent} from "./manage/manage-medias/create-media/create-media.component";
 import {UpdateMediaComponent} from "./manage/manage-medias/update-media/update-media.component";
+import {UpdateDirectorsComponent} from "./manage/manage-medias/update-directors/update-directors.component";
+import {UpdateActorsComponent} from "./manage/manage-medias/update-actors/update-actors.component";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import {UpdateMediaComponent} from "./manage/manage-medias/update-media/update-m
     ManageMediasComponent,
     CreateMediaComponent,
     ManageMediaComponent,
-    UpdateMediaComponent
+    UpdateMediaComponent,
+    UpdateDirectorsComponent,
+    UpdateActorsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

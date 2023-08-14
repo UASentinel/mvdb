@@ -5,6 +5,7 @@ using FluentValidation;
 using MediatR;
 using MvDb.Application.Common.Interfaces.EntityServices;
 using MvDb.Application.Services;
+using MvDb.Application.Common.Interfaces;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -30,6 +31,8 @@ public static class ConfigureServices
         services.AddScoped<IEpisodeService, EpisodeService>();
         services.AddScoped<ISeasonService, SeasonService>();
         services.AddScoped<IMediaService, MediaService>();
+
+        services.AddScoped<ISearchService, SearchService>();
 
         return services;
     }

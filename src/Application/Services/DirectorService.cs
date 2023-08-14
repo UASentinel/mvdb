@@ -1,11 +1,15 @@
 ﻿using System.Security.AccessControl;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using MvDb.Application.Actions.Actors.Queries.Search;
+using MvDb.Application.Actions.Directors.Queries.Search;
+using MvDb.Application.Actions.Medias.Queries.Search;
 using MvDb.Application.Common.Interfaces;
 using MvDb.Application.Common.Interfaces.EntityServices;
 using MvDb.Application.Common.Interfaces.Repositories;
 using MvDb.Application.Common.Models;
 using MvDb.Domain.Entities;
+using MvDb.Domain.Enums;
 
 namespace MvDb.Application.Services;
 
@@ -13,10 +17,12 @@ public class DirectorService : IDirectorService
 {
     private readonly IDirectorRepository _directorRepository;
     private readonly IImageService _imageService;
-    public DirectorService(IDirectorRepository directorRepository, IImageService imageService)
+    private readonly ISearchService _searchService;
+    public DirectorService(IDirectorRepository directorRepository, IImageService imageService, ISearchService searchService)
     {
         _directorRepository = directorRepository;
         _imageService = imageService;
+        _searchService = searchService;
     }
     public ICollection<Director> Get()
     {
@@ -57,8 +63,25 @@ public class DirectorService : IDirectorService
         return await _directorRepository.Delete(id, cancellationToken);
     }
 
-    public ICollection<Director> Search(object searchPattern)
+    public ICollection<Director> Search(SearchDirectorsQuery searchPattern)
     {
-        throw new NotImplementedException();
+        var directors = _directorRepository.Get();
+
+        return directors.Where(d => FilterDirector(d, searchPattern)).ToList();
+    }
+
+    private bool FilterDirector(Director director, SearchDirectorsQuery searchPattern)
+    {
+        if (searchPattern.Name != null && searchPattern.Name != String.Empty)
+        {
+            var flag = _searchService.CheckKeyWords(director.FirstName, searchPattern.Name);
+            if (!flag)
+                flag = flag || _searchService.CheckKeyWords(director.LastName, searchPattern.Name);
+
+            if (!flag)
+                return flag;
+        }
+
+        return true;
     }
 }

@@ -7,6 +7,8 @@ import {ManageComponent} from "./manage/manage.component";
 import {ManageMediaComponent} from "./manage/manage-medias/manage-media/manage-media.component";
 import {CreateMediaComponent} from "./manage/manage-medias/create-media/create-media.component";
 import {UpdateMediaComponent} from "./manage/manage-medias/update-media/update-media.component";
+import {UpdateDirectorsComponent} from "./manage/manage-medias/update-directors/update-directors.component";
+import {UpdateActorsComponent} from "./manage/manage-medias/update-actors/update-actors.component";
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -15,8 +17,12 @@ export const routes: Routes = [
       { path: 'medias', children: [
           { path: '', component: ManageMediasComponent },
           { path: 'create', component: CreateMediaComponent },
-          { path: 'update/:id', component: UpdateMediaComponent },
           { path: ':id', component: ManageMediaComponent },
+          { path: 'update', children: [
+              { path: ':id', component: UpdateMediaComponent },
+              { path: 'directors/:id', component: UpdateDirectorsComponent },
+              { path: 'actors/:id', component: UpdateActorsComponent }
+            ] }
         ] }
     ] }
 ];

@@ -149,4 +149,114 @@ public class MediaRepository : IMediaRepository
 
         return true;
     }
+
+    public ICollection<MediaDirector> GetMediaDirectors(int mediaId)
+    {
+        return _applicationDbContext.MediaDirectors.Include(m => m.Director).Where(m => m.MediaId == mediaId).ToList();
+    }
+
+    public async Task<bool> AddDirector(MediaDirector mediaDirector, CancellationToken cancellationToken)
+    {
+        _applicationDbContext.MediaDirectors.Add(mediaDirector);
+        var result = await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+        return result > 0 ? true : false;
+    }
+
+    public async Task<bool> UpdateDirector(MediaDirector mediaDirector, CancellationToken cancellationToken)
+    {
+        var dbMediaDirector = await _applicationDbContext.MediaDirectors.FirstOrDefaultAsync(m => m.MediaId == mediaDirector.MediaId && m.DirectorId == mediaDirector.DirectorId);
+        if (dbMediaDirector == null)
+            return false;
+
+        dbMediaDirector.MediaId = mediaDirector.MediaId;
+        dbMediaDirector.DirectorId = mediaDirector.DirectorId;
+        dbMediaDirector.Order = mediaDirector.Order;
+
+        var result = await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+        return result > 0 ? true : false;
+    }
+
+    public async Task<bool> DeleteDirector(int mediaId, int directorId, CancellationToken cancellationToken)
+    {
+        var mediaDirector = _applicationDbContext.MediaDirectors.FirstOrDefault(m => m.MediaId == mediaId && m.DirectorId == directorId);
+        if (mediaDirector == null)
+            return false;
+
+        _applicationDbContext.MediaDirectors.Remove(mediaDirector);
+        var result = await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+        return result > 0 ? true : false;
+    }
+
+    public async Task<bool> RestoreDirectorsOrder(int mediaId, CancellationToken cancellationToken)
+    {
+        var directors = _applicationDbContext.MediaDirectors
+            .Where(m => m.MediaId == mediaId)
+            .OrderBy(m => m.Order)
+            .ToList();
+
+        for (int i = 0; i < directors.Count; i++)
+            directors[i].Order = (byte)i;
+
+        await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+        return true;
+    }
+
+    public ICollection<MediaActor> GetMediaActors(int mediaId)
+    {
+        return _applicationDbContext.MediaActors.Include(m => m.Actor).Where(m => m.MediaId == mediaId).ToList();
+    }
+
+    public async Task<bool> AddActor(MediaActor mediaActor, CancellationToken cancellationToken)
+    {
+        _applicationDbContext.MediaActors.Add(mediaActor);
+        var result = await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+        return result > 0 ? true : false;
+    }
+
+    public async Task<bool> UpdateActor(MediaActor mediaActor, CancellationToken cancellationToken)
+    {
+        var dbMediaActor = await _applicationDbContext.MediaActors.FirstOrDefaultAsync(m => m.MediaId == mediaActor.MediaId && m.ActorId == mediaActor.ActorId);
+        if (dbMediaActor == null)
+            return false;
+
+        dbMediaActor.MediaId = mediaActor.MediaId;
+        dbMediaActor.ActorId = mediaActor.ActorId;
+        dbMediaActor.Order = mediaActor.Order;
+
+        var result = await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+        return result > 0 ? true : false;
+    }
+
+    public async Task<bool> DeleteActor(int mediaId, int actorId, CancellationToken cancellationToken)
+    {
+        var mediaActor = _applicationDbContext.MediaActors.FirstOrDefault(m => m.MediaId == mediaId && m.ActorId == actorId);
+        if (mediaActor == null)
+            return false;
+
+        _applicationDbContext.MediaActors.Remove(mediaActor);
+        var result = await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+        return result > 0 ? true : false;
+    }
+
+    public async Task<bool> RestoreActorsOrder(int mediaId, CancellationToken cancellationToken)
+    {
+        var actors = _applicationDbContext.MediaActors
+            .Where(m => m.MediaId == mediaId)
+            .OrderBy(m => m.Order)
+            .ToList();
+
+        for (int i = 0; i < actors.Count; i++)
+            actors[i].Order = (byte)i;
+
+        await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+        return true;
+    }
 }

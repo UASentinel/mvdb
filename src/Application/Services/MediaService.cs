@@ -1,6 +1,7 @@
 ﻿using System.Security.AccessControl;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using MvDb.Application.Actions.Directors.Queries.Search;
 using MvDb.Application.Actions.Medias.DataTransferObjects;
 using MvDb.Application.Actions.Medias.Queries.Search;
 using MvDb.Application.Common.Interfaces;
@@ -16,10 +17,12 @@ public class MediaService : IMediaService
 {
     private readonly IMediaRepository _mediaRepository;
     private readonly IImageService _imageService;
-    public MediaService(IMediaRepository mediaRepository, IImageService imageService)
+    private readonly ISearchService _searchService;
+    public MediaService(IMediaRepository mediaRepository, IImageService imageService, ISearchService searchService)
     {
         _mediaRepository = mediaRepository;
         _imageService = imageService;
+        _searchService = searchService;
     }
     public ICollection<Media> Get()
     {
@@ -74,6 +77,7 @@ public class MediaService : IMediaService
             if(mediaGenres.Where(m => m.GenreId == mediaGenre.GenreId).Count() > 1)
             {
                 mediaGenres.Remove(mediaGenre);
+                continue;
             }
 
             if (dbMediaGenres.FirstOrDefault(m => m.GenreId == mediaGenre.GenreId) != null)
@@ -86,6 +90,62 @@ public class MediaService : IMediaService
         {
             if (mediaGenres.FirstOrDefault(m => m.GenreId == dbMediaGenre.GenreId) == null)
                 await _mediaRepository.DeleteGenre(dbMediaGenre.MediaId, dbMediaGenre.GenreId, cancellationToken);
+        }
+
+        await _mediaRepository.RestoreGenresOrder(mediaId, cancellationToken);
+
+        return true;
+    }
+
+    public async Task<bool> UpdateDirectors(int mediaId, ICollection<MediaDirector> mediaDirectors, CancellationToken cancellationToken)
+    {
+        var dbMediaDirectors = _mediaRepository.GetMediaDirectors(mediaId);
+        foreach (var mediaDirector in mediaDirectors)
+        {
+            if (mediaDirectors.Where(m => m.DirectorId == mediaDirector.DirectorId).Count() > 1)
+            {
+                mediaDirectors.Remove(mediaDirector);
+                continue;
+            }
+
+            if (dbMediaDirectors.FirstOrDefault(m => m.DirectorId == mediaDirector.DirectorId) != null)
+                await _mediaRepository.UpdateDirector(mediaDirector, cancellationToken);
+            else
+                await _mediaRepository.AddDirector(mediaDirector, cancellationToken);
+        }
+
+        foreach (var dbMediaDirector in dbMediaDirectors)
+        {
+            if (mediaDirectors.FirstOrDefault(m => m.DirectorId == dbMediaDirector.DirectorId) == null)
+                await _mediaRepository.DeleteDirector(dbMediaDirector.MediaId, dbMediaDirector.DirectorId, cancellationToken);
+        }
+
+        await _mediaRepository.RestoreGenresOrder(mediaId, cancellationToken);
+
+        return true;
+    }
+
+    public async Task<bool> UpdateActors(int mediaId, ICollection<MediaActor> mediaActors, CancellationToken cancellationToken)
+    {
+        var dbMediaActors = _mediaRepository.GetMediaActors(mediaId);
+        foreach (var mediaActor in mediaActors)
+        {
+            if (mediaActors.Where(m => m.ActorId == mediaActor.ActorId).Count() > 1)
+            {
+                mediaActors.Remove(mediaActor);
+                continue;
+            }
+
+            if (dbMediaActors.FirstOrDefault(m => m.ActorId == mediaActor.ActorId) != null)
+                await _mediaRepository.UpdateActor(mediaActor, cancellationToken);
+            else
+                await _mediaRepository.AddActor(mediaActor, cancellationToken);
+        }
+
+        foreach (var dbMediaActor in dbMediaActors)
+        {
+            if (mediaActors.FirstOrDefault(m => m.ActorId == dbMediaActor.ActorId) == null)
+                await _mediaRepository.DeleteActor(dbMediaActor.MediaId, dbMediaActor.ActorId, cancellationToken);
         }
 
         await _mediaRepository.RestoreGenresOrder(mediaId, cancellationToken);
@@ -115,7 +175,7 @@ public class MediaService : IMediaService
     {
         if(searchPattern.Title != null && searchPattern.Title != String.Empty)
         {
-            var flag = CheckKeyWords(media, searchPattern);
+            var flag = _searchService.CheckKeyWords(media.Title, searchPattern.Title);
 
             if (!flag)
                 return flag;
@@ -125,22 +185,5 @@ public class MediaService : IMediaService
             return false;
 
         return true;
-    }
-
-    private bool CheckKeyWords(Media media, SearchMediasQuery searchPattern)
-    {
-        var titleKeyWords = searchPattern.Title.Split(" ").ToList();
-
-        var flag = false;
-        foreach (var titleKeyWord in titleKeyWords)
-        {
-            if (media.Title.ToLower().Contains(titleKeyWord.ToLower()))
-            {
-                flag = true;
-                break;
-            }
-        }
-
-        return flag;
     }
 }

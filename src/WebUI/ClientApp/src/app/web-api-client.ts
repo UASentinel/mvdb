@@ -21,6 +21,7 @@ export interface IActorsClient {
     get(id: number): Observable<ActorDto>;
     update(id: number, actorId: number | undefined, firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined, deletePhoto: boolean | undefined): Observable<void>;
     delete(id: number): Observable<void>;
+    search(query: SearchActorsQuery): Observable<ActorDto[]>;
 }
 
 @Injectable({
@@ -333,6 +334,65 @@ export class ActorsClient implements IActorsClient {
             }));
         }
     }
+
+    search(query: SearchActorsQuery): Observable<ActorDto[]> {
+        let url_ = this.baseUrl + "/api/Actors/Search";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(query);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSearch(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSearch(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<ActorDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<ActorDto[]>;
+        }));
+    }
+
+    protected processSearch(response: HttpResponseBase): Observable<ActorDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(ActorDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
+    }
 }
 
 export interface IAgeRatingsClient {
@@ -631,6 +691,7 @@ export interface IDirectorsClient {
     get(id: number): Observable<DirectorDto>;
     update(id: number, directorId: number | undefined, firstName: string | null | undefined, lastName: string | null | undefined, dateOfBirth: Date | undefined, biography: string | null | undefined, photoFile: FileParameter | null | undefined, deletePhoto: boolean | undefined): Observable<void>;
     delete(id: number): Observable<void>;
+    search(query: SearchDirectorsQuery): Observable<DirectorDto[]>;
 }
 
 @Injectable({
@@ -942,6 +1003,65 @@ export class DirectorsClient implements IDirectorsClient {
             return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
             }));
         }
+    }
+
+    search(query: SearchDirectorsQuery): Observable<DirectorDto[]> {
+        let url_ = this.baseUrl + "/api/Directors/Search";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(query);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processSearch(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processSearch(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<DirectorDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<DirectorDto[]>;
+        }));
+    }
+
+    protected processSearch(response: HttpResponseBase): Observable<DirectorDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (Array.isArray(resultData200)) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(DirectorDto.fromJS(item));
+            }
+            else {
+                result200 = <any>null;
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf(null as any);
     }
 }
 
@@ -1533,6 +1653,8 @@ export interface IMediasClient {
     delete(id: number): Observable<void>;
     search(query: SearchMediasQuery): Observable<MediaDto[]>;
     updateGenres(id: number, command: UpdateGenresCommand): Observable<void>;
+    updateDirectors(id: number, command: UpdateDirectorsCommand): Observable<void>;
+    updateActors(id: number, command: UpdateActorsCommand): Observable<void>;
 }
 
 @Injectable({
@@ -1988,6 +2110,126 @@ export class MediasClient implements IMediasClient {
             }));
         }
     }
+
+    updateDirectors(id: number, command: UpdateDirectorsCommand): Observable<void> {
+        let url_ = this.baseUrl + "/api/Medias/Directors/Update/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateDirectors(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateDirectors(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processUpdateDirectors(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ProblemDetails.fromJS(resultData400);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let resultdefault: any = null;
+            let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            resultdefault = ProblemDetails.fromJS(resultDatadefault);
+            return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+
+    updateActors(id: number, command: UpdateActorsCommand): Observable<void> {
+        let url_ = this.baseUrl + "/api/Medias/Actors/Update/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processUpdateActors(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processUpdateActors(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processUpdateActors(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ProblemDetails.fromJS(resultData400);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let resultdefault: any = null;
+            let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            resultdefault = ProblemDetails.fromJS(resultDatadefault);
+            return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
 }
 
 export interface ISeasonsClient {
@@ -2374,6 +2616,42 @@ export interface IActorDto {
     photoLink?: string | undefined;
 }
 
+export class SearchActorsQuery implements ISearchActorsQuery {
+    name?: string;
+
+    constructor(data?: ISearchActorsQuery) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+        }
+    }
+
+    static fromJS(data: any): SearchActorsQuery {
+        data = typeof data === 'object' ? data : {};
+        let result = new SearchActorsQuery();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        return data;
+    }
+}
+
+export interface ISearchActorsQuery {
+    name?: string;
+}
+
 export class ProblemDetails implements IProblemDetails {
     type?: string | undefined;
     title?: string | undefined;
@@ -2620,6 +2898,42 @@ export interface IDirectorDto {
     dateOfBirth?: Date | undefined;
     biography?: string | undefined;
     photoLink?: string | undefined;
+}
+
+export class SearchDirectorsQuery implements ISearchDirectorsQuery {
+    name?: string;
+
+    constructor(data?: ISearchDirectorsQuery) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.name = _data["name"];
+        }
+    }
+
+    static fromJS(data: any): SearchDirectorsQuery {
+        data = typeof data === 'object' ? data : {};
+        let result = new SearchDirectorsQuery();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["name"] = this.name;
+        return data;
+    }
+}
+
+export interface ISearchDirectorsQuery {
+    name?: string;
 }
 
 export class EpisodeDto implements IEpisodeDto {
@@ -3244,6 +3558,182 @@ export class MediaGenreDto implements IMediaGenreDto {
 
 export interface IMediaGenreDto {
     genreId?: number;
+    order?: number;
+}
+
+export class UpdateDirectorsCommand implements IUpdateDirectorsCommand {
+    mediaId?: number;
+    mediaDirectorDtos?: MediaDirectorDto[];
+
+    constructor(data?: IUpdateDirectorsCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.mediaId = _data["mediaId"];
+            if (Array.isArray(_data["mediaDirectorDtos"])) {
+                this.mediaDirectorDtos = [] as any;
+                for (let item of _data["mediaDirectorDtos"])
+                    this.mediaDirectorDtos!.push(MediaDirectorDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): UpdateDirectorsCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateDirectorsCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["mediaId"] = this.mediaId;
+        if (Array.isArray(this.mediaDirectorDtos)) {
+            data["mediaDirectorDtos"] = [];
+            for (let item of this.mediaDirectorDtos)
+                data["mediaDirectorDtos"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IUpdateDirectorsCommand {
+    mediaId?: number;
+    mediaDirectorDtos?: MediaDirectorDto[];
+}
+
+export class MediaDirectorDto implements IMediaDirectorDto {
+    directorId?: number;
+    order?: number;
+
+    constructor(data?: IMediaDirectorDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.directorId = _data["directorId"];
+            this.order = _data["order"];
+        }
+    }
+
+    static fromJS(data: any): MediaDirectorDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new MediaDirectorDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["directorId"] = this.directorId;
+        data["order"] = this.order;
+        return data;
+    }
+}
+
+export interface IMediaDirectorDto {
+    directorId?: number;
+    order?: number;
+}
+
+export class UpdateActorsCommand implements IUpdateActorsCommand {
+    mediaId?: number;
+    mediaActorDtos?: MediaActorDto[];
+
+    constructor(data?: IUpdateActorsCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.mediaId = _data["mediaId"];
+            if (Array.isArray(_data["mediaActorDtos"])) {
+                this.mediaActorDtos = [] as any;
+                for (let item of _data["mediaActorDtos"])
+                    this.mediaActorDtos!.push(MediaActorDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): UpdateActorsCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateActorsCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["mediaId"] = this.mediaId;
+        if (Array.isArray(this.mediaActorDtos)) {
+            data["mediaActorDtos"] = [];
+            for (let item of this.mediaActorDtos)
+                data["mediaActorDtos"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IUpdateActorsCommand {
+    mediaId?: number;
+    mediaActorDtos?: MediaActorDto[];
+}
+
+export class MediaActorDto implements IMediaActorDto {
+    actorId?: number;
+    order?: number;
+
+    constructor(data?: IMediaActorDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.actorId = _data["actorId"];
+            this.order = _data["order"];
+        }
+    }
+
+    static fromJS(data: any): MediaActorDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new MediaActorDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["actorId"] = this.actorId;
+        data["order"] = this.order;
+        return data;
+    }
+}
+
+export interface IMediaActorDto {
+    actorId?: number;
     order?: number;
 }
 
