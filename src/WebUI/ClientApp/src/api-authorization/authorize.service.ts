@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { User, UserManager } from 'oidc-client';
+import {Profile, User, UserManager} from 'oidc-client';
 import { BehaviorSubject, concat, from, Observable } from 'rxjs';
 import { filter, map, mergeMap, take, tap } from 'rxjs/operators';
 import { ApplicationPaths, ApplicationName } from './api-authorization.constants';
+import {AuthClient} from "../app/web-api-client";
 
 export type IAuthenticationResult =
   SuccessAuthenticationResult |
@@ -31,6 +32,7 @@ export enum AuthenticationResultStatus {
 
 export interface IUser {
   name?: string;
+  roles?: string;
 }
 
 @Injectable({
@@ -43,6 +45,11 @@ export class AuthorizeService {
   private popUpDisabled = true;
   private userManager?: UserManager;
   private userSubject: BehaviorSubject<IUser | null> = new BehaviorSubject<IUser | null>(null);
+  public userRolesSubject: BehaviorSubject<string[] | null> = new BehaviorSubject<string[] | null>(null);
+
+  constructor(
+    private authClient: AuthClient
+  ) {}
 
   public isAuthenticated(): Observable<boolean> {
     return this.getUser().pipe(map(u => !!u));
@@ -53,6 +60,25 @@ export class AuthorizeService {
       this.userSubject.pipe(take(1), filter(u => !!u)),
       this.getUserFromStorage().pipe(filter(u => !!u), tap(u => this.userSubject.next(u))),
       this.userSubject.asObservable());
+  }
+
+  public getUserRoles(): Observable<string[] | null> {
+    return this.getUserProfile().pipe(
+      mergeMap(profile => {
+        if (profile) {
+          const userId = profile.sub;
+          return this.authClient.getRoles(userId);
+        }
+        return this.authClient.getRoles(undefined);
+      })
+    );
+  }
+
+  public getUserProfile(): Observable<Profile | null> {
+    return from(this.ensureUserManagerInitialized()).pipe(
+      mergeMap(() => from(this.userManager!.getUser())),
+      map(user => user?.profile || null)
+    );
   }
 
   public getAccessToken(): Observable<string | null> {
@@ -75,6 +101,11 @@ export class AuthorizeService {
     try {
       user = await this.userManager!.signinSilent(this.createArguments());
       this.userSubject.next(user.profile);
+      this.getUserRoles().subscribe(
+        result => {
+          this.userRolesSubject.next(result);
+        }
+      )
       return this.success(state);
     } catch (silentError) {
       // User might not be authenticated, fallback to popup authentication
@@ -86,6 +117,11 @@ export class AuthorizeService {
         }
         user = await this.userManager!.signinPopup(this.createArguments());
         this.userSubject.next(user.profile);
+        this.getUserRoles().subscribe(
+          result => {
+            this.userRolesSubject.next(result);
+          }
+        )
         return this.success(state);
       } catch (popupError: any) {
         if (popupError.message === 'Popup window closed') {
@@ -111,7 +147,17 @@ export class AuthorizeService {
     try {
       await this.ensureUserManagerInitialized();
       const user = await this.userManager!.signinCallback(url);
+
+      if (user && user.profile) {
+        user.profile.role = user.profile.role || null;
+      }
+
       this.userSubject.next(user && user.profile);
+      this.getUserRoles().subscribe(
+        result => {
+          this.userRolesSubject.next(result);
+        }
+      )
       return this.success(user && user.state);
     } catch (error) {
       console.log('There was an error signing in: ', error);

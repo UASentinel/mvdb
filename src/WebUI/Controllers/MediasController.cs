@@ -16,10 +16,11 @@ using MvDb.Application.Actions.Medias.Commands.UpdateActors;
 
 namespace MvDb.WebUI.Controllers;
 
-//[Authorize(Roles = "Administrator")]
+[Authorize(Roles = "Administrator")]
 public class MediasController : ApiControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     public async Task<ActionResult<ICollection<MediaDto>>> Get()
     {
         var medias = await Mediator.Send(new GetMediasQuery());
@@ -28,12 +29,14 @@ public class MediasController : ApiControllerBase
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
     public async Task<ActionResult<MediaDto>> Get(int id)
     {
         return await Mediator.Send(new GetMediaByIdQuery(id));
     }
 
     [HttpPost("Search")]
+    [AllowAnonymous]
     public async Task<ActionResult<ICollection<MediaDto>>> Search(SearchMediasQuery query)
     {
         var medias = await Mediator.Send(query);

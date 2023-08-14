@@ -41,6 +41,7 @@ public class MediaDto
             }
         }
     }
+
     public void SetActors(ICollection<MediaActor> mediaActors)
     {
         Actors ??= new List<ActorOrderDto>();
@@ -62,6 +63,7 @@ public class MediaDto
             }
         }
     }
+
     public void SetDirectors(ICollection<MediaDirector> mediaDirectors)
     {
         Directors ??= new List<DirectorOrderDto>();
@@ -83,4 +85,26 @@ public class MediaDto
             }
         }
     }
+
+    //public void SetSeasons(ICollection<Season> seasons)
+    //{
+    //    Directors ??= new List<DirectorOrderDto>();
+
+    //    foreach (var mediaDirector in mediaDirectors)
+    //    {
+    //        if (mediaDirector.Director != null)
+    //        {
+    //            Directors.Add(new DirectorOrderDto()
+    //            {
+    //                Id = mediaDirector.Director.Id,
+    //                FirstName = mediaDirector.Director.FirstName,
+    //                LastName = mediaDirector.Director.LastName,
+    //                DateOfBirth = mediaDirector.Director.DateOfBirth,
+    //                Biography = mediaDirector.Director.Biography,
+    //                PhotoLink = mediaDirector.Director.PhotoLink,
+    //                Order = mediaDirector.Order
+    //            });
+    //        }
+    //    }
+    //}
 }

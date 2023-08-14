@@ -54,8 +54,21 @@ public static class ConfigureServices
         services.AddTransient<IDateTime, DateTimeService>();
         services.AddTransient<IIdentityService, IdentityService>();
 
-        services.AddAuthentication()
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+            options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+            options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+        })
             .AddIdentityServerJwt();
+
+        //services.AddAuthentication(options =>
+        //{
+        //    options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+        //    options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+        //    options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+        //})
+        //    ;
 
         services.AddAuthorization(options =>
             options.AddPolicy("CanPurge", policy => policy.RequireRole("Administrator")));

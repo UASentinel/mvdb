@@ -43,6 +43,8 @@ public class MediaRepository : IMediaRepository
             .ThenInclude(m => m.Director)
             .Include(m => m.MediaGenres)
             .ThenInclude(m => m.Genre)
+            .Include(m => m.Seasons)
+            .ThenInclude(s => s.Episodes)
             .FirstOrDefaultAsync(m => m.Id == id);
 
         if(media != null)

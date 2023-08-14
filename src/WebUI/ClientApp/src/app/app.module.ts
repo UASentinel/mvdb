@@ -15,21 +15,23 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ManageComponent} from "./manage/manage.component";
 import {ManageMediasComponent} from "./manage/manage-medias/manage-medias.component";
-import {ManageMediaComponent} from "./manage/manage-medias/manage-media/manage-media.component";
 import {CreateMediaComponent} from "./manage/manage-medias/create-media/create-media.component";
 import {UpdateMediaComponent} from "./manage/manage-medias/update-media/update-media.component";
 import {UpdateDirectorsComponent} from "./manage/manage-medias/update-directors/update-directors.component";
 import {UpdateActorsComponent} from "./manage/manage-medias/update-actors/update-actors.component";
+import {ExploreComponent} from "./explore/explore.component";
+import {ViewMediaComponent} from "./explore/view-media/view-media.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
+    ExploreComponent,
+    ViewMediaComponent,
     ManageComponent,
     ManageMediasComponent,
     CreateMediaComponent,
-    ManageMediaComponent,
     UpdateMediaComponent,
     UpdateDirectorsComponent,
     UpdateActorsComponent

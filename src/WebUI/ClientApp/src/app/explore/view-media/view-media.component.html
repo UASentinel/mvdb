@@ -6,6 +6,7 @@
     <img src="{{media?.posterLink}}" alt="" class="img-poster">
     <div class="div-movie-info-secondary">
       <h1 class="text-light">{{media?.title}}</h1>
+      <h2 class="text-light" *ngIf="isAdministrator">Id: {{media?.id}}</h2>
       <h3 *ngIf="media?.rating === 0" class="text-light"><i class="bi bi-star-fill rating-icon"></i>-</h3>
       <h3 *ngIf="media?.rating !== 0" class="text-light"><i class="bi bi-star-fill rating-icon"></i>{{media.rating}}</h3>
       <h4 class="text-light">{{media?.releaseDate?.toDateString()}}</h4>
@@ -26,25 +27,31 @@
     <iframe class="iframe-trailer" [src]="trailerLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
   </div>
 
-  <h1 class="text-light mt-10">
-    <i class="bi bi-pencil-square"></i>&nbsp;&nbsp;Management panel
+  <h1 class="text-light mt-10" *ngIf="!isAdministrator">
+    <i class="bi bi-info-square"></i>&nbsp;&nbsp;More info
   </h1>
 
-  <h2 class="text-light mt-5">Media</h2>
+  <div *ngIf="isAdministrator">
+    <h1 class="text-light mt-10">
+      <i class="bi bi-pencil-square"></i>&nbsp;&nbsp;Management panel
+    </h1>
 
-  <div class="div-main mt-3">
-    <button routerLink="../update/{{media.id}}" class="btn btn-lg btn-warning">
-      <i class="bi bi-pencil"></i>&nbsp;&nbsp;Update
-    </button>
-    <button class="btn btn-lg btn-danger btn-delete">
-      <i class="bi bi-trash"></i>&nbsp;&nbsp;Delete
-    </button>
+    <h2 class="text-light mt-5">Media</h2>
+
+    <div class="div-main mt-3">
+      <button routerLink="../../../manage/medias/update/{{media.id}}" class="btn btn-lg btn-warning btn-margin">
+        <i class="bi bi-pencil"></i>&nbsp;&nbsp;Update
+      </button>
+      <button class="btn btn-lg btn-danger">
+        <i class="bi bi-trash"></i>&nbsp;&nbsp;Delete
+      </button>
+    </div>
   </div>
 
   <h2 class="text-light mt-10">Directors</h2>
 
-  <div class="div-main mt-3">
-    <button routerLink="../update/directors/{{media.id}}" class="btn btn-lg btn-warning">
+  <div class="div-main mt-3" *ngIf="isAdministrator">
+    <button routerLink="../../../manage/medias/update/directors/{{media.id}}" class="btn btn-lg btn-warning">
       <i class="bi bi-pencil"></i>&nbsp;&nbsp;Update
     </button>
   </div>
@@ -60,8 +67,8 @@
 
   <h2 class="text-light mt-10">Actors</h2>
 
-  <div class="div-main mt-3">
-    <button routerLink="../update/actors/{{media.id}}" class="btn btn-lg btn-warning">
+  <div class="div-main mt-3" *ngIf="isAdministrator">
+    <button routerLink="../../../manage/medias/update/actors/{{media.id}}" class="btn btn-lg btn-warning">
       <i class="bi bi-pencil"></i>&nbsp;&nbsp;Update
     </button>
   </div>
@@ -73,6 +80,29 @@
         <h5 class="text-light">{{actor.firstName}} {{actor.lastName}}</h5>
       </div>
     </a>
+  </div>
+
+  <div *ngIf="media.mediaType === MediaType.Series">
+    <h2 class="text-light mt-10">Seasons</h2>
+
+    <div class="div-main mt-3" *ngIf="isAdministrator">
+      <button routerLink="../../../manage/medias/update/actors/{{media.id}}" class="btn btn-lg btn-warning btn-margin">
+        <i class="bi bi-arrow-down-up"></i>&nbsp;&nbsp;Reorder
+      </button>
+      <button routerLink="../../../manage/medias/update/actors/{{media.id}}" class="btn btn-lg btn-success">
+        <i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Create
+      </button>
+    </div>
+
+    <div class="div-main mt-3">
+      <a *ngFor="let actor of media.actors" routerLink="" class="staff-container">
+        <img src="{{actor.photoLink}}" alt="Photo" class="staff-photo">
+        <div class="div-staff-info">
+          <h5 class="text-light">{{actor.firstName}} {{actor.lastName}}</h5>
+        </div>
+      </a>
+    </div>
+
   </div>
 
 

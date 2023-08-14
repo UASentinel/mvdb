@@ -1,29 +1,32 @@
 import {Component, OnInit} from '@angular/core';
+import {MediaDto, MediasClient, MediaType} from "../../web-api-client";
+import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {ActivatedRoute} from "@angular/router";
-import {MediaDto, MediasClient} from "../../../web-api-client";
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {query} from "@angular/animations";
+import {AuthorizeService} from "../../../api-authorization/authorize.service";
 
 @Component({
-  selector: 'app-manage-media',
-  templateUrl: './manage-media.component.html',
-  styleUrls: ['./manage-media.component.css']
+  selector: 'app-view-media',
+  templateUrl: './view-media.component.html',
+  styleUrls: ['./view-media.component.css']
 })
-export class ManageMediaComponent implements OnInit {
+export class ViewMediaComponent implements OnInit {
   mediaId: number;
   media: MediaDto;
   trailerLink: SafeResourceUrl;
   duration: string;
+  isAdministrator: boolean = false;
 
   constructor(
     private currentRoute: ActivatedRoute,
     private mediasClient: MediasClient,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private authorizeService: AuthorizeService
   ) {
   }
   ngOnInit() {
 
     this.mediaId = Number(this.currentRoute.snapshot.paramMap.get('id'));
+
     this.mediasClient.get(this.mediaId).subscribe(
       result => {
         this.media = result;
@@ -34,5 +37,13 @@ export class ManageMediaComponent implements OnInit {
       },
       error => console.error(error)
     );
+
+    this.authorizeService.getUserRoles().subscribe(
+      roles => {
+        this.isAdministrator = roles && roles.findIndex(r => r === 'Administrator') !== -1;
+      }
+    );
   }
+
+  protected readonly MediaType = MediaType;
 }

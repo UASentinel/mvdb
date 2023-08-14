@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AuthenticationResultStatus, AuthorizeService} from "../api-authorization/authorize.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',

@@ -436,6 +436,39 @@
         }
       }
     },
+    "/api/Auth/Roles/:id": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "Auth_GetRoles",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Directors": {
       "get": {
         "tags": [
@@ -1122,7 +1155,14 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": [
+              "Administrator"
+            ]
+          }
+        ]
       }
     },
     "/api/Medias/{id}": {
@@ -1247,7 +1287,14 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": [
+              "Administrator"
+            ]
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -1280,7 +1327,14 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": [
+              "Administrator"
+            ]
+          }
+        ]
       }
     },
     "/api/Medias/Search": {
@@ -1372,7 +1426,14 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": [
+              "Administrator"
+            ]
+          }
+        ]
       }
     },
     "/api/Medias/Directors/Update/{id}": {
@@ -1429,7 +1490,14 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": [
+              "Administrator"
+            ]
+          }
+        ]
       }
     },
     "/api/Medias/Actors/Update/{id}": {
@@ -1486,7 +1554,14 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "JWT": [
+              "Administrator"
+            ]
+          }
+        ]
       }
     },
     "/api/Seasons": {
