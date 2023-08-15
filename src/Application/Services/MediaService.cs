@@ -120,7 +120,7 @@ public class MediaService : IMediaService
                 await _mediaRepository.DeleteDirector(dbMediaDirector.MediaId, dbMediaDirector.DirectorId, cancellationToken);
         }
 
-        await _mediaRepository.RestoreGenresOrder(mediaId, cancellationToken);
+        await _mediaRepository.RestoreDirectorsOrder(mediaId, cancellationToken);
 
         return true;
     }
@@ -148,7 +148,7 @@ public class MediaService : IMediaService
                 await _mediaRepository.DeleteActor(dbMediaActor.MediaId, dbMediaActor.ActorId, cancellationToken);
         }
 
-        await _mediaRepository.RestoreGenresOrder(mediaId, cancellationToken);
+        await _mediaRepository.RestoreActorsOrder(mediaId, cancellationToken);
 
         return true;
     }

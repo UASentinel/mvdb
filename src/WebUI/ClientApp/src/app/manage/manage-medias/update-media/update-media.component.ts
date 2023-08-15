@@ -70,26 +70,6 @@ export class UpdateMediaComponent implements OnInit {
       result => {
         this.media = result;
 
-        // this.updateForm = this.formBuilder.group({
-        //   title: [this.media.title, Validators.required],
-        //   description: [this.media.description],
-        //   mediaType: [MediaType[this.media.mediaType]],
-        //   trailerLink: [this.media.trailerLink],
-        //   ageRating: [],
-        //   duration: [this.media.duration, Validators.min(0)],
-        //   releaseDate: [this.formatDate(this.media.releaseDate)],
-        //   poster: [''],
-        //   deletePoster: [''],
-        //   genres: this.formBuilder.array([])
-        // });
-
-        // const genreControls = this.media.genres.map(genre => {
-        //   console.log(genre.name);
-        //   return this.formBuilder.group({
-        //     name: [genre.name, Validators.required]
-        //   });
-        // });
-
         const genreArray = this.updateForm.get('genres') as FormArray;
         for(const genre of this.media.genres){
           genreArray.push(this.formBuilder.group({

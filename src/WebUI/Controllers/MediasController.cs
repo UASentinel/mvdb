@@ -13,6 +13,7 @@ using MvDb.Application.Actions.Medias.Queries.Search;
 using MvDb.Application.Actions.Medias.Commands.UpdateDirectors;
 using MvDb.Application.Actions.Medias.DataTransferObjects.Objects;
 using MvDb.Application.Actions.Medias.Commands.UpdateActors;
+using MvDb.Application.Actions.Medias.Commands.UpdateSeasonsOrder;
 
 namespace MvDb.WebUI.Controllers;
 
@@ -97,6 +98,20 @@ public class MediasController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesDefaultResponseType]
     public async Task<IActionResult> UpdateActors(int id, UpdateActorsCommand command)
+    {
+        if (id != command.MediaId)
+            return BadRequest();
+
+        await Mediator.Send(command);
+
+        return NoContent();
+    }
+
+    [HttpPut("Seasons/Reorder/{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesDefaultResponseType]
+    public async Task<IActionResult> ReorderSeasons(int id, UpdateSeasonsOrderCommand command)
     {
         if (id != command.MediaId)
             return BadRequest();

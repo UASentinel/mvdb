@@ -1,0 +1,22 @@
+<h1 class="mt-5 text-light">Reorder seasons</h1>
+<h4 class="mt-2 text-light">Media id: {{media?.id}}</h4>
+<h4 class="mt-2 text-light">Media title: {{media?.title}}</h4>
+
+<div class="div-manage">
+  <button (click)="saveChanges()" class="btn btn-lg btn-success btn-add">
+    Save changes
+  </button>
+</div>
+
+<div class="seasons-container" *ngIf="media">
+  <div *ngFor="let season of media.seasons; let i = index" class="div-season">
+    <h5 class="m-0">
+      Id: {{season.id}} -
+      {{season.title}}
+    </h5>
+    <div class="div-buttons">
+      <button type="button" class="btn btn-warning btn-sm" (click)="seasonUp(i)"><i class="bi bi-chevron-up"></i></button>
+      <button type="button" class="btn btn-warning btn-sm" (click)="seasonDown(i)"><i class="bi bi-chevron-down"></i></button>
+    </div>
+  </div>
+</div>

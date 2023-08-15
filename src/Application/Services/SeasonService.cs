@@ -35,24 +35,26 @@ public class SeasonService : ISeasonService
         var mediaId = await GetMediaId(season.Id);
         season.PosterLink = await _imageService.UploadSeasonPoster(posterFile, season.Id, mediaId);
 
-        return await _seasonRepository.Update(season, cancellationToken);
+        await _seasonRepository.Update(season, cancellationToken);
+        return await _seasonRepository.RestoreMediaSeasonsOrder(season.MediaId, cancellationToken);
     }
 
     public async Task<bool> Update(Season season, IFormFile posterFile, bool deletePoster, CancellationToken cancellationToken)
     {
+        var mediaId = await GetMediaId(season.Id);
+
         if (deletePoster)
         {
             season.PosterLink = null;
-            var mediaId = await GetMediaId(season.Id);
             await _imageService.DeleteSeasonPoster(season.Id, mediaId);
         }
         else
         {
-            var mediaId = await GetMediaId(season.Id);
             season.PosterLink = await _imageService.UploadSeasonPoster(posterFile, season.Id, mediaId);
         }
 
-        return await _seasonRepository.Update(season, cancellationToken);
+        await _seasonRepository.Update(season, cancellationToken);
+        return await _seasonRepository.RestoreMediaSeasonsOrder(mediaId, cancellationToken);
     }
 
     public async Task<bool> Delete(int id, CancellationToken cancellationToken)
@@ -60,7 +62,8 @@ public class SeasonService : ISeasonService
         var mediaId = await GetMediaId(id);
         await _imageService.DeleteSeasonPoster(id, mediaId);
 
-        return await _seasonRepository.Delete(id, cancellationToken);
+        await _seasonRepository.Delete(id, cancellationToken);
+        return await _seasonRepository.RestoreMediaSeasonsOrder(mediaId, cancellationToken);
     }
 
     private async Task<int> GetMediaId(int seasonId)
@@ -71,6 +74,16 @@ public class SeasonService : ISeasonService
             return 0;
 
         return season.MediaId;
+    }
+
+    public async Task<bool> UpdateSeasonsOrder(ICollection<Season> seasons, CancellationToken cancellationToken){
+        if (seasons == null || seasons.Count == 0)
+            return false;
+
+        await _seasonRepository.UpdateSeasonsOrder(seasons, cancellationToken);
+
+        var mediaId = await GetMediaId(seasons.FirstOrDefault().Id);
+        return await _seasonRepository.RestoreMediaSeasonsOrder(mediaId, cancellationToken);
     }
 
     public ICollection<Season> Search(object searchPattern)

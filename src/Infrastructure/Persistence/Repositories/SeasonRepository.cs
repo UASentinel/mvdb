@@ -24,7 +24,9 @@ public class SeasonRepository : ISeasonRepository
 
     public async Task<Season?> GetById(int id)
     {
-        return await _applicationDbContext.Seasons.FirstOrDefaultAsync(s => s.Id == id);
+        return await _applicationDbContext.Seasons
+            .Include(s => s.Episodes)
+            .FirstOrDefaultAsync(s => s.Id == id);
     }
 
     public async Task<bool> Create(Season season, CancellationToken cancellationToken)
@@ -62,5 +64,36 @@ public class SeasonRepository : ISeasonRepository
         var result = await _applicationDbContext.SaveChangesAsync(cancellationToken);
 
         return result > 0 ? true : false;
+    }
+
+    public async Task<bool> UpdateSeasonsOrder(ICollection<Season> seasons, CancellationToken cancellationToken)
+    {
+        foreach (var season in seasons)
+        {
+            var dbSeason = await _applicationDbContext.Seasons.FirstOrDefaultAsync(s => s.Id == season.Id);
+            if (dbSeason == null)
+                return false;
+
+            dbSeason.Order = season.Order;
+        }
+
+        var result = await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+        return result > 0 ? true : false;
+    }
+
+    public async Task<bool> RestoreMediaSeasonsOrder(int mediaId, CancellationToken cancellationToken)
+    {
+        var seasons = _applicationDbContext.Seasons
+            .Where(s => s.MediaId == mediaId)
+            .OrderBy(s => s.Order)
+            .ToList();
+
+        for (int i = 0; i < seasons.Count; i++)
+            seasons[i].Order = (byte)(i + 1);
+
+        await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+        return true;
     }
 }

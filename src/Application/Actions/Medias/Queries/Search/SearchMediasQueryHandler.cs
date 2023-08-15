@@ -50,9 +50,9 @@ public class SearchMediasQueryHandler : IRequestHandler<SearchMediasQuery, IColl
             mediaDto.Rating = _mediaService.CountRating(media);
 
             mediaDto.SetGenres(media.MediaGenres);
+            mediaDto.SetSeasons(media.Seasons);
 
-            if (mediaDto.ReleaseDate == null)
-                mediaDto.ReleaseDate = DateTime.MinValue;
+            mediaDto.ReleaseDate ??= DateTime.MinValue;
 
             mediaDtos.Add(mediaDto);
         }

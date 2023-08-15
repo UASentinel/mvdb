@@ -49,9 +49,9 @@ public class GetMediaByIdQueryHandler : IRequestHandler<GetMediaByIdQuery, Media
         mediaDto.SetGenres(media.MediaGenres);
         mediaDto.SetActors(media.MediaActors);
         mediaDto.SetDirectors(media.MediaDirectors);
+        mediaDto.SetSeasons(media.Seasons);
 
-        if (mediaDto.ReleaseDate == null)
-            mediaDto.ReleaseDate = DateTime.MinValue;
+        mediaDto.ReleaseDate ??= DateTime.MinValue;
 
         return mediaDto;
     }

@@ -33,6 +33,9 @@ public class GetSeasonByIdQueryHandler : IRequestHandler<GetSeasonByIdQuery, Sea
             PosterLink = season.PosterLink,
             TrailerLink = season.TrailerLink
         };
+
+        seasonDto.SetEpisodes(season.Episodes);
+
         return seasonDto;
     }
 }

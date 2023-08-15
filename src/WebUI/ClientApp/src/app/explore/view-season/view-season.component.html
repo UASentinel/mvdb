@@ -1,0 +1,64 @@
+<div *ngIf="season">
+  <div class="div-main mt-5 justify-content-between flex-wrap">
+    <img src="{{season?.posterLink}}" alt="" class="img-poster">
+    <div class="div-season-info-secondary">
+      <h1 class="text-light">{{season?.title}}</h1>
+      <h2 class="text-light" *ngIf="isAdministrator">Id: {{season?.id}}</h2>
+      <h4 class="text-light">{{season?.releaseDate?.toDateString()}}</h4>
+      <h5 class="text-light">{{duration}}</h5>
+      <h5 class="text-light">Episodes: {{season.episodes.length}}</h5>
+    </div>
+    <div class="div-season-info-description">
+      <h5 class="text-light">{{season?.description}}</h5>
+    </div>
+  </div>
+
+  <div class="div-main mt-5 justify-content-between flex-wrap">
+    <iframe class="iframe-trailer" [src]="trailerLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
+
+  <h1 class="text-light mt-10" *ngIf="!isAdministrator">
+    <i class="bi bi-info-square"></i>&nbsp;&nbsp;More info
+  </h1>
+
+  <div *ngIf="isAdministrator">
+    <h1 class="text-light mt-10">
+      <i class="bi bi-pencil-square"></i>&nbsp;&nbsp;Management panel
+    </h1>
+
+    <h2 class="text-light mt-5">Season</h2>
+
+    <div class="div-main mt-3">
+      <button routerLink="../../../manage/seasons/update/{{season.id}}" class="btn btn-lg btn-warning btn-margin">
+        <i class="bi bi-pencil"></i>&nbsp;&nbsp;Update
+      </button>
+      <button class="btn btn-lg btn-danger">
+        <i class="bi bi-trash"></i>&nbsp;&nbsp;Delete
+      </button>
+    </div>
+  </div>
+
+  <h2 class="text-light mt-10">Episodes</h2>
+
+  <div class="div-main mt-3" *ngIf="isAdministrator">
+    <button routerLink="../../../manage/seasons/reorder/episodes/{{season.id}}" class="btn btn-lg btn-warning btn-margin">
+      <i class="bi bi-arrow-down-up"></i>&nbsp;&nbsp;Reorder
+    </button>
+    <button routerLink="../../../manage/seasons/create/episode/{{season.id}}" class="btn btn-lg btn-success">
+      <i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Create
+    </button>
+  </div>
+
+  <div class="mt-3 episodes-container">
+    <a *ngFor="let episode of season.episodes; let i = index" routerLink="../../seasons/{{season.id}}" class="episode-container">
+      <div class="episode-top-info">
+        <h3 class="text-light h-episode">{{i + 1}}. {{episode.title}}</h3>
+        <h5 class="text-grey h-episode">{{episode.releaseDate.toDateString()}}</h5>
+      </div>
+      <h5 class="text-light h-episode">{{episode['durationString']}}</h5>
+      <p class="text-light p-description">{{episode.description}}</p>
+    </a>
+  </div>
+
+
+</div>

@@ -15,6 +15,8 @@ export class ViewMediaComponent implements OnInit {
   trailerLink: SafeResourceUrl;
   duration: string;
   isAdministrator: boolean = false;
+  episodeCount: number = 0;
+  ageRatingBadge: string;
 
   constructor(
     private currentRoute: ActivatedRoute,
@@ -32,7 +34,25 @@ export class ViewMediaComponent implements OnInit {
         this.media = result;
         let hours = Math.floor(this.media.duration / 60);
         let minutes = this.media.duration % 60;
-        this.duration = hours + 'h ' + minutes + 'm';
+
+        if(hours === 0)
+          this.duration = minutes + 'm';
+        else
+          this.duration = hours + 'h ' + minutes + 'm';
+
+        if(this.media.mediaType === MediaType.Series) {
+          this.media.seasons.forEach(season => {
+            this.episodeCount += season.episodeCount;
+          })
+        }
+
+        if(this.media.ageRating.minAge < 13)
+          this.ageRatingBadge = 'badge-success';
+        else if(this.media.ageRating.minAge < 18)
+          this.ageRatingBadge = 'badge-warning';
+        else
+          this.ageRatingBadge = 'badge-danger';
+
         this.trailerLink = this.sanitizer.bypassSecurityTrustResourceUrl(this.media.trailerLink);
       },
       error => console.error(error)

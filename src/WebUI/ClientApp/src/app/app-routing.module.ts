@@ -10,26 +10,35 @@ import {UpdateDirectorsComponent} from "./manage/manage-medias/update-directors/
 import {UpdateActorsComponent} from "./manage/manage-medias/update-actors/update-actors.component";
 import {ExploreComponent} from "./explore/explore.component";
 import {ViewMediaComponent} from "./explore/view-media/view-media.component";
+import {CreateSeasonComponent} from "./manage/manage-seasons/create-season/create-season.component";
+import {ReorderSeasonsComponent} from "./manage/manage-medias/reorder-seasons/reorder-seasons.component";
+import {ViewSeasonComponent} from "./explore/view-season/view-season.component";
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'explore', children: [
       { path: '', component: ExploreComponent },
-      { path: 'medias', children: [
-          { path: ':id', component: ViewMediaComponent }
-      ] },
+      { path: 'medias/:id', component: ViewMediaComponent },
+      { path: 'seasons/:id', component: ViewSeasonComponent }
     ] },
   { path: 'manage', children: [
       { path: '', component: ManageComponent },
       { path: 'medias', children: [
           { path: '', component: ManageMediasComponent },
-          { path: 'create', component: CreateMediaComponent },
           { path: ':id', component: ViewMediaComponent },
+          { path: 'reorder/seasons/:id', component: ReorderSeasonsComponent },
+          { path: 'create', children:[
+              { path: '', component: CreateMediaComponent },
+              { path: 'season/:id', component: CreateSeasonComponent }
+            ] },
           { path: 'update', children: [
               { path: ':id', component: UpdateMediaComponent },
               { path: 'directors/:id', component: UpdateDirectorsComponent },
               { path: 'actors/:id', component: UpdateActorsComponent }
             ] }
+        ] },
+      { path: 'seasons', children: [
+          { path: ':id', component: ViewSeasonComponent }
         ] }
     ] }
 ];

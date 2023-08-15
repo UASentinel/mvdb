@@ -24,6 +24,7 @@ public class MediaDto
     public ICollection<GenreOrderDto> Genres { get; set; }
     public ICollection<ActorOrderDto> Actors { get; set; }
     public ICollection<DirectorOrderDto> Directors { get; set; }
+    public ICollection<SeasonBriefDto> Seasons { get; set; }
     public void SetGenres(ICollection<MediaGenre> mediaGenres)
     {
         Genres ??= new List<GenreOrderDto>();
@@ -86,25 +87,43 @@ public class MediaDto
         }
     }
 
-    //public void SetSeasons(ICollection<Season> seasons)
-    //{
-    //    Directors ??= new List<DirectorOrderDto>();
+    public void SetSeasons(ICollection<Season> seasons)
+    {
+        Seasons ??= new List<SeasonBriefDto>();
 
-    //    foreach (var mediaDirector in mediaDirectors)
-    //    {
-    //        if (mediaDirector.Director != null)
-    //        {
-    //            Directors.Add(new DirectorOrderDto()
-    //            {
-    //                Id = mediaDirector.Director.Id,
-    //                FirstName = mediaDirector.Director.FirstName,
-    //                LastName = mediaDirector.Director.LastName,
-    //                DateOfBirth = mediaDirector.Director.DateOfBirth,
-    //                Biography = mediaDirector.Director.Biography,
-    //                PhotoLink = mediaDirector.Director.PhotoLink,
-    //                Order = mediaDirector.Order
-    //            });
-    //        }
-    //    }
-    //}
+        if (MediaType == MediaType.Movie)
+            return;
+
+        foreach (var season in seasons)
+        {
+            var seasonDto = new SeasonBriefDto()
+            {
+                Id =season.Id,
+                Title = season.Title,
+                Order = season.Order,
+                PosterLink = season.PosterLink,
+                TrailerLink = season.TrailerLink
+            };
+
+            var releaseDate = DateTime.MaxValue;
+
+            if (season.Episodes != null)
+            {
+                foreach (var episode in season.Episodes)
+                {
+                    if (episode.ReleaseDate < releaseDate)
+                        releaseDate = episode.ReleaseDate;
+
+                    seasonDto.Duration += episode.Duration;
+                    seasonDto.EpisodeCount++;
+                }
+            }
+
+            if (releaseDate != DateTime.MaxValue)
+                ReleaseDate = releaseDate;
+
+            Duration += seasonDto.Duration;
+            Seasons.Add(seasonDto);
+        }
+    }
 }

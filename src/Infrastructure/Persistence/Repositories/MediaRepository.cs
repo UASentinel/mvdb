@@ -24,6 +24,8 @@ public class MediaRepository : IMediaRepository
             .Include(m => m.Reviews)
             .Include(m => m.MediaGenres)
             .ThenInclude(m => m.Genre)
+            .Include(m => m.Seasons)
+            .ThenInclude(s => s.Episodes)
             .ToList();
 
         foreach(var media in medias)
@@ -52,6 +54,7 @@ public class MediaRepository : IMediaRepository
             media.MediaGenres = media.MediaGenres.OrderBy(m => m.Order).ToList();
             media.MediaActors = media.MediaActors.OrderBy(m => m.Order).ToList();
             media.MediaDirectors = media.MediaDirectors.OrderBy(m => m.Order).ToList();
+            media.Seasons = media.Seasons.OrderBy(s => s.Order).ToList();
         }
 
         return media;
@@ -145,7 +148,7 @@ public class MediaRepository : IMediaRepository
             .ToList();
 
         for (int i = 0; i < genres.Count; i++)
-            genres[i].Order = (byte)i;
+            genres[i].Order = (byte)(i + 1);
 
         await _applicationDbContext.SaveChangesAsync(cancellationToken);
 
@@ -200,7 +203,7 @@ public class MediaRepository : IMediaRepository
             .ToList();
 
         for (int i = 0; i < directors.Count; i++)
-            directors[i].Order = (byte)i;
+            directors[i].Order = (byte)(i + 1);
 
         await _applicationDbContext.SaveChangesAsync(cancellationToken);
 
@@ -255,7 +258,7 @@ public class MediaRepository : IMediaRepository
             .ToList();
 
         for (int i = 0; i < actors.Count; i++)
-            actors[i].Order = (byte)i;
+            actors[i].Order = (byte)(i + 1);
 
         await _applicationDbContext.SaveChangesAsync(cancellationToken);
 

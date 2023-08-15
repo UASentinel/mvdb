@@ -1732,6 +1732,7 @@ export interface IMediasClient {
     updateGenres(id: number, command: UpdateGenresCommand): Observable<void>;
     updateDirectors(id: number, command: UpdateDirectorsCommand): Observable<void>;
     updateActors(id: number, command: UpdateActorsCommand): Observable<void>;
+    reorderSeasons(id: number, command: UpdateSeasonsOrderCommand): Observable<void>;
 }
 
 @Injectable({
@@ -2281,6 +2282,66 @@ export class MediasClient implements IMediasClient {
     }
 
     protected processUpdateActors(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            return _observableOf(null as any);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let result400: any = null;
+            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result400 = ProblemDetails.fromJS(resultData400);
+            return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
+            let resultdefault: any = null;
+            let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            resultdefault = ProblemDetails.fromJS(resultDatadefault);
+            return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+
+    reorderSeasons(id: number, command: UpdateSeasonsOrderCommand): Observable<void> {
+        let url_ = this.baseUrl + "/api/Medias/Seasons/Reorder/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processReorderSeasons(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processReorderSeasons(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processReorderSeasons(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -3311,6 +3372,7 @@ export class MediaDto implements IMediaDto {
     genres?: GenreOrderDto[];
     actors?: ActorOrderDto[];
     directors?: DirectorOrderDto[];
+    seasons?: SeasonBriefDto[];
 
     constructor(data?: IMediaDto) {
         if (data) {
@@ -3347,6 +3409,11 @@ export class MediaDto implements IMediaDto {
                 this.directors = [] as any;
                 for (let item of _data["directors"])
                     this.directors!.push(DirectorOrderDto.fromJS(item));
+            }
+            if (Array.isArray(_data["seasons"])) {
+                this.seasons = [] as any;
+                for (let item of _data["seasons"])
+                    this.seasons!.push(SeasonBriefDto.fromJS(item));
             }
         }
     }
@@ -3385,6 +3452,11 @@ export class MediaDto implements IMediaDto {
             for (let item of this.directors)
                 data["directors"].push(item.toJSON());
         }
+        if (Array.isArray(this.seasons)) {
+            data["seasons"] = [];
+            for (let item of this.seasons)
+                data["seasons"].push(item.toJSON());
+        }
         return data;
     }
 }
@@ -3403,6 +3475,7 @@ export interface IMediaDto {
     genres?: GenreOrderDto[];
     actors?: ActorOrderDto[];
     directors?: DirectorOrderDto[];
+    seasons?: SeasonBriefDto[];
 }
 
 export enum MediaType {
@@ -3508,6 +3581,66 @@ export class DirectorOrderDto extends DirectorDto implements IDirectorOrderDto {
 
 export interface IDirectorOrderDto extends IDirectorDto {
     order?: number;
+}
+
+export class SeasonBriefDto implements ISeasonBriefDto {
+    id?: number;
+    title?: string | undefined;
+    order?: number;
+    posterLink?: string | undefined;
+    trailerLink?: string | undefined;
+    episodeCount?: number;
+    duration?: number;
+
+    constructor(data?: ISeasonBriefDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.title = _data["title"];
+            this.order = _data["order"];
+            this.posterLink = _data["posterLink"];
+            this.trailerLink = _data["trailerLink"];
+            this.episodeCount = _data["episodeCount"];
+            this.duration = _data["duration"];
+        }
+    }
+
+    static fromJS(data: any): SeasonBriefDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new SeasonBriefDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["title"] = this.title;
+        data["order"] = this.order;
+        data["posterLink"] = this.posterLink;
+        data["trailerLink"] = this.trailerLink;
+        data["episodeCount"] = this.episodeCount;
+        data["duration"] = this.duration;
+        return data;
+    }
+}
+
+export interface ISeasonBriefDto {
+    id?: number;
+    title?: string | undefined;
+    order?: number;
+    posterLink?: string | undefined;
+    trailerLink?: string | undefined;
+    episodeCount?: number;
+    duration?: number;
 }
 
 export class SearchMediasQuery implements ISearchMediasQuery {
@@ -3814,6 +3947,94 @@ export interface IMediaActorDto {
     order?: number;
 }
 
+export class UpdateSeasonsOrderCommand implements IUpdateSeasonsOrderCommand {
+    mediaId?: number;
+    mediaSeasonDtos?: MediaSeasonDto[];
+
+    constructor(data?: IUpdateSeasonsOrderCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.mediaId = _data["mediaId"];
+            if (Array.isArray(_data["mediaSeasonDtos"])) {
+                this.mediaSeasonDtos = [] as any;
+                for (let item of _data["mediaSeasonDtos"])
+                    this.mediaSeasonDtos!.push(MediaSeasonDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): UpdateSeasonsOrderCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateSeasonsOrderCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["mediaId"] = this.mediaId;
+        if (Array.isArray(this.mediaSeasonDtos)) {
+            data["mediaSeasonDtos"] = [];
+            for (let item of this.mediaSeasonDtos)
+                data["mediaSeasonDtos"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IUpdateSeasonsOrderCommand {
+    mediaId?: number;
+    mediaSeasonDtos?: MediaSeasonDto[];
+}
+
+export class MediaSeasonDto implements IMediaSeasonDto {
+    seasonId?: number;
+    order?: number;
+
+    constructor(data?: IMediaSeasonDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.seasonId = _data["seasonId"];
+            this.order = _data["order"];
+        }
+    }
+
+    static fromJS(data: any): MediaSeasonDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new MediaSeasonDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["seasonId"] = this.seasonId;
+        data["order"] = this.order;
+        return data;
+    }
+}
+
+export interface IMediaSeasonDto {
+    seasonId?: number;
+    order?: number;
+}
+
 export class SeasonDto implements ISeasonDto {
     id?: number;
     title?: string | undefined;
@@ -3821,6 +4042,9 @@ export class SeasonDto implements ISeasonDto {
     order?: number;
     posterLink?: string | undefined;
     trailerLink?: string | undefined;
+    duration?: number;
+    releaseDate?: Date;
+    episodes?: EpisodeDto[];
 
     constructor(data?: ISeasonDto) {
         if (data) {
@@ -3839,6 +4063,13 @@ export class SeasonDto implements ISeasonDto {
             this.order = _data["order"];
             this.posterLink = _data["posterLink"];
             this.trailerLink = _data["trailerLink"];
+            this.duration = _data["duration"];
+            this.releaseDate = _data["releaseDate"] ? new Date(_data["releaseDate"].toString()) : <any>undefined;
+            if (Array.isArray(_data["episodes"])) {
+                this.episodes = [] as any;
+                for (let item of _data["episodes"])
+                    this.episodes!.push(EpisodeDto.fromJS(item));
+            }
         }
     }
 
@@ -3857,6 +4088,13 @@ export class SeasonDto implements ISeasonDto {
         data["order"] = this.order;
         data["posterLink"] = this.posterLink;
         data["trailerLink"] = this.trailerLink;
+        data["duration"] = this.duration;
+        data["releaseDate"] = this.releaseDate ? this.releaseDate.toISOString() : <any>undefined;
+        if (Array.isArray(this.episodes)) {
+            data["episodes"] = [];
+            for (let item of this.episodes)
+                data["episodes"].push(item.toJSON());
+        }
         return data;
     }
 }
@@ -3868,6 +4106,9 @@ export interface ISeasonDto {
     order?: number;
     posterLink?: string | undefined;
     trailerLink?: string | undefined;
+    duration?: number;
+    releaseDate?: Date;
+    episodes?: EpisodeDto[];
 }
 
 export interface FileParameter {

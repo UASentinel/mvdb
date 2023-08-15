@@ -21,6 +21,9 @@ import {UpdateDirectorsComponent} from "./manage/manage-medias/update-directors/
 import {UpdateActorsComponent} from "./manage/manage-medias/update-actors/update-actors.component";
 import {ExploreComponent} from "./explore/explore.component";
 import {ViewMediaComponent} from "./explore/view-media/view-media.component";
+import {CreateSeasonComponent} from "./manage/manage-seasons/create-season/create-season.component";
+import {ReorderSeasonsComponent} from "./manage/manage-medias/reorder-seasons/reorder-seasons.component";
+import {ViewSeasonComponent} from "./explore/view-season/view-season.component";
 
 @NgModule({
   declarations: [
@@ -29,12 +32,15 @@ import {ViewMediaComponent} from "./explore/view-media/view-media.component";
     HomeComponent,
     ExploreComponent,
     ViewMediaComponent,
+    ViewSeasonComponent,
     ManageComponent,
     ManageMediasComponent,
     CreateMediaComponent,
     UpdateMediaComponent,
     UpdateDirectorsComponent,
-    UpdateActorsComponent
+    UpdateActorsComponent,
+    ReorderSeasonsComponent,
+    CreateSeasonComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
