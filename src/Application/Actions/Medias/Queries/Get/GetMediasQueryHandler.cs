@@ -1,12 +1,7 @@
 ﻿using MediatR;
 using MvDb.Application.Actions.AgeRatings.DataTransferObjects;
-using MvDb.Application.Actions.Episodes.DataTransferObjects;
-using MvDb.Application.Actions.Genres.DataTransferObjects;
 using MvDb.Application.Actions.Medias.DataTransferObjects.Objects;
-using MvDb.Application.Actions.Seasons.DataTransferObjects;
-using MvDb.Application.Common.Interfaces;
 using MvDb.Application.Common.Interfaces.EntityServices;
-using MvDb.Domain.Entities;
 
 namespace MvDb.Application.Actions.Medias.Queries.Get;
 

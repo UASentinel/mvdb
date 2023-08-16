@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using MvDb.Application.Actions.Actors.DataTransferObjects;
-using MvDb.Application.Common.Interfaces;
 
 namespace MvDb.Application.Actions.Actors.Queries.GetById;
 

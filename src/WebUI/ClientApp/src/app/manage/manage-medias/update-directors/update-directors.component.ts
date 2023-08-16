@@ -2,11 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {
   DirectorDto, DirectorsClient, MediaDirectorDto,
-  MediaDto, MediaGenreDto,
+  MediaDto,
   MediasClient,
-  MediaType,
   SearchDirectorsQuery,
-  SearchMediasQuery, UpdateDirectorsCommand, UpdateGenresCommand
+  UpdateDirectorsCommand
 } from "../../../web-api-client";
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 

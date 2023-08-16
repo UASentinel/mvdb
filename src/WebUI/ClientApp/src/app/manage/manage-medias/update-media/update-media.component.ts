@@ -80,9 +80,6 @@ export class UpdateMediaComponent implements OnInit {
         const genres = genreArray.value;
         genreArray.setValue(genres);
 
-        this.genreUp(1);
-        this.genreDown(0);
-
         const values = {
           title: this.media.title,
           description: this.media.description,
@@ -96,27 +93,7 @@ export class UpdateMediaComponent implements OnInit {
           genres: this.updateForm.value.genres
         }
 
-        // console.log(values);
-
         this.updateForm.reset(values);
-
-        // const genreArray = this.updateForm.get('genres') as FormArray;
-        // for(const genre of this.media.genres){
-        //   genreArray.push(this.formBuilder.group({
-        //     name: [genre.name, Validators.required]
-        //   }));
-        // }
-        //
-        // const genres = genreArray.value;
-        // genreArray.setValue(genres);
-
-        // const newValues = this.updateForm.value;
-        // this.updateForm.reset(newValues);
-
-        // console.log(this.updateForm.value);
-        //
-        // const newValues = this.updateForm.value;
-        // this.updateForm.reset(newValues);
 
         this.currentMediaType = MediaType[this.media.mediaType];
       },
@@ -174,9 +151,7 @@ export class UpdateMediaComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.updateForm.value);
     if (this.updateForm.valid) {
-      // if (1) {
       const ageRatingIndex = this.ageRatings.findIndex(a => a.name == this.updateForm.value.ageRating);
       if(ageRatingIndex === -1){
         return;
@@ -219,7 +194,6 @@ export class UpdateMediaComponent implements OnInit {
 
   updateGenres(id: number): void {
     if(id !== 0){
-      console.log('start');
       const command = {
         mediaId: id,
         mediaGenreDtos: []
@@ -231,9 +205,6 @@ export class UpdateMediaComponent implements OnInit {
       for(let i = 0; i < mediaGenres.length; i++){
         const genreIndex = this.genres.findIndex(g => g.name === mediaGenres[i].name);
         const genreId = this.genres[genreIndex].id;
-
-        console.log(genreIndex);
-        console.log(genreId);
 
         const mediaGenreDto = {
           genreId: genreId,

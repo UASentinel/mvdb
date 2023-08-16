@@ -1,18 +1,15 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using MediatR;
-using MvDb.Application.Common.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using MvDb.Application.Actions.AgeRatings.Commands.Create;
+using MvDb.Application.Actions.AgeRatings.Commands.Delete;
 using MvDb.Application.Actions.AgeRatings.Commands.Update;
 using MvDb.Application.Actions.AgeRatings.DataTransferObjects;
 using MvDb.Application.Actions.AgeRatings.Queries.Get;
 using MvDb.Application.Actions.AgeRatings.Queries.GetById;
-using MvDb.Application.Actions.AgeRatings.Commands.Delete;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MvDb.WebUI.Controllers;
 
-//[Authorize(Roles = "Administrator")]
+[Authorize(Roles = "Administrator")]
 public class AgeRatingsController : ApiControllerBase
 {
     [HttpGet]

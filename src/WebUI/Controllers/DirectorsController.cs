@@ -1,22 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using MediatR;
-using MvDb.Application.Common.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using MvDb.Application.Actions.Directors.Commands.Create;
+using MvDb.Application.Actions.Directors.Commands.Delete;
 using MvDb.Application.Actions.Directors.Commands.Update;
 using MvDb.Application.Actions.Directors.DataTransferObjects;
 using MvDb.Application.Actions.Directors.Queries.Get;
 using MvDb.Application.Actions.Directors.Queries.GetById;
-using MvDb.Application.Actions.Directors.Commands.Delete;
-using MvDb.Application.Actions.Medias.DataTransferObjects;
-using MvDb.Application.Actions.Medias.Queries.Search;
 using MvDb.Application.Actions.Directors.Queries.Search;
-using MvDb.Application.Actions.Actors.Queries.Search;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MvDb.WebUI.Controllers;
 
-//[Authorize(Roles = "Administrator")]
+[Authorize(Roles = "Administrator")]
 public class DirectorsController : ApiControllerBase
 {
     [HttpGet]

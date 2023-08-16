@@ -1,22 +1,15 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using MediatR;
-using MvDb.Application.Common.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using MvDb.Application.Actions.Genres.Commands.Create;
 using MvDb.Application.Actions.Genres.Commands.Delete;
 using MvDb.Application.Actions.Genres.Commands.Update;
-using MvDb.Application.Actions.Genres.Queries.GetById;
-using MvDb.Application.Actions.Genres.Queries.Get;
 using MvDb.Application.Actions.Genres.DataTransferObjects;
-using MvDb.Application.Actions.Actors.Commands.Update;
-using MvDb.Application.Actions.Episodes.Commands.Create;
-using MvDb.Application.Actions.Episodes.Commands.Update;
-using MvDb.Application.Actions.Medias.DataTransferObjects;
+using MvDb.Application.Actions.Genres.Queries.Get;
+using MvDb.Application.Actions.Genres.Queries.GetById;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MvDb.WebUI.Controllers;
 
-//[Authorize(Roles = "Administrator")]
+[Authorize(Roles = "Administrator")]
 public class GenresController : ApiControllerBase
 {
     [HttpGet]

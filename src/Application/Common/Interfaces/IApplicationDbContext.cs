@@ -1,5 +1,4 @@
-﻿//using MvDb.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MvDb.Domain.Entities;
 
 namespace MvDb.Application.Common.Interfaces;

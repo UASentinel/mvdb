@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
-using MvDb.Application.Common.Interfaces;
 
 namespace MvDb.Application.Actions.Actors.Commands.Update;
 

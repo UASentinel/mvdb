@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using MvDb.Application.Common.Models;
 
 namespace MvDb.Application.Common.Interfaces;
 

@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using MediatR;
-using MvDb.Application.Common.Models;
 using MvDb.Application.Actions.Actors.Commands.Create;
 using MvDb.Application.Actions.Actors.Commands.Delete;
 using MvDb.Application.Actions.Actors.Commands.Update;
@@ -13,7 +10,7 @@ using MvDb.Application.Actions.Actors.Queries.Search;
 
 namespace MvDb.WebUI.Controllers;
 
-//[Authorize(Roles = "Administrator")]
+[Authorize(Roles = "Administrator")]
 public class ActorsController : ApiControllerBase
 {
     [HttpGet]

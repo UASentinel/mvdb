@@ -1,20 +1,15 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using MediatR;
-using MvDb.Application.Common.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using MvDb.Application.Actions.Episodes.Commands.Create;
+using MvDb.Application.Actions.Episodes.Commands.Delete;
 using MvDb.Application.Actions.Episodes.Commands.Update;
 using MvDb.Application.Actions.Episodes.DataTransferObjects;
 using MvDb.Application.Actions.Episodes.Queries.Get;
 using MvDb.Application.Actions.Episodes.Queries.GetById;
-using MvDb.Application.Actions.Episodes.Commands.Delete;
-using MvDb.Application.Actions.Seasons.Commands.Create;
-using MvDb.Application.Actions.Seasons.Commands.Update;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MvDb.WebUI.Controllers;
 
-//[Authorize(Roles = "Administrator")]
+[Authorize(Roles = "Administrator")]
 public class EpisodesController : ApiControllerBase
 {
     [HttpGet]

@@ -1,7 +1,5 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
-using MvDb.Application.Common.Interfaces;
-using MvDb.Domain.Entities;
 
 namespace MvDb.Application.Actions.Seasons.Commands.Create;
 

@@ -1,9 +1,6 @@
-﻿using IdentityModel;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MvDb.Application.Common.Interfaces;
 using MvDb.Application.Common.Interfaces.Repositories;
-using MvDb.Application.Common.Models;
 using MvDb.Domain.Entities;
 
 namespace MvDb.Infrastructure.Repositories;

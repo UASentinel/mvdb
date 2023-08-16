@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
-using MvDb.Application.Actions.AgeRatings.DataTransferObjects;
-using MvDb.Domain.Entities;
-using MvDb.Domain.Enums;
-
-namespace MvDb.Application.Actions.Medias.DataTransferObjects.Objects;
+﻿namespace MvDb.Application.Actions.Medias.DataTransferObjects.Objects;
 public class SeasonBriefDto
 {
     public int Id { get; set; }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MediaDto, MediasClient, SeasonDto, SeasonsClient} from "../../web-api-client";
+import {MediasClient, SeasonDto, SeasonsClient} from "../../web-api-client";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {ActivatedRoute} from "@angular/router";
 import {AuthorizeService} from "../../../api-authorization/authorize.service";
@@ -31,6 +31,7 @@ export class ViewSeasonComponent implements OnInit {
     this.seasonsClient.get(this.seasonId).subscribe(
       result => {
         this.season = result;
+
         let hours = Math.floor(this.season.duration / 60);
         let minutes = this.season.duration % 60;
 

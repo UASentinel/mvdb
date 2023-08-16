@@ -1,11 +1,10 @@
 ﻿using System.Reflection;
-using MvDb.Application.Common.Behaviours;
-using MvDb.Application.Common.Exceptions;
 using FluentValidation;
 using MediatR;
+using MvDb.Application.Common.Behaviours;
+using MvDb.Application.Common.Interfaces;
 using MvDb.Application.Common.Interfaces.EntityServices;
 using MvDb.Application.Services;
-using MvDb.Application.Common.Interfaces;
 
 namespace Microsoft.Extensions.DependencyInjection;
 

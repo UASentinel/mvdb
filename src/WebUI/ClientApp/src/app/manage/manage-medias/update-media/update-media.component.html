@@ -31,7 +31,6 @@
         <div>
           <label class="form-label text-dark" for="ageRating">Age Rating</label>
           <select class="form-select" id="ageRating" formControlName="ageRating">
-<!--            <option value="">None</option>-->
             <option *ngFor="let ageRating of ageRatings">{{ageRating.name}}</option>
           </select>
         </div>

@@ -1,13 +1,8 @@
-﻿using System.Security.AccessControl;
-using MediatR;
-using Microsoft.AspNetCore.Http;
-using MvDb.Application.Actions.Directors.Queries.Search;
-using MvDb.Application.Actions.Medias.DataTransferObjects;
+﻿using Microsoft.AspNetCore.Http;
 using MvDb.Application.Actions.Medias.Queries.Search;
 using MvDb.Application.Common.Interfaces;
 using MvDb.Application.Common.Interfaces.EntityServices;
 using MvDb.Application.Common.Interfaces.Repositories;
-using MvDb.Application.Common.Models;
 using MvDb.Domain.Entities;
 using MvDb.Domain.Enums;
 

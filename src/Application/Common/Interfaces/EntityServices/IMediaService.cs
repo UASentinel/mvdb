@@ -1,8 +1,4 @@
-﻿using System.Data;
-using Microsoft.AspNetCore.Http;
-using MvDb.Application.Actions.Directors.Queries.Search;
-using MvDb.Application.Actions.Medias.Queries.Search;
-using MvDb.Application.Common.Models;
+﻿using MvDb.Application.Actions.Medias.Queries.Search;
 using MvDb.Domain.Entities;
 
 namespace MvDb.Application.Common.Interfaces.EntityServices;

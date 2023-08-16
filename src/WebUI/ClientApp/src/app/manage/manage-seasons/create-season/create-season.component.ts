@@ -1,11 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {
-  AgeRatingDto,
-  AgeRatingsClient,
   FileParameter,
-  GenreDto,
-  GenresClient,
   MediaDto,
   MediasClient, SeasonsClient
 } from "../../../web-api-client";

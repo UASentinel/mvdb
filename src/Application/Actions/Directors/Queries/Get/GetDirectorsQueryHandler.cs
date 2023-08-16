@@ -1,9 +1,6 @@
 ﻿using MediatR;
-using MvDb.Application.Actions.Actors.DataTransferObjects;
 using MvDb.Application.Actions.Directors.DataTransferObjects;
-using MvDb.Application.Common.Interfaces;
 using MvDb.Application.Common.Interfaces.EntityServices;
-using MvDb.Domain.Entities;
 
 namespace MvDb.Application.Actions.Directors.Queries.Get;
 

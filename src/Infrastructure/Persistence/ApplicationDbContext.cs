@@ -1,13 +1,12 @@
 ﻿using System.Reflection;
-using MvDb.Application.Common.Interfaces;
-using MvDb.Domain.Entities;
-using MvDb.Infrastructure.Identity;
-using MvDb.Infrastructure.Persistence.Interceptors;
 using Duende.IdentityServer.EntityFramework.Options;
 using MediatR;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using MvDb.Application.Common.Interfaces;
+using MvDb.Domain.Entities;
+using MvDb.Infrastructure.Persistence.Interceptors;
 
 namespace MvDb.Infrastructure.Persistence;
 

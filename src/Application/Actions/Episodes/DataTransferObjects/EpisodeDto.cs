@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MvDb.Application.Actions.Episodes.DataTransferObjects;
+﻿namespace MvDb.Application.Actions.Episodes.DataTransferObjects;
 public class EpisodeDto
 {
     public int Id { get; set; }

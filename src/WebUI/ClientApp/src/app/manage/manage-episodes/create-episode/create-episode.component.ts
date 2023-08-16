@@ -3,9 +3,6 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {
   CreateEpisodeCommand,
   EpisodesClient,
-  FileParameter,
-  MediaDto,
-  MediasClient,
   SeasonDto,
   SeasonsClient
 } from "../../../web-api-client";

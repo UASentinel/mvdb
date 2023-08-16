@@ -1,10 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {
   DirectorsClient,
-  MediaDto,
-  MediasClient,
-  MediaSeasonDto, SeasonDto, SeasonEpisodeDto, SeasonsClient, UpdateEpisodesOrderCommand,
-  UpdateSeasonsOrderCommand
+  SeasonDto, SeasonEpisodeDto, SeasonsClient, UpdateEpisodesOrderCommand
 } from "../../../web-api-client";
 import {FormBuilder} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";

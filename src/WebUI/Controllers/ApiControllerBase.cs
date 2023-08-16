@@ -1,6 +1,6 @@
-﻿using MvDb.WebUI.Filters;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using MvDb.WebUI.Filters;
 
 namespace MvDb.WebUI.Controllers;
 

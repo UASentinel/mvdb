@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import {
   ActorDto, ActorsClient,
-  DirectorDto,
-  DirectorsClient, MediaActorDto, MediaDirectorDto,
+  MediaActorDto,
   MediaDto,
   MediasClient, SearchActorsQuery,
-  SearchDirectorsQuery, UpdateActorsCommand,
-  UpdateDirectorsCommand
+  UpdateActorsCommand
 } from "../../../web-api-client";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";

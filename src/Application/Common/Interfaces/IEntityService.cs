@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using MvDb.Application.Common.Models;
-
-namespace MvDb.Application.Common.Interfaces;
+﻿namespace MvDb.Application.Common.Interfaces;
 
 public interface IEntityService<TEntity, TSearch>
 {

@@ -1,20 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using MediatR;
-using MvDb.Application.Common.Models;
-using MvDb.Application.Actions.Medias.Commands.Create;
 using MvDb.Application.Actions.Medias.Commands.AddGenres;
+using MvDb.Application.Actions.Medias.Commands.Create;
+using MvDb.Application.Actions.Medias.Commands.Delete;
+using MvDb.Application.Actions.Medias.Commands.Update;
+using MvDb.Application.Actions.Medias.Commands.UpdateActors;
+using MvDb.Application.Actions.Medias.Commands.UpdateDirectors;
+using MvDb.Application.Actions.Medias.Commands.UpdateSeasonsOrder;
+using MvDb.Application.Actions.Medias.DataTransferObjects.Objects;
 using MvDb.Application.Actions.Medias.Queries.Get;
 using MvDb.Application.Actions.Medias.Queries.GetById;
-using MvDb.Application.Actions.Medias.Commands.Update;
-using MvDb.Application.Actions.Medias.Commands.Delete;
 using MvDb.Application.Actions.Medias.Queries.Search;
-using MvDb.Application.Actions.Medias.Commands.UpdateDirectors;
-using MvDb.Application.Actions.Medias.DataTransferObjects.Objects;
-using MvDb.Application.Actions.Medias.Commands.UpdateActors;
-using MvDb.Application.Actions.Medias.Commands.UpdateSeasonsOrder;
-using MvDb.Application.Actions.Seasons.Commands.UpdateEpisodesOrder;
 
 namespace MvDb.WebUI.Controllers;
 

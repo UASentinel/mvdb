@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MvDb.Application.Actions.Episodes.DataTransferObjects;
-using MvDb.Application.Actions.Medias.DataTransferObjects.Objects;
+﻿using MvDb.Application.Actions.Episodes.DataTransferObjects;
 using MvDb.Domain.Entities;
-using MvDb.Domain.Enums;
 
 namespace MvDb.Application.Actions.Seasons.DataTransferObjects;
 public class SeasonDto

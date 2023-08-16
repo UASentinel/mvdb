@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MediaDto, MediasClient, SeasonDto, SeasonsClient} from "../../../web-api-client";
+import {SeasonDto, SeasonsClient} from "../../../web-api-client";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({

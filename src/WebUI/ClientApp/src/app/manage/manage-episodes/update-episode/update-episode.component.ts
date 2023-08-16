@@ -2,9 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {
   EpisodeDto,
   EpisodesClient,
-  FileParameter,
-  SeasonDto,
-  SeasonsClient,
   UpdateEpisodeCommand
 } from "../../../web-api-client";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
@@ -55,8 +52,6 @@ export class UpdateEpisodeComponent implements OnInit {
       },
       error => console.error(error)
     );
-
-    console.log(1);
   }
 
   onSubmit(): void {

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {MediaType, GenreDto, GenresClient, MediaDto, MediasClient, SearchMediasQuery} from "../web-api-client";
+import {MediaType, MediaDto, MediasClient, SearchMediasQuery} from "../web-api-client";
 
 @Component({
   selector: 'app-explore',

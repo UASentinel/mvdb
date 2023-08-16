@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {EpisodeDto, EpisodesClient, SeasonDto, SeasonsClient} from "../../../web-api-client";
+import {EpisodeDto, EpisodesClient} from "../../../web-api-client";
 import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
