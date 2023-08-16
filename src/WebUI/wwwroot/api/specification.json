@@ -2593,6 +2593,10 @@
             "items": {
               "$ref": "#/components/schemas/EpisodeDto"
             }
+          },
+          "mediaId": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },

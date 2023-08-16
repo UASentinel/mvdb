@@ -94,6 +94,8 @@ public class MediaDto
         if (MediaType == MediaType.Movie)
             return;
 
+        Duration = 0;
+
         foreach (var season in seasons)
         {
             var seasonDto = new SeasonBriefDto()

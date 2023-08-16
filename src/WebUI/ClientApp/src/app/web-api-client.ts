@@ -4106,6 +4106,7 @@ export class SeasonDto implements ISeasonDto {
     duration?: number;
     releaseDate?: Date;
     episodes?: EpisodeDto[];
+    mediaId?: number;
 
     constructor(data?: ISeasonDto) {
         if (data) {
@@ -4131,6 +4132,7 @@ export class SeasonDto implements ISeasonDto {
                 for (let item of _data["episodes"])
                     this.episodes!.push(EpisodeDto.fromJS(item));
             }
+            this.mediaId = _data["mediaId"];
         }
     }
 
@@ -4156,6 +4158,7 @@ export class SeasonDto implements ISeasonDto {
             for (let item of this.episodes)
                 data["episodes"].push(item.toJSON());
         }
+        data["mediaId"] = this.mediaId;
         return data;
     }
 }
@@ -4170,6 +4173,7 @@ export interface ISeasonDto {
     duration?: number;
     releaseDate?: Date;
     episodes?: EpisodeDto[];
+    mediaId?: number;
 }
 
 export class UpdateEpisodesOrderCommand implements IUpdateEpisodesOrderCommand {

@@ -28,6 +28,9 @@ import {CreateEpisodeComponent} from "./manage/manage-episodes/create-episode/cr
 import {ReorderEpisodesComponent} from "./manage/manage-seasons/reorder-episodes/reorder-episodes.component";
 import {UpdateSeasonComponent} from "./manage/manage-seasons/update-season/update-season.component";
 import {UpdateEpisodeComponent} from "./manage/manage-episodes/update-episode/update-episode.component";
+import {DeleteMediaComponent} from "./manage/manage-medias/delete-media/delete-media.component";
+import {DeleteSeasonComponent} from "./manage/manage-seasons/delete-season/delete-season.component";
+import {DeleteEpisodeComponent} from "./manage/manage-episodes/delete-episode/delete-episode.component";
 
 @NgModule({
   declarations: [
@@ -41,14 +44,17 @@ import {UpdateEpisodeComponent} from "./manage/manage-episodes/update-episode/up
     ManageMediasComponent,
     CreateMediaComponent,
     UpdateMediaComponent,
+    DeleteMediaComponent,
     UpdateDirectorsComponent,
     UpdateActorsComponent,
     ReorderSeasonsComponent,
     CreateSeasonComponent,
     UpdateSeasonComponent,
+    DeleteSeasonComponent,
     ReorderEpisodesComponent,
     CreateEpisodeComponent,
-    UpdateEpisodeComponent
+    UpdateEpisodeComponent,
+    DeleteEpisodeComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

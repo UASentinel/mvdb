@@ -17,6 +17,9 @@ import {CreateEpisodeComponent} from "./manage/manage-episodes/create-episode/cr
 import {ReorderEpisodesComponent} from "./manage/manage-seasons/reorder-episodes/reorder-episodes.component";
 import {UpdateSeasonComponent} from "./manage/manage-seasons/update-season/update-season.component";
 import {UpdateEpisodeComponent} from "./manage/manage-episodes/update-episode/update-episode.component";
+import {DeleteMediaComponent} from "./manage/manage-medias/delete-media/delete-media.component";
+import {DeleteSeasonComponent} from "./manage/manage-seasons/delete-season/delete-season.component";
+import {DeleteEpisodeComponent} from "./manage/manage-episodes/delete-episode/delete-episode.component";
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -30,6 +33,7 @@ export const routes: Routes = [
       { path: 'medias', children: [
           { path: '', component: ManageMediasComponent },
           { path: 'reorder/seasons/:id', component: ReorderSeasonsComponent },
+          { path: 'delete/:id', component: DeleteMediaComponent },
           { path: 'create', children:[
               { path: '', component: CreateMediaComponent },
               { path: 'season/:id', component: CreateSeasonComponent }
@@ -41,14 +45,16 @@ export const routes: Routes = [
             ] },
           { path: ':id', component: ViewMediaComponent }
         ] },
-      { path: 'episodes', children: [
-          { path: 'update/:id', component: UpdateEpisodeComponent }
-        ] },
       { path: 'seasons', children: [
           { path: ':id', component: ViewSeasonComponent },
           { path: 'update/:id', component: UpdateSeasonComponent },
+          { path: 'delete/:id', component: DeleteSeasonComponent },
           { path: 'create/episode/:id', component: CreateEpisodeComponent },
           { path: 'reorder/episodes/:id', component: ReorderEpisodesComponent }
+        ] },
+      { path: 'episodes', children: [
+          { path: 'update/:id', component: UpdateEpisodeComponent },
+          { path: 'delete/:id', component: DeleteEpisodeComponent }
         ] }
     ] }
 ];

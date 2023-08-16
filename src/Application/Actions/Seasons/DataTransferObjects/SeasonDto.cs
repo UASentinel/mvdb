@@ -20,6 +20,7 @@ public class SeasonDto
     public int Duration { get; set; }
     public DateTime ReleaseDate { get; set; }
     public ICollection<EpisodeDto> Episodes { get; set;}
+    public int MediaId { get; set; }
     public void SetEpisodes(ICollection<Episode> episodes)
     {
         Episodes ??= new List<EpisodeDto>();

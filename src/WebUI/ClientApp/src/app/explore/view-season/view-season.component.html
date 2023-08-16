@@ -32,7 +32,7 @@
       <button routerLink="../../../manage/seasons/update/{{season.id}}" class="btn btn-lg btn-warning btn-margin">
         <i class="bi bi-pencil"></i>&nbsp;&nbsp;Update
       </button>
-      <button class="btn btn-lg btn-danger">
+      <button routerLink="../../../manage/seasons/delete/{{season.id}}" class="btn btn-lg btn-danger">
         <i class="bi bi-trash"></i>&nbsp;&nbsp;Delete
       </button>
     </div>
@@ -61,7 +61,7 @@
         <button routerLink="../../../manage/episodes/update/{{episode.id}}" class="btn btn-lg btn-warning btn-manage-episode">
           <i class="bi bi-pencil"></i>
         </button>
-        <button routerLink="../../../manage/seasons/create/episode/{{season.id}}" class="btn btn-lg btn-danger btn-manage-episode">
+        <button routerLink="../../../manage/episodes/delete/{{episode.id}}" class="btn btn-lg btn-danger btn-manage-episode">
           <i class="bi bi-trash"></i>
         </button>
       </div>

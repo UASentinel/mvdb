@@ -31,7 +31,8 @@ public class GetSeasonByIdQueryHandler : IRequestHandler<GetSeasonByIdQuery, Sea
             Description = season.Description,
             Order = season.Order,
             PosterLink = season.PosterLink,
-            TrailerLink = season.TrailerLink
+            TrailerLink = season.TrailerLink,
+            MediaId = season.MediaId
         };
 
         seasonDto.SetEpisodes(season.Episodes);
