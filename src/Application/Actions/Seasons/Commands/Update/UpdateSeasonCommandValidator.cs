@@ -14,8 +14,5 @@ public class UpdateSeasonCommandValidator : AbstractValidator<UpdateSeasonComman
 
         RuleFor(s => s.Order)
             .NotEmpty();
-
-        RuleFor(s => s.MediaId)
-            .NotEmpty();
     }
 }

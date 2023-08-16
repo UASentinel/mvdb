@@ -43,14 +43,28 @@ public class SeasonService : ISeasonService
     {
         var mediaId = await GetMediaId(season.Id);
 
+        //if (deletePoster)
+        //{
+        //    season.PosterLink = null;
+        //    await _imageService.DeleteSeasonPoster(season.Id, mediaId);
+        //}
+        //else
+        //{
+        //    season.PosterLink = await _imageService.UploadSeasonPoster(posterFile, season.Id, mediaId);
+        //}
+
         if (deletePoster)
         {
             season.PosterLink = null;
             await _imageService.DeleteSeasonPoster(season.Id, mediaId);
         }
+        else if (posterFile != null)
+            season.PosterLink = await _imageService.UploadSeasonPoster(posterFile, season.Id, mediaId);
         else
         {
-            season.PosterLink = await _imageService.UploadSeasonPoster(posterFile, season.Id, mediaId);
+            var dbMedia = await _seasonRepository.GetById(season.Id);
+            if (dbMedia != null)
+                season.PosterLink = dbMedia.PosterLink;
         }
 
         await _seasonRepository.Update(season, cancellationToken);

@@ -63,4 +63,35 @@ public class EpisodeRepository : IEpisodeRepository
 
         return result > 0 ? true : false;
     }
+
+    public async Task<bool> UpdateEpisodesOrder(ICollection<Episode> episodes, CancellationToken cancellationToken)
+    {
+        foreach (var episode in episodes)
+        {
+            var dbEpisode = await _applicationDbContext.Episodes.FirstOrDefaultAsync(e => e.Id == episode.Id);
+            if (dbEpisode == null)
+                return false;
+
+            dbEpisode.Order = episode.Order;
+        }
+
+        var result = await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+        return result > 0 ? true : false;
+    }
+
+    public async Task<bool> RestoreSeasonEpisodesOrder(int seasonId, CancellationToken cancellationToken)
+    {
+        var episodes = _applicationDbContext.Episodes
+            .Where(e => e.SeasonId == seasonId)
+            .OrderBy(s => s.Order)
+            .ToList();
+
+        for (int i = 0; i < episodes.Count; i++)
+            episodes[i].Order = (byte)(i + 1);
+
+        await _applicationDbContext.SaveChangesAsync(cancellationToken);
+
+        return true;
+    }
 }

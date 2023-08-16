@@ -25,7 +25,7 @@ export class CreateSeasonComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private mediasClient: MediasClient,
-    private seasonsCLient: SeasonsClient,
+    private seasonsClient: SeasonsClient,
     private currentRoute: ActivatedRoute,
     private router: Router
   ) {}
@@ -54,7 +54,7 @@ export class CreateSeasonComponent implements OnInit {
       const fileBlob = new Blob([this.posterFile], { type: 'image/png' });
       const file: FileParameter = { data: fileBlob, fileName: this.posterFile.name };
 
-      this.seasonsCLient.create(
+      this.seasonsClient.create(
         this.createForm.value.title,
         this.createForm.value.description,
         this.createForm.value.order,

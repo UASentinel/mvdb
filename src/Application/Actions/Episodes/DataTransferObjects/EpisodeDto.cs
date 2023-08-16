@@ -13,4 +13,5 @@ public class EpisodeDto
     public int Duration { get; set; }
     public int Order { get; set; }
     public DateTime ReleaseDate { get; set; }
+    public int SeasonId { get; set; }
 }

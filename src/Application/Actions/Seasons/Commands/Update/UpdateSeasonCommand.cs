@@ -13,5 +13,4 @@ public record UpdateSeasonCommand : IRequest
     public IFormFile? PosterFile { get; set; }
     public bool DeletePoster { get; set; }
     public string? TrailerLink { get; set; }
-    public int MediaId { get; set; }
 }

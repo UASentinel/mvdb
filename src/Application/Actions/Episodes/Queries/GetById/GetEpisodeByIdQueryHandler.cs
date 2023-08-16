@@ -30,7 +30,8 @@ public class GetEpisodeByIdQueryHandler : IRequestHandler<GetEpisodeByIdQuery, E
             Description = episode.Description,
             Duration = episode.Duration,
             Order = episode.Order,
-            ReleaseDate = episode.ReleaseDate
+            ReleaseDate = episode.ReleaseDate,
+            SeasonId = episode.SeasonId
         };
         return episodeDto;
     }

@@ -6,10 +6,10 @@ using MvDb.Application.Common.Interfaces;
 using MvDb.Domain.Entities;
 using MvDb.Domain.Enums;
 
-namespace MvDb.Application.Actions.Medias.Commands.UpdateSeasonsOrder;
+namespace MvDb.Application.Actions.Seasons.Commands.UpdateEpisodesOrder;
 
-public record UpdateSeasonsOrderCommand : IRequest
+public record UpdateEpisodesOrderCommand : IRequest
 {
-    public int MediaId { get; set; }
-    public ICollection<MediaSeasonDto> MediaSeasonDtos { get; set; } = new List<MediaSeasonDto>();
+    public int SeasonId { get; set; }
+    public ICollection<SeasonEpisodeDto> SeasonEpisodeDtos { get; set; } = new List<SeasonEpisodeDto>();
 }

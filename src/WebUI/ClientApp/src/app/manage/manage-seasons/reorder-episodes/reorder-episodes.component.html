@@ -1,0 +1,22 @@
+<h1 class="mt-5 text-light">Reorder episodes</h1>
+<h4 class="mt-2 text-light">Season id: {{season?.id}}</h4>
+<h4 class="mt-2 text-light">Season title: {{season?.title}}</h4>
+
+<div class="div-manage">
+  <button (click)="saveChanges()" class="btn btn-lg btn-success btn-add">
+    Save changes
+  </button>
+</div>
+
+<div class="episodes-container" *ngIf="season">
+  <div *ngFor="let episode of season.episodes; let i = index" class="div-episode">
+    <h5 class="m-0">
+      Id: {{episode.id}} -
+      {{episode.title}}
+    </h5>
+    <div class="div-buttons">
+      <button type="button" class="btn btn-warning btn-sm" (click)="episodeUp(i)"><i class="bi bi-chevron-up"></i></button>
+      <button type="button" class="btn btn-warning btn-sm" (click)="episodeDown(i)"><i class="bi bi-chevron-down"></i></button>
+    </div>
+  </div>
+</div>

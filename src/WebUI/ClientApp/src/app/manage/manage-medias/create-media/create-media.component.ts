@@ -62,7 +62,7 @@ export class CreateMediaComponent implements OnInit{
 
   onSubmit(): void {
     if (this.createForm.valid) {
-    // if (1) {
+      // if (1) {
       const ageRatingIndex = this.ageRatings.findIndex(a => a.name == this.createForm.value.ageRating);
       if(ageRatingIndex === -1){
         return;
@@ -135,7 +135,6 @@ export class CreateMediaComponent implements OnInit{
     }
     this.posterFile = <File>files[0];
   }
-
   updateGenres(id: number): void {
     if(id !== 0){
       const command = {

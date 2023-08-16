@@ -1,0 +1,45 @@
+<h1 class="mt-5 text-light">Update season</h1>
+<h4 class="mt-2 text-light">Season id: {{season?.id}}</h4>
+<h4 class="mt-2 text-light">Season title: {{season?.title}}</h4>
+
+<div class="div-main mt-5">
+  <form [formGroup]="updateForm" (ngSubmit)="onSubmit()" class="form-update" enctype="multipart/form-data">
+    <h4>Update</h4>
+
+    <div class="div-main flex-wrap">
+      <div class="form-part-left">
+        <div>
+          <label class="form-label text-dark" for="title">Title</label>
+          <input class="form-control" type="text" id="title" formControlName="title" placeholder="Enter title"/>
+        </div>
+        <div>
+          <label class="form-label text-dark" for="trailerLink">Trailer Link</label>
+          <input class="form-control" type="text" id="trailerLink" formControlName="trailerLink" placeholder="Enter trailer link"/>
+        </div>
+        <div>
+          <label class="form-label text-dark" for="order">Order</label>
+          <input class="form-control" type="number" id="order" formControlName="order"/>
+        </div>
+        <div>
+          <label class="form-label text-dark" for="poster">Poster</label>
+          <input #file (change)="uploadFile(file.files)" class="form-control" type="file" id="poster" formControlName="poster" />
+        </div>
+        <div class="mt-3">
+          <input type="checkbox" class="form-check-input" id="deletePoster" formControlName="deletePoster" />
+          <label class="form-check-label text-danger" for="deletePoster">Delete poster</label>
+        </div>
+      </div>
+
+      <div class="form-part-right">
+        <div>
+          <label class="form-label text-dark" for="description">Description</label>
+          <textarea rows="5" class="form-control" id="description" formControlName="description" placeholder="Enter description"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="div-button">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>

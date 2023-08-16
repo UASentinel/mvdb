@@ -24,9 +24,14 @@ public class SeasonRepository : ISeasonRepository
 
     public async Task<Season?> GetById(int id)
     {
-        return await _applicationDbContext.Seasons
+        var season = await _applicationDbContext.Seasons
             .Include(s => s.Episodes)
             .FirstOrDefaultAsync(s => s.Id == id);
+
+        if (season != null)
+            season.Episodes = season.Episodes.OrderBy(e => e.Order).ToList();
+
+        return season;
     }
 
     public async Task<bool> Create(Season season, CancellationToken cancellationToken)

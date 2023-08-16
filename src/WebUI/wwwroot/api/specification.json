@@ -1787,10 +1787,6 @@
                   "TrailerLink": {
                     "type": "string",
                     "nullable": true
-                  },
-                  "MediaId": {
-                    "type": "integer",
-                    "format": "int32"
                   }
                 }
               }
@@ -1843,6 +1839,63 @@
         "responses": {
           "204": {
             "description": ""
+          },
+          "default": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Seasons/Episodes/Reorder/{id}": {
+      "put": {
+        "tags": [
+          "Seasons"
+        ],
+        "operationId": "Seasons_ReorderEpisodes",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEpisodesOrderCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 2
+        },
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
           },
           "default": {
             "description": "",
@@ -2057,6 +2110,10 @@
           "releaseDate": {
             "type": "string",
             "format": "date-time"
+          },
+          "seasonId": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
@@ -2536,6 +2593,36 @@
             "items": {
               "$ref": "#/components/schemas/EpisodeDto"
             }
+          }
+        }
+      },
+      "UpdateEpisodesOrderCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "seasonId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "seasonEpisodeDtos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeasonEpisodeDto"
+            }
+          }
+        }
+      },
+      "SeasonEpisodeDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "episodeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "order": {
+            "type": "integer",
+            "format": "byte"
           }
         }
       }

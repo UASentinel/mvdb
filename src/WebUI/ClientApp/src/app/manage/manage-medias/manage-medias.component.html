@@ -30,7 +30,7 @@
     </div>
   </form>
 
-  <button routerLink="create" class="btn btn-lg btn-success btn-add">
+  <button routerLink="create-media" class="btn btn-lg btn-success btn-add">
     <i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Create
   </button>
 </div>
@@ -59,7 +59,7 @@
   </div>
 </form>
 
-<div class="div-medias">
+<div class="div-cards-container">
   <a routerLink="{{media.id}}" *ngFor="let media of selectedMedias" class="media-container">
     <img src="{{media.posterLink}}" alt="Poster" class="media-poster">
     <div class="div-media-info">

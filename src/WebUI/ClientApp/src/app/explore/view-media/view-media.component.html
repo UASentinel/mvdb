@@ -55,7 +55,7 @@
     </button>
   </div>
 
-  <div class="div-main mt-3">
+  <div class="div-cards-container mt-3">
     <a *ngFor="let director of media.directors" routerLink="" class="staff-container">
       <img src="{{director.photoLink}}" alt="Photo" class="staff-photo">
       <div class="div-staff-info">
@@ -72,7 +72,7 @@
     </button>
   </div>
 
-  <div class="div-main mt-3">
+  <div class="div-cards-container mt-3">
     <a *ngFor="let actor of media.actors" routerLink="" class="staff-container">
       <img src="{{actor.photoLink}}" alt="Photo" class="staff-photo">
       <div class="div-staff-info">
@@ -92,8 +92,7 @@
         <i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Create
       </button>
     </div>
-
-    <div class="div-main mt-3">
+    <div class="div-cards-container mt-3">
       <a *ngFor="let season of media.seasons" routerLink="../../seasons/{{season.id}}" class="staff-container">
         <img src="{{season.posterLink}}" alt="Photo" class="staff-photo">
         <div class="div-staff-info">

@@ -11,6 +11,8 @@ using MvDb.Application.Actions.Seasons.Commands.Update;
 using MvDb.Application.Actions.Seasons.Commands.Delete;
 using MvDb.Application.Actions.Medias.Commands.Create;
 using MvDb.Application.Actions.Medias.Commands.Update;
+using MvDb.Application.Actions.Medias.Commands.UpdateSeasonsOrder;
+using MvDb.Application.Actions.Seasons.Commands.UpdateEpisodesOrder;
 
 namespace MvDb.WebUI.Controllers;
 
@@ -57,6 +59,20 @@ public class SeasonsController : ApiControllerBase
     public async Task<IActionResult> Delete(int id)
     {
         await Mediator.Send(new DeleteSeasonCommand(id));
+
+        return NoContent();
+    }
+
+    [HttpPut("Episodes/Reorder/{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesDefaultResponseType]
+    public async Task<IActionResult> ReorderEpisodes(int id, UpdateEpisodesOrderCommand command)
+    {
+        if (id != command.SeasonId)
+            return BadRequest();
+
+        await Mediator.Send(command);
 
         return NoContent();
     }

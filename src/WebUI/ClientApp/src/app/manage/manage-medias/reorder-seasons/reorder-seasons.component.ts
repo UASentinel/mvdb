@@ -43,12 +43,12 @@ export class ReorderSeasonsComponent implements  OnInit{
     } as UpdateSeasonsOrderCommand;
 
     for(let i = 0; i < this.media.seasons.length; i++){
-      const mediaDirectorDto = {
+      const mediaSeasonDto = {
         seasonId: this.media.seasons[i].id,
         order: i + 1
       } as MediaSeasonDto;
 
-      command.mediaSeasonDtos.push(mediaDirectorDto);
+      command.mediaSeasonDtos.push(mediaSeasonDto);
     }
 
     this.mediasClient.reorderSeasons(

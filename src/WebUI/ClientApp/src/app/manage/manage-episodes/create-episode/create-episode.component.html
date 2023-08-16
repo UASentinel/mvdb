@@ -1,0 +1,41 @@
+<h1 class="mt-5 text-light">Create episode</h1>
+<h4 class="mt-2 text-light">Season id: {{season?.id}}</h4>
+<h4 class="mt-2 text-light">Season title: {{season?.title}}</h4>
+
+<div class="div-main mt-5">
+  <form [formGroup]="createForm" (ngSubmit)="onSubmit()" class="form-create" enctype="multipart/form-data">
+    <h4>Create</h4>
+
+    <div class="div-main flex-wrap">
+      <div class="form-part-left">
+        <div>
+          <label class="form-label text-dark" for="title">Title</label>
+          <input class="form-control" type="text" id="title" formControlName="title" placeholder="Enter title"/>
+        </div>
+        <div>
+          <label class="form-label text-dark" for="duration">Duration</label>
+          <input class="form-control" type="number" id="duration" formControlName="duration"/>
+        </div>
+        <div>
+          <label class="form-label text-dark" for="releaseDate">Release Date</label>
+          <input class="form-control" type="date" id="releaseDate" formControlName="releaseDate" />
+        </div>
+        <div>
+          <label class="form-label text-dark" for="order">Order</label>
+          <input class="form-control" type="number" id="order" formControlName="order"/>
+        </div>
+      </div>
+
+      <div class="form-part-right">
+        <div>
+          <label class="form-label text-dark" for="description">Description</label>
+          <textarea rows="5" class="form-control" id="description" formControlName="description" placeholder="Enter description"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="div-button">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>

@@ -14,6 +14,7 @@ using MvDb.Application.Actions.Medias.Commands.UpdateDirectors;
 using MvDb.Application.Actions.Medias.DataTransferObjects.Objects;
 using MvDb.Application.Actions.Medias.Commands.UpdateActors;
 using MvDb.Application.Actions.Medias.Commands.UpdateSeasonsOrder;
+using MvDb.Application.Actions.Seasons.Commands.UpdateEpisodesOrder;
 
 namespace MvDb.WebUI.Controllers;
 

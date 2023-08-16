@@ -50,14 +50,22 @@
   </div>
 
   <div class="mt-3 episodes-container">
-    <a *ngFor="let episode of season.episodes; let i = index" routerLink="../../seasons/{{season.id}}" class="episode-container">
+    <div *ngFor="let episode of season.episodes; let i = index" class="episode-container">
       <div class="episode-top-info">
         <h3 class="text-light h-episode">{{i + 1}}. {{episode.title}}</h3>
         <h5 class="text-grey h-episode">{{episode.releaseDate.toDateString()}}</h5>
       </div>
       <h5 class="text-light h-episode">{{episode['durationString']}}</h5>
       <p class="text-light p-description">{{episode.description}}</p>
-    </a>
+      <div *ngIf="isAdministrator" class="manage-episodes">
+        <button routerLink="../../../manage/episodes/update/{{episode.id}}" class="btn btn-lg btn-warning btn-manage-episode">
+          <i class="bi bi-pencil"></i>
+        </button>
+        <button routerLink="../../../manage/seasons/create/episode/{{season.id}}" class="btn btn-lg btn-danger btn-manage-episode">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+    </div>
   </div>
 
 

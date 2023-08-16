@@ -32,6 +32,7 @@ export class ViewMediaComponent implements OnInit {
     this.mediasClient.get(this.mediaId).subscribe(
       result => {
         this.media = result;
+        console.log(this.media);
         let hours = Math.floor(this.media.duration / 60);
         let minutes = this.media.duration % 60;
 

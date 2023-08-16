@@ -62,6 +62,12 @@ a {
   justify-content: flex-start;
 }
 
+.div-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
 .btn-primary {
   background-color: var(--primary-main);
   border-width: 0px;
@@ -129,4 +135,10 @@ a {
 
 .badge-danger {
   background-color: var(--danger-main);
+}
+
+@media (max-width: 767px) {
+  .div-cards-container {
+    justify-content: center;
+  }
 }

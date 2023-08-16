@@ -13,6 +13,10 @@ import {ViewMediaComponent} from "./explore/view-media/view-media.component";
 import {CreateSeasonComponent} from "./manage/manage-seasons/create-season/create-season.component";
 import {ReorderSeasonsComponent} from "./manage/manage-medias/reorder-seasons/reorder-seasons.component";
 import {ViewSeasonComponent} from "./explore/view-season/view-season.component";
+import {CreateEpisodeComponent} from "./manage/manage-episodes/create-episode/create-episode.component";
+import {ReorderEpisodesComponent} from "./manage/manage-seasons/reorder-episodes/reorder-episodes.component";
+import {UpdateSeasonComponent} from "./manage/manage-seasons/update-season/update-season.component";
+import {UpdateEpisodeComponent} from "./manage/manage-episodes/update-episode/update-episode.component";
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -25,7 +29,6 @@ export const routes: Routes = [
       { path: '', component: ManageComponent },
       { path: 'medias', children: [
           { path: '', component: ManageMediasComponent },
-          { path: ':id', component: ViewMediaComponent },
           { path: 'reorder/seasons/:id', component: ReorderSeasonsComponent },
           { path: 'create', children:[
               { path: '', component: CreateMediaComponent },
@@ -35,10 +38,17 @@ export const routes: Routes = [
               { path: ':id', component: UpdateMediaComponent },
               { path: 'directors/:id', component: UpdateDirectorsComponent },
               { path: 'actors/:id', component: UpdateActorsComponent }
-            ] }
+            ] },
+          { path: ':id', component: ViewMediaComponent }
+        ] },
+      { path: 'episodes', children: [
+          { path: 'update/:id', component: UpdateEpisodeComponent }
         ] },
       { path: 'seasons', children: [
-          { path: ':id', component: ViewSeasonComponent }
+          { path: ':id', component: ViewSeasonComponent },
+          { path: 'update/:id', component: UpdateSeasonComponent },
+          { path: 'create/episode/:id', component: CreateEpisodeComponent },
+          { path: 'reorder/episodes/:id', component: ReorderEpisodesComponent }
         ] }
     ] }
 ];
