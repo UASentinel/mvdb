@@ -24,6 +24,7 @@ steps:
   displayName: 'npm install for Angular app'
 
 - script: |
+    cd src\WebUI\ClientApp
     npm run build -- --prod
   displayName: 'Build Angular app'
 
