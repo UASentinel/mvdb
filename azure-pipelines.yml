@@ -20,12 +20,12 @@ steps:
 
 - script: |
     cd src\WebUI\ClientApp
-    npm install
+    npm install -g @angular/cli@12
   displayName: 'npm install for Angular app'
 
 - script: |
     cd src\WebUI\ClientApp
-    npm run build -- --prod
+    npm run build --prod
   displayName: 'Build Angular app'
 
 - task: DotNetCoreCLI@2
