@@ -25,7 +25,7 @@ steps:
 
 - script: |
     cd src\WebUI\ClientApp
-    npm run build --prod
+    npm run build
   displayName: 'Build Angular app'
 
 - task: DotNetCoreCLI@2
