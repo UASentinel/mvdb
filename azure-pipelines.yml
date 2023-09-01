@@ -13,6 +13,21 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.x'
+    checkLatest: true
+
+- script: |
+    cd 'src/WebUI/ClientApp'
+    npm install
+  displayName: 'npm install for Angular app'
+
+- script: |
+    cd 'src/WebUI/ClientApp'
+    npm run build -- --prod
+  displayName: 'Build Angular app'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: publish
