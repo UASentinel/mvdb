@@ -25,9 +25,9 @@
   <div>
     <h5 class="text-light">Order</h5>
     <div class="btn-group" role="group">
-      <input #asc (click)="onOrderChange(asc)" type="radio" class="btn-check" value="asc" name="order" id="radioOrder1" formControlName="order">
+      <input #asc (click)="onOrderChange(asc)" type="radio" class="btn-check" value="{{Constants.AscOrder}}" name="order" id="radioOrder1" formControlName="order">
       <label for="radioOrder1" class="btn btn-outline-light">Asc</label>
-      <input #desc (click)="onOrderChange(desc)" type="radio" class="btn-check" value="desc" name="order" id="radioOrder2" formControlName="order">
+      <input #desc (click)="onOrderChange(desc)" type="radio" class="btn-check" value="{{Constants.DescOrder}}" name="order" id="radioOrder2" formControlName="order">
       <label for="radioOrder2" class="btn btn-outline-light">Desc</label>
     </div>
   </div>

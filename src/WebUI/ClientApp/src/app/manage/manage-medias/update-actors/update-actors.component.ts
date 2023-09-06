@@ -8,6 +8,7 @@ import {
 } from "../../../web-api-client";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Constants} from "../../../../assets/constants";
 
 @Component({
   selector: 'app-update-actors',
@@ -29,7 +30,7 @@ export class UpdateActorsComponent {
     private router: Router
   ) {}
   ngOnInit() {
-    this.mediaId = Number(this.currentRoute.snapshot.paramMap.get('id'));
+    this.mediaId = Number(this.currentRoute.snapshot.paramMap.get(Constants.IdParameter));
     this.mediasClient.get(this.mediaId).subscribe(
       result => {
         this.media = result;
@@ -74,7 +75,7 @@ export class UpdateActorsComponent {
       command
     ).subscribe(
       result => {
-        this.router.navigateByUrl('manage/medias/' + this.mediaId);
+        this.router.navigateByUrl(Constants.ManageMediasRoute + '/' + this.mediaId);
       },
       error => console.error(error)
     );

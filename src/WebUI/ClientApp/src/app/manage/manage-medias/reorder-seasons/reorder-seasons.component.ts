@@ -9,6 +9,7 @@ import {
 } from "../../../web-api-client";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Constants} from "../../../../assets/constants";
 
 @Component({
   selector: 'app-reorder-seasons',
@@ -23,11 +24,10 @@ export class ReorderSeasonsComponent implements  OnInit{
     private formBuilder: FormBuilder,
     private currentRoute: ActivatedRoute,
     private mediasClient: MediasClient,
-    private directorsClient: DirectorsClient,
     private router: Router
   ) {}
   ngOnInit() {
-    this.mediaId = Number(this.currentRoute.snapshot.paramMap.get('id'));
+    this.mediaId = Number(this.currentRoute.snapshot.paramMap.get(Constants.IdParameter));
     this.mediasClient.get(this.mediaId).subscribe(
       result => {
         this.media = result;
@@ -56,7 +56,7 @@ export class ReorderSeasonsComponent implements  OnInit{
       command
     ).subscribe(
       result => {
-        this.router.navigateByUrl('manage/medias/' + this.mediaId);
+        this.router.navigateByUrl(Constants.ManageMediasRoute + '/' + this.mediaId);
       },
       error => console.error(error)
     );

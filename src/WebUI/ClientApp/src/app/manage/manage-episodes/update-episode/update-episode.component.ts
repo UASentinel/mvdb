@@ -6,6 +6,7 @@ import {
 } from "../../../web-api-client";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Constants} from "../../../../assets/constants";
 
 @Component({
   selector: 'app-update-episode',
@@ -26,7 +27,7 @@ export class UpdateEpisodeComponent implements OnInit {
 
   ngOnInit() {
 
-    this.episodeId = Number(this.currentRoute.snapshot.paramMap.get('id'));
+    this.episodeId = Number(this.currentRoute.snapshot.paramMap.get(Constants.IdParameter));
 
     this.updateForm = this.formBuilder.group({
       title: ['', Validators.required],
@@ -70,7 +71,7 @@ export class UpdateEpisodeComponent implements OnInit {
         command
       ).subscribe(
         result => {
-          this.router.navigateByUrl('manage/seasons/' + this.episode.seasonId);
+          this.router.navigateByUrl(Constants.ManageSeasonsRoute + '/' + this.episode.seasonId);
         },
         error => console.error(error)
       );

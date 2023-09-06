@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SeasonDto, SeasonsClient} from "../../../web-api-client";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Constants} from "../../../../assets/constants";
 
 @Component({
   selector: 'app-delete-season',
@@ -18,7 +19,7 @@ export class DeleteSeasonComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.seasonId = Number(this.currentRoute.snapshot.paramMap.get('id'));
+    this.seasonId = Number(this.currentRoute.snapshot.paramMap.get(Constants.IdParameter));
     this.seasonsClient.get(this.seasonId).subscribe(
       result => {
         this.season = result;
@@ -32,7 +33,7 @@ export class DeleteSeasonComponent implements OnInit {
       this.seasonId
     ).subscribe(
       result => {
-        this.router.navigateByUrl('manage/medias/' + this.season.mediaId);
+        this.router.navigateByUrl(Constants.ManageMediasRoute + '/' + this.season.mediaId);
       },
       error => console.error(error)
     );

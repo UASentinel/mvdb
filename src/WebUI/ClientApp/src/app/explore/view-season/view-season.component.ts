@@ -3,6 +3,7 @@ import {MediasClient, SeasonDto, SeasonsClient} from "../../web-api-client";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {ActivatedRoute} from "@angular/router";
 import {AuthorizeService} from "../../../api-authorization/authorize.service";
+import {Constants} from "../../../assets/constants";
 
 @Component({
   selector: 'app-view-season',
@@ -26,7 +27,7 @@ export class ViewSeasonComponent implements OnInit {
 
   ngOnInit() {
 
-    this.seasonId = Number(this.currentRoute.snapshot.paramMap.get('id'));
+    this.seasonId = Number(this.currentRoute.snapshot.paramMap.get(Constants.IdParameter));
 
     this.seasonsClient.get(this.seasonId).subscribe(
       result => {
@@ -57,7 +58,7 @@ export class ViewSeasonComponent implements OnInit {
 
     this.authorizeService.getUserRoles().subscribe(
       roles => {
-        this.isAdministrator = roles && roles.findIndex(r => r === 'Administrator') !== -1;
+        this.isAdministrator = roles && roles.findIndex(r => r === Constants.AdministratorRoleName) !== -1;
       }
     );
   }

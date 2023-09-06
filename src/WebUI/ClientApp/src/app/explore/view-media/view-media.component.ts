@@ -3,6 +3,7 @@ import {MediaDto, MediasClient, MediaType} from "../../web-api-client";
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 import {ActivatedRoute} from "@angular/router";
 import {AuthorizeService} from "../../../api-authorization/authorize.service";
+import {Constants} from "../../../assets/constants";
 
 @Component({
   selector: 'app-view-media',
@@ -27,7 +28,7 @@ export class ViewMediaComponent implements OnInit {
   }
   ngOnInit() {
 
-    this.mediaId = Number(this.currentRoute.snapshot.paramMap.get('id'));
+    this.mediaId = Number(this.currentRoute.snapshot.paramMap.get(Constants.IdParameter));
 
     this.mediasClient.get(this.mediaId).subscribe(
       result => {
@@ -61,7 +62,7 @@ export class ViewMediaComponent implements OnInit {
 
     this.authorizeService.getUserRoles().subscribe(
       roles => {
-        this.isAdministrator = roles && roles.findIndex(r => r === 'Administrator') !== -1;
+        this.isAdministrator = roles && roles.findIndex(r => r === Constants.AdministratorRoleName) !== -1;
       }
     );
   }

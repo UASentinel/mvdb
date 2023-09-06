@@ -7,6 +7,7 @@ import {
   SeasonsClient
 } from "../../../web-api-client";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Constants} from "../../../../assets/constants";
 
 @Component({
   selector: 'app-create-episode',
@@ -27,7 +28,7 @@ export class CreateEpisodeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.seasonId = Number(this.currentRoute.snapshot.paramMap.get('id'));
+    this.seasonId = Number(this.currentRoute.snapshot.paramMap.get(Constants.IdParameter));
 
     this.seasonsClient.get(this.seasonId).subscribe(
       result => {
@@ -62,7 +63,7 @@ export class CreateEpisodeComponent implements OnInit {
         command
       ).subscribe(
         result => {
-          this.router.navigateByUrl('manage/seasons/' + this.seasonId);
+          this.router.navigateByUrl(Constants.ManageSeasonsRoute + '/' + this.seasonId);
         },
         error => console.error(error)
       );

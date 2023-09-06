@@ -10,6 +10,7 @@ import {
 } from "../../../web-api-client";
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Constants} from "../../../../assets/constants";
 
 @Component({
   selector: 'app-delete-media',
@@ -27,7 +28,7 @@ export class DeleteMediaComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.mediaId = Number(this.currentRoute.snapshot.paramMap.get('id'));
+    this.mediaId = Number(this.currentRoute.snapshot.paramMap.get(Constants.IdParameter));
     this.mediasClient.get(this.mediaId).subscribe(
       result => {
         this.media = result;
@@ -41,7 +42,7 @@ export class DeleteMediaComponent implements OnInit {
       this.mediaId
     ).subscribe(
       result => {
-        this.router.navigateByUrl('manage/medias');
+        this.router.navigateByUrl(Constants.ManageMediasRoute);
       },
       error => console.error(error)
     );

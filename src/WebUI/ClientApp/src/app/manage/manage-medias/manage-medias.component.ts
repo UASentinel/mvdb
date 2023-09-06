@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {GenreDto, GenresClient, MediaDto, MediasClient, MediaType, SearchMediasQuery} from "../../web-api-client";
+import {Constants} from "../../../assets/constants";
 
 @Component({
   selector: 'app-manage-medias',
@@ -40,7 +41,7 @@ export class ManageMediasComponent implements OnInit {
 
     this.sortForm = this.formBuilder.group({
       orderBy: [''],
-      order: ['asc']
+      order: [Constants.AscOrder]
     });
 
     this.sortInitialValues = this.sortForm.value;
@@ -127,7 +128,7 @@ export class ManageMediasComponent implements OnInit {
       return;
     }
 
-    if(order === 'desc'){
+    if(order === Constants.DescOrder){
       this.medias.sort((a, b) => (a[orderBy] > b[orderBy]) ? -1 : 1);
     }
     else{
@@ -136,4 +137,5 @@ export class ManageMediasComponent implements OnInit {
   }
 
   protected readonly MediaType = MediaType;
+  protected readonly Constants = Constants;
 }

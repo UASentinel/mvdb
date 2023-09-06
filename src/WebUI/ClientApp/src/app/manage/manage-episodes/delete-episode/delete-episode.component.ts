@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {EpisodeDto, EpisodesClient} from "../../../web-api-client";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Constants} from "../../../../assets/constants";
 
 @Component({
   selector: 'app-delete-episode',
@@ -18,7 +19,7 @@ export class DeleteEpisodeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.episodeId = Number(this.currentRoute.snapshot.paramMap.get('id'));
+    this.episodeId = Number(this.currentRoute.snapshot.paramMap.get(Constants.IdParameter));
     this.episodesClient.get(this.episodeId).subscribe(
       result => {
         this.episode = result;
@@ -32,7 +33,7 @@ export class DeleteEpisodeComponent implements OnInit {
       this.episodeId
     ).subscribe(
       result => {
-        this.router.navigateByUrl('manage/seasons/' + this.episode.seasonId);
+        this.router.navigateByUrl(Constants.ManageSeasonsRoute + '/' + this.episode.seasonId);
       },
       error => console.error(error)
     );

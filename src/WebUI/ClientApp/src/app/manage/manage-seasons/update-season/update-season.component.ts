@@ -10,6 +10,7 @@ import {
 } from "../../../web-api-client";
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Constants} from "../../../../assets/constants";
 
 @Component({
   selector: 'app-update-season',
@@ -30,7 +31,7 @@ export class UpdateSeasonComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.seasonId = Number(this.currentRoute.snapshot.paramMap.get('id'));
+    this.seasonId = Number(this.currentRoute.snapshot.paramMap.get(Constants.IdParameter));
 
     this.updateForm = this.formBuilder.group({
       title: ['', Validators.required],
@@ -90,7 +91,7 @@ export class UpdateSeasonComponent implements OnInit {
         this.updateForm.value.trailerLink
       ).subscribe(
         result => {
-          this.router.navigateByUrl('manage/seasons/' + this.seasonId);
+          this.router.navigateByUrl(Constants.ManageSeasonsRoute + '/' + this.seasonId);
         },
         error => console.error(error)
       );

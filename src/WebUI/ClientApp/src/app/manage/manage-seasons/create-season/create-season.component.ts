@@ -6,6 +6,7 @@ import {
   MediasClient, SeasonsClient
 } from "../../../web-api-client";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Constants} from "../../../../assets/constants";
 
 @Component({
   selector: 'app-create-season',
@@ -27,7 +28,7 @@ export class CreateSeasonComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.mediaId = Number(this.currentRoute.snapshot.paramMap.get('id'));
+    this.mediaId = Number(this.currentRoute.snapshot.paramMap.get(Constants.IdParameter));
 
     this.mediasClient.get(this.mediaId).subscribe(
       result => {
@@ -59,7 +60,7 @@ export class CreateSeasonComponent implements OnInit {
         this.mediaId
       ).subscribe(
         result => {
-          this.router.navigateByUrl('manage/medias/' + this.mediaId);
+          this.router.navigateByUrl(Constants.ManageMediasRoute + '/' + this.mediaId);
         },
         error => console.error(error)
       );

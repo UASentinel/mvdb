@@ -8,6 +8,7 @@ import {
   UpdateDirectorsCommand
 } from "../../../web-api-client";
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
+import {Constants} from "../../../../assets/constants";
 
 @Component({
   selector: 'app-update-directors',
@@ -29,7 +30,7 @@ export class UpdateDirectorsComponent implements  OnInit{
     private router: Router
   ) {}
   ngOnInit() {
-    this.mediaId = Number(this.currentRoute.snapshot.paramMap.get('id'));
+    this.mediaId = Number(this.currentRoute.snapshot.paramMap.get(Constants.IdParameter));
     this.mediasClient.get(this.mediaId).subscribe(
       result => {
         this.media = result;
@@ -74,7 +75,7 @@ export class UpdateDirectorsComponent implements  OnInit{
       command
     ).subscribe(
       result => {
-        this.router.navigateByUrl('manage/medias/' + this.mediaId);
+        this.router.navigateByUrl(Constants.ManageMediasRoute + '/' + this.mediaId);
       },
       error => console.error(error)
     );

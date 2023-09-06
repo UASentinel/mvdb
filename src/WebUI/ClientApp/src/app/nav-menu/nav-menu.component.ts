@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthorizeService} from "../../api-authorization/authorize.service";
 import {Subscription} from "rxjs";
+import {Constants} from "../../assets/constants";
 
 @Component({
   selector: 'app-nav-menu',
@@ -19,12 +20,12 @@ export class NavMenuComponent implements OnInit{
   ngOnInit(): void {
     this.authorizeService.getUserRoles().subscribe(
       roles => {
-        this.isAdministrator = roles && roles.findIndex(r => r === 'Administrator') !== -1;
+        this.isAdministrator = roles && roles.findIndex(r => r === Constants.AdministratorRoleName) !== -1;
       }
     );
 
     this.userRolesSubscription = this.authorizeService.userRolesSubject.subscribe((roles) => {
-      this.isAdministrator = roles && roles.findIndex(r => r === 'Administrator') !== -1;
+      this.isAdministrator = roles && roles.findIndex(r => r === Constants.AdministratorRoleName) !== -1;
     });
   }
 

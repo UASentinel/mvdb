@@ -10,6 +10,7 @@ import {
 } from "../../../web-api-client";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Constants} from "../../../../assets/constants";
 
 @Component({
   selector: 'app-update-media',
@@ -37,7 +38,7 @@ export class UpdateMediaComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.mediaId = Number(this.currentRoute.snapshot.paramMap.get('id'));
+    this.mediaId = Number(this.currentRoute.snapshot.paramMap.get(Constants.IdParameter));
 
     this.genresClient.getAll().subscribe(
       result => {
@@ -184,7 +185,7 @@ export class UpdateMediaComponent implements OnInit {
         result => {
           this.updateGenres(this.mediaId);
 
-          this.router.navigateByUrl('manage/medias/' + this.mediaId);
+          this.router.navigateByUrl(Constants.ManageMediasRoute + '/' + this.mediaId);
         },
         error => console.error(error)
       );
@@ -219,7 +220,7 @@ export class UpdateMediaComponent implements OnInit {
         command
       ).subscribe(
         result => {
-          this.router.navigateByUrl('manage/medias/' + id);
+          this.router.navigateByUrl(Constants.ManageMediasRoute + '/' + id);
         },
         error => console.error(error)
       );

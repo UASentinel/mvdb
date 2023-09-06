@@ -11,6 +11,7 @@ import {
   IUpdateGenresCommand, IMediaGenreDto
 } from "../../../web-api-client";
 import {Router} from "@angular/router";
+import {Constants} from "../../../../assets/constants";
 
 @Component({
   selector: 'app-create-media',
@@ -87,7 +88,7 @@ export class CreateMediaComponent implements OnInit{
           const id = result;
           this.updateGenres(id);
 
-          this.router.navigateByUrl('manage/medias/' + id);
+          this.router.navigateByUrl(Constants.ManageMediasRoute + '/' + id);
         },
         error => console.error(error)
       );
@@ -162,7 +163,7 @@ export class CreateMediaComponent implements OnInit{
         command
       ).subscribe(
         result => {
-          this.router.navigateByUrl('manage/medias/' + id);
+          this.router.navigateByUrl(Constants.ManageMediasRoute + '/' + id);
         },
         error => console.error(error)
       );
