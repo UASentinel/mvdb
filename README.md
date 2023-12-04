@@ -4,7 +4,7 @@
 
 # MvDb
 
-It is an intern project at CHI Software. The MvDb application allows users to view and interact with the database that contains movies and TV shows.
+The MvDb application allows users to view and interact with the database that contains movies and TV shows.
 
 
 ## Tech Stack
@@ -21,25 +21,3 @@ It is an intern project at CHI Software. The MvDb application allows users to vi
 - Leave movie reviews
 - Watch trailer of the movie
 - View movie actors, directors, genres, duration, age rating
-
-
-## Authors
-
-- Volodymyr Fedorenko
-- Yaroslav Bahdai (mentor)
-
-
-## Run Locally
-
-- Open Visual Studio
-
-- Clone the repository using this link
-
-```bash
-https://yaroslavbahdai@dev.azure.com/yaroslavbahdai/CHI_Internship_2023_Volodymyr_Fedorenko/_git/CHI_Internship_2023_Volodymyr_Fedorenko
-```
-
-- Open the solution
-
-- Click "Run"
-

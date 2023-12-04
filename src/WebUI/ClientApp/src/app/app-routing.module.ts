@@ -19,41 +19,42 @@ import {UpdateEpisodeComponent} from "./manage/manage-episodes/update-episode/up
 import {DeleteMediaComponent} from "./manage/manage-medias/delete-media/delete-media.component";
 import {DeleteSeasonComponent} from "./manage/manage-seasons/delete-season/delete-season.component";
 import {DeleteEpisodeComponent} from "./manage/manage-episodes/delete-episode/delete-episode.component";
+import {Constants} from "../assets/constants";
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'explore', children: [
       { path: '', component: ExploreComponent },
-      { path: 'medias/:id', component: ViewMediaComponent },
-      { path: 'seasons/:id', component: ViewSeasonComponent }
+      { path: 'medias/:' + Constants.IdParameter, component: ViewMediaComponent },
+      { path: 'seasons/:' + Constants.IdParameter, component: ViewSeasonComponent }
     ] },
   { path: 'manage', children: [
       { path: '', component: ManageComponent },
       { path: 'medias', children: [
           { path: '', component: ManageMediasComponent },
-          { path: 'reorder/seasons/:id', component: ReorderSeasonsComponent },
-          { path: 'delete/:id', component: DeleteMediaComponent },
+          { path: 'reorder/seasons/:' + Constants.IdParameter, component: ReorderSeasonsComponent },
+          { path: 'delete/:' + Constants.IdParameter, component: DeleteMediaComponent },
           { path: 'create', children:[
               { path: '', component: CreateMediaComponent },
-              { path: 'season/:id', component: CreateSeasonComponent }
+              { path: 'season/:' + Constants.IdParameter, component: CreateSeasonComponent }
             ] },
           { path: 'update', children: [
-              { path: ':id', component: UpdateMediaComponent },
-              { path: 'directors/:id', component: UpdateDirectorsComponent },
-              { path: 'actors/:id', component: UpdateActorsComponent }
+              { path: ':' + Constants.IdParameter, component: UpdateMediaComponent },
+              { path: 'directors/:' + Constants.IdParameter, component: UpdateDirectorsComponent },
+              { path: 'actors/' + Constants.IdParameter, component: UpdateActorsComponent }
             ] },
-          { path: ':id', component: ViewMediaComponent }
+          { path: ':' + Constants.IdParameter, component: ViewMediaComponent }
         ] },
       { path: 'seasons', children: [
-          { path: ':id', component: ViewSeasonComponent },
-          { path: 'update/:id', component: UpdateSeasonComponent },
-          { path: 'delete/:id', component: DeleteSeasonComponent },
-          { path: 'create/episode/:id', component: CreateEpisodeComponent },
-          { path: 'reorder/episodes/:id', component: ReorderEpisodesComponent }
+          { path: ':' + Constants.IdParameter, component: ViewSeasonComponent },
+          { path: 'update/:' + Constants.IdParameter, component: UpdateSeasonComponent },
+          { path: 'delete/:' + Constants.IdParameter, component: DeleteSeasonComponent },
+          { path: 'create/episode/:' + Constants.IdParameter, component: CreateEpisodeComponent },
+          { path: 'reorder/episodes/:' + Constants.IdParameter, component: ReorderEpisodesComponent }
         ] },
       { path: 'episodes', children: [
-          { path: 'update/:id', component: UpdateEpisodeComponent },
-          { path: 'delete/:id', component: DeleteEpisodeComponent }
+          { path: 'update/:' + Constants.IdParameter, component: UpdateEpisodeComponent },
+          { path: 'delete/:' + Constants.IdParameter, component: DeleteEpisodeComponent }
         ] }
     ] }
 ];
