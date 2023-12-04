@@ -7,7 +7,6 @@ using MvDb.Application.Genres.Commands.Create;
 
 namespace MvDb.WebUI.Controllers;
 
-//[Authorize(Roles = "Administrator")]
 public class GenresController : ApiControllerBase
 {
     [HttpPost]
