@@ -20,7 +20,7 @@ steps:
 
 - script: |
     cd src\WebUI\ClientApp
-    npm install -g @angular/cli@12
+    npm install
   displayName: 'npm install for Angular app'
 
 - script: |
