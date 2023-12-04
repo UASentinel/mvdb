@@ -23,41 +23,56 @@ import {Constants} from "../assets/constants";
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'explore', children: [
+  {
+    path: 'explore', children: [
       { path: '', component: ExploreComponent },
-      { path: 'medias/:' + Constants.IdParameter, component: ViewMediaComponent },
-      { path: 'seasons/:' + Constants.IdParameter, component: ViewSeasonComponent }
-    ] },
-  { path: 'manage', children: [
+      { path: `medias/:${Constants.IdParameter}`, component: ViewMediaComponent },
+      { path: `seasons/:${Constants.IdParameter}`, component: ViewSeasonComponent }
+    ]
+  },
+  {
+    path: 'manage', children: [
       { path: '', component: ManageComponent },
-      { path: 'medias', children: [
+      {
+        path: 'medias', children: [
           { path: '', component: ManageMediasComponent },
-          { path: 'reorder/seasons/:' + Constants.IdParameter, component: ReorderSeasonsComponent },
-          { path: 'delete/:' + Constants.IdParameter, component: DeleteMediaComponent },
-          { path: 'create', children:[
+          { path: `reorder/seasons/:${Constants.IdParameter}`, component: ReorderSeasonsComponent },
+          { path: `delete/:${Constants.IdParameter}`, component: DeleteMediaComponent },
+          {
+            path: 'create', children: [
               { path: '', component: CreateMediaComponent },
-              { path: 'season/:' + Constants.IdParameter, component: CreateSeasonComponent }
-            ] },
-          { path: 'update', children: [
-              { path: ':' + Constants.IdParameter, component: UpdateMediaComponent },
-              { path: 'directors/:' + Constants.IdParameter, component: UpdateDirectorsComponent },
-              { path: 'actors/' + Constants.IdParameter, component: UpdateActorsComponent }
-            ] },
-          { path: ':' + Constants.IdParameter, component: ViewMediaComponent }
-        ] },
-      { path: 'seasons', children: [
-          { path: ':' + Constants.IdParameter, component: ViewSeasonComponent },
-          { path: 'update/:' + Constants.IdParameter, component: UpdateSeasonComponent },
-          { path: 'delete/:' + Constants.IdParameter, component: DeleteSeasonComponent },
-          { path: 'create/episode/:' + Constants.IdParameter, component: CreateEpisodeComponent },
-          { path: 'reorder/episodes/:' + Constants.IdParameter, component: ReorderEpisodesComponent }
-        ] },
-      { path: 'episodes', children: [
-          { path: 'update/:' + Constants.IdParameter, component: UpdateEpisodeComponent },
-          { path: 'delete/:' + Constants.IdParameter, component: DeleteEpisodeComponent }
-        ] }
-    ] }
+              { path: `season/:${Constants.IdParameter}`, component: CreateSeasonComponent }
+            ]
+          },
+          {
+            path: 'update', children: [
+              { path: `:${Constants.IdParameter}`, component: UpdateMediaComponent },
+              { path: `directors/:${Constants.IdParameter}`, component: UpdateDirectorsComponent },
+              { path: `actors/${Constants.IdParameter}`, component: UpdateActorsComponent }
+            ]
+          },
+          { path: `:${Constants.IdParameter}`, component: ViewMediaComponent }
+        ]
+      },
+      {
+        path: 'seasons', children: [
+          { path: `:${Constants.IdParameter}`, component: ViewSeasonComponent },
+          { path: `update/:${Constants.IdParameter}`, component: UpdateSeasonComponent },
+          { path: `delete/:${Constants.IdParameter}`, component: DeleteSeasonComponent },
+          { path: `create/episode/:${Constants.IdParameter}`, component: CreateEpisodeComponent },
+          { path: `reorder/episodes/:${Constants.IdParameter}`, component: ReorderEpisodesComponent }
+        ]
+      },
+      {
+        path: 'episodes', children: [
+          { path: `update/:${Constants.IdParameter}`, component: UpdateEpisodeComponent },
+          { path: `delete/:${Constants.IdParameter}`, component: DeleteEpisodeComponent }
+        ]
+      }
+    ]
+  }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
